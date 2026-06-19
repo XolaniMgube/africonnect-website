@@ -47,6 +47,7 @@ export default function Nav() {
     pathname === href || pathname.startsWith(`${href}/`);
 
   return (
+    <>
     <header
       className={`fixed inset-x-0 top-0 z-[100] transition-all duration-300 ${
         solid ? "border-b border-[var(--line)] bg-paper/85 backdrop-blur-md" : ""
@@ -115,9 +116,12 @@ export default function Nav() {
           ))}
         </button>
       </div>
+    </header>
 
-      {/* mobile full-screen menu */}
-      {open && (
+    {/* mobile full-screen menu — rendered outside <header> so the header's
+        backdrop-blur (which becomes a containing block when scrolled) can't
+        collapse this fixed overlay */}
+    {open && (
         <div className="menu-overlay fixed inset-0 z-[110] flex flex-col overflow-hidden bg-hero-dark text-white md:hidden">
           <div className="dot-tex-light pointer-events-none absolute inset-0 opacity-50" />
           <div
@@ -219,6 +223,6 @@ export default function Nav() {
           </div>
         </div>
       )}
-    </header>
+    </>
   );
 }
