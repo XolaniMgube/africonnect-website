@@ -49,6 +49,7 @@ export default function ContactPage() {
   return (
     <main>
       <PageHeader
+        tone="contact"
         eyebrow="Get in touch"
         title="Let's connect the dots."
         intro="Tell us what you need. We'll come back with a plan and a price — no jargon, no pressure."

@@ -16,6 +16,7 @@ export default function ServicesPage() {
   return (
     <main>
       <PageHeader
+        tone="services"
         eyebrow="What we do"
         title="Everything your business needs, grouped into four divisions."
         intro="Branding, websites, printing and business consulting — one team, one point of contact, one invoice."

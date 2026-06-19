@@ -40,6 +40,7 @@ export default async function ArticlePage({
   return (
     <main>
       <PageHeader
+        tone="resources"
         eyebrow={`${article.category} · ${article.readTime}`}
         title={article.title}
         crumbs={[

@@ -22,6 +22,7 @@ export default function PortfolioPage() {
   return (
     <main>
       <PageHeader
+        tone="portfolio"
         eyebrow="Selected work"
         title="Real projects. Real businesses."
         intro="A snapshot of the brands we've built, designed, printed and registered for across Gauteng."

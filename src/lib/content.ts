@@ -508,39 +508,33 @@ export const VALUES = [
 // real team. Add a `photo` field later and swap the gradient block for an image.
 export const TEAM = [
   {
-    name: "Sipho Khumalo",
-    role: "Founder & Managing Director",
-    bio: "Started AfriConnect in 2018 and still leads strategy and client relationships.",
+    name: "Mitch",
+    role: "Operations Director",
+    bio: "Keeps projects, people and timelines aligned so the work ships on schedule.",
     grad: "from-[#5E7327] to-[#8FC93A]",
   },
   {
-    name: "Naledi Mokoena",
-    role: "Creative & Brand Lead",
-    bio: "Heads up logos, identity and everything that shapes how a brand looks and feels.",
+    name: "Sibusiso",
+    role: "Creative Director",
+    bio: "Leads the look and feel of every brand — from logo and identity to layout.",
     grad: "from-[#1A1C1F] to-[#34373B]",
   },
   {
-    name: "Thabo Nkosi",
-    role: "Web & Systems Developer",
+    name: "Xolane",
+    role: "Lead Developer",
     bio: "Builds the websites, stores, dashboards and custom systems clients run on.",
     grad: "from-[#34373B] to-[#4a4e54]",
   },
   {
-    name: "Lerato Dube",
-    role: "Print & Production Manager",
-    bio: "Owns print, signage and branding production — from artwork to final delivery.",
+    name: "Lindo",
+    role: "Office Manager",
+    bio: "Keeps the office and day-to-day operations running smoothly behind the scenes.",
     grad: "from-[#3B9FE0] to-[#2c6fa0]",
   },
   {
-    name: "Andile Zulu",
-    role: "Business Consultant",
-    bio: "Guides company registration, business plans and compliance for new ventures.",
-    grad: "from-[#2c3e2a] to-[#5E7327]",
-  },
-  {
-    name: "Zanele Mahlangu",
-    role: "Client Relations & Projects",
-    bio: "Keeps every project on track and is usually the friendly voice on the phone.",
+    name: "Inathi",
+    role: "Administrator",
+    bio: "Handles admin, scheduling and client paperwork so nothing slips through.",
     grad: "from-[#8FC93A] to-[#A3D955]",
   },
 ];

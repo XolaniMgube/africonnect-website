@@ -20,6 +20,7 @@ export default function ResourcesPage() {
   return (
     <main>
       <PageHeader
+        tone="resources"
         eyebrow="Resource hub"
         title="Guides, templates and ideas to help you grow."
         intro="Practical articles and free downloads for South African business owners — from branding to bookkeeping."

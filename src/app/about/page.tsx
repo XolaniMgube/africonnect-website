@@ -58,6 +58,7 @@ export default function AboutPage() {
   return (
     <main>
       <PageHeader
+        tone="about"
         eyebrow="About AfriConnect"
         title="One team. One roof. Everything your business needs."
         intro="Design, web, print and IT — delivered by one team in Vosloorus since 2018."
