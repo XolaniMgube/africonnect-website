@@ -1,158 +1,166 @@
 import Link from "next/link";
-import { SERVICES } from "@/lib/content";
-import Reveal from "./Reveal";
 import Arrow from "./Arrow";
+import Reveal from "./Reveal";
 
-const ACCENT = [
+const SOLUTIONS = [
   {
-    eyebrow: "text-olive",
-    tile: "from-lime-2 to-olive",
-    iconStroke: "#5E7327",
-    glow: "rgba(163,217,85,.22)",
-    bar: "bg-lime-2",
-    cardHover:
-      "hover:border-lime-2 hover:shadow-[0_20px_44px_rgba(143,201,58,.18)]",
-    tag: "hover:border-lime hover:bg-lime hover:text-ink",
+    num: "01",
+    name: "Digital products",
+    blurb:
+      "Customer-facing platforms and internal tools designed around how your business actually works.",
+    tags: ["Business websites", "Online stores", "Portals", "Custom systems"],
+    accent: "lime",
   },
   {
-    eyebrow: "text-brand",
-    tile: "from-brand to-[#2c6fa0]",
-    iconStroke: "#2c6fa0",
-    glow: "rgba(59,159,224,.20)",
-    bar: "bg-brand",
-    cardHover:
-      "hover:border-brand hover:shadow-[0_20px_44px_rgba(59,159,224,.18)]",
-    tag: "hover:border-brand hover:bg-brand hover:text-white",
+    num: "02",
+    name: "Managed technology",
+    blurb:
+      "The dependable infrastructure and ongoing support that keep your team connected and trading.",
+    tags: ["Hosting & domains", "Business email", "Maintenance", "IT support"],
+    accent: "blue",
   },
-];
+  {
+    num: "03",
+    name: "Brand & production",
+    blurb:
+      "One identity carried consistently from the screen into the real world, produced by the same team.",
+    tags: ["Brand identity", "Print", "Signage", "Apparel & vehicles"],
+    accent: "lime",
+  },
+] as const;
 
-function GroupIcon({ i, stroke }: { i: number; stroke: string }) {
-  const common = {
-    width: 26,
-    height: 26,
+function SolutionIcon({ index }: { index: number }) {
+  const props = {
+    width: 27,
+    height: 27,
     viewBox: "0 0 24 24",
     fill: "none",
-    stroke,
-    strokeWidth: 1.9,
+    stroke: "currentColor",
+    strokeWidth: 1.8,
     strokeLinecap: "round" as const,
     strokeLinejoin: "round" as const,
   };
-  if (i === 0)
-    // Build — monitor / code
+
+  if (index === 0) {
     return (
-      <svg {...common}>
+      <svg {...props}>
         <rect x="2" y="3" width="20" height="14" rx="2" />
-        <path d="M8 21h8M12 17v4" />
-        <path d="M8.5 8L6.5 10l2 2M15.5 8l2 2-2 2" />
+        <path d="M8 21h8M12 17v4M8.5 8 6.5 10l2 2M15.5 8l2 2-2 2" />
       </svg>
     );
-  if (i === 1)
-    // Brand — sparkles
+  }
+  if (index === 1) {
     return (
-      <svg {...common}>
-        <path d="M13 3l2.2 5.8L21 11l-5.8 2.2L13 19l-2.2-5.8L5 11l5.8-2.2L13 3z" />
-        <path d="M5 3v3M3.5 4.5h3M6 18v2.5M4.75 19.25h2.5" />
+      <svg {...props}>
+        <path d="M4 15a4 4 0 0 1 .9-7.9A7 7 0 0 1 18.7 9 3 3 0 0 1 19 15H4Z" />
+        <path d="M8 19h8M10 15v4M14 15v4" />
       </svg>
     );
-  // Run — gear
+  }
   return (
-    <svg {...common}>
-      <circle cx="12" cy="12" r="3" />
-      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+    <svg {...props}>
+      <path d="m12 3 2.2 5.8L20 11l-5.8 2.2L12 19l-2.2-5.8L4 11l5.8-2.2L12 3Z" />
+      <path d="M5 3v3M3.5 4.5h3M19 18v3M17.5 19.5h3" />
     </svg>
   );
 }
 
 export default function Services() {
   return (
-    <section id="services" className="relative overflow-hidden py-[120px]">
-      <div className="dot-tex pointer-events-none absolute inset-0 opacity-40" />
-      <div
-        className="pointer-events-none absolute -left-24 top-20 h-[420px] w-[420px] rounded-full blur-[120px]"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(163,217,85,.14), transparent 70%)",
-        }}
-      />
-      <div className="relative z-[2] mx-auto max-w-site px-[30px]">
-        <Reveal className="mb-14 max-w-[660px]">
-          <span className="mb-[18px] inline-flex items-center gap-2.5 font-display text-[12.5px] font-semibold uppercase tracking-[1.5px] text-olive">
-            <i className="h-1.5 w-1.5 rounded-full bg-lime-2" />
-            What we do
-          </span>
-          <h2 className="font-display text-[clamp(32px,4.5vw,52px)] font-extrabold leading-[1.02] tracking-[-1.6px] text-ink">
-            One team.{" "}
-            <span className="relative whitespace-nowrap text-olive">
-              Three ways
-              <span
-                className="absolute inset-x-0 bottom-1 -z-10 h-3 rounded-sm bg-lime opacity-25"
-                aria-hidden
-              />
-            </span>{" "}
-            we move you forward.
-          </h2>
-          <p className="mt-5 text-[17.5px] text-muted">
-            One team instead of four suppliers.
+    <section id="services" className="relative overflow-hidden py-[110px] md:py-[130px]">
+      <div className="mx-auto max-w-site px-[30px]">
+        <Reveal className="mb-14 grid gap-6 lg:grid-cols-[1fr_.7fr] lg:items-end">
+          <div>
+            <span className="mb-[18px] inline-flex items-center gap-2.5 font-display text-[12.5px] font-semibold uppercase tracking-[1.5px] text-olive">
+              <i className="h-1.5 w-1.5 rounded-full bg-lime-2" />
+              Connected capability
+            </span>
+            <h2 className="max-w-[720px] font-display text-[clamp(34px,4.8vw,56px)] font-extrabold leading-[1.02] tracking-[-1.8px] text-ink">
+              Technology first. Everything else connected.
+            </h2>
+          </div>
+          <p className="max-w-[440px] text-[17px] leading-relaxed text-muted lg:justify-self-end">
+            Start with the business problem. We bring together the digital,
+            operational and physical pieces needed to solve it properly.
           </p>
         </Reveal>
 
-        <div className="grid gap-6">
-          {SERVICES.map((s, i) => {
-            const a = ACCENT[i % ACCENT.length];
+        <div className="grid gap-5 lg:grid-cols-3">
+          {SOLUTIONS.map((solution, index) => {
+            const blue = solution.accent === "blue";
             return (
-              <Reveal key={s.name}>
+              <Reveal key={solution.name}>
                 <Link
                   href="/services"
-                  className={`group relative grid grid-cols-1 items-center gap-7 overflow-hidden rounded-2xl border border-black/[.07] bg-white p-7 shadow-[0_2px_12px_rgba(26,28,31,.05)] transition-all duration-300 hover:-translate-y-1 md:grid-cols-[auto_1fr_1.05fr] md:p-9 ${a.cardHover}`}
+                  className={`group flex h-full min-h-[390px] flex-col overflow-hidden rounded-[24px] border p-7 transition-all duration-300 hover:-translate-y-1 md:p-8 ${
+                    blue
+                      ? "border-brand/20 bg-[#eaf4fb] hover:border-brand"
+                      : index === 0
+                        ? "border-char bg-char text-white hover:border-lime"
+                        : "border-black/[.08] bg-white hover:border-lime-2"
+                  }`}
                 >
-                  {/* accent corner glow */}
-                  <div
-                    className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full opacity-0 blur-3xl transition-opacity duration-300 group-hover:opacity-100"
-                    style={{ background: a.glow }}
-                  />
-                  {/* accent left bar */}
-                  <span
-                    className={`absolute left-0 top-9 h-0 w-1 rounded-r ${a.bar} transition-all duration-300 group-hover:h-[calc(100%-4.5rem)]`}
-                  />
-
-                  {/* icon tile + number */}
-                  <div className="relative z-[2] flex items-center gap-4 md:flex-col md:items-start">
+                  <div className="flex items-start justify-between">
                     <div
-                      className={`grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br ${a.tile} shadow-lg transition-transform duration-300 group-hover:scale-105`}
+                      className={`grid h-14 w-14 place-items-center rounded-2xl ${
+                        blue
+                          ? "bg-brand text-white"
+                          : index === 0
+                            ? "bg-lime text-ink"
+                            : "bg-lime/25 text-olive"
+                      }`}
                     >
-                      <GroupIcon i={i} stroke="#fff" />
+                      <SolutionIcon index={index} />
                     </div>
                     <span
-                      className={`font-display text-[15px] font-bold ${a.eyebrow}`}
+                      className={`font-display text-[13px] font-bold ${
+                        index === 0 ? "text-white/35" : "text-muted"
+                      }`}
                     >
-                      {s.num}
+                      {solution.num}
                     </span>
                   </div>
 
-                  {/* name + blurb */}
-                  <div className="relative z-[2]">
-                    <h3 className="mb-2 flex items-center gap-3 font-display text-[28px] font-bold tracking-[-0.6px] text-ink">
-                      {s.name}
-                      <span className="-translate-x-2 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100">
-                        <Arrow size={22} stroke={a.iconStroke} />
-                      </span>
+                  <div className="mt-10">
+                    <h3
+                      className={`font-display text-[27px] font-bold tracking-[-.7px] ${
+                        index === 0 ? "text-white" : "text-ink"
+                      }`}
+                    >
+                      {solution.name}
                     </h3>
-                    <p className="max-w-[300px] text-[15.5px] leading-relaxed text-muted">
-                      {s.blurb}
+                    <p
+                      className={`mt-3 text-[15.5px] leading-relaxed ${
+                        index === 0 ? "text-white/60" : "text-muted"
+                      }`}
+                    >
+                      {solution.blurb}
                     </p>
                   </div>
 
-                  {/* tags */}
-                  <div className="relative z-[2] flex flex-wrap gap-2.5">
-                    {s.tags.map((tag) => (
+                  <div className="mt-7 flex flex-wrap gap-2">
+                    {solution.tags.map((tag) => (
                       <span
                         key={tag}
-                        className={`rounded-[8px] border border-black/10 bg-paper-2 px-[15px] py-[9px] text-[14px] font-medium text-char transition-colors ${a.tag}`}
+                        className={`rounded-full border px-3 py-1.5 text-[12.5px] font-medium ${
+                          index === 0
+                            ? "border-white/10 bg-white/5 text-white/65"
+                            : "border-black/[.08] bg-white/60 text-char"
+                        }`}
                       >
                         {tag}
                       </span>
                     ))}
                   </div>
+
+                  <span
+                    className={`mt-auto inline-flex items-center gap-2 pt-8 font-display text-[14px] font-semibold ${
+                      blue ? "text-brand" : index === 0 ? "text-lime" : "text-olive"
+                    }`}
+                  >
+                    Explore services
+                    <Arrow className="transition-transform group-hover:translate-x-1" />
+                  </span>
                 </Link>
               </Reveal>
             );

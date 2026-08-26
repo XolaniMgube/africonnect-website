@@ -36,19 +36,24 @@ export const SERVICES = [
 
 export const PROCESS = [
   {
-    n: "01 — BRIEF",
-    title: "Brief & discover",
-    body: "We understand the business and the goal, and agree what success looks like before anything starts.",
+    n: "01 — DISCOVER",
+    title: "Understand the problem",
+    body: "We learn how the business works, where it is getting stuck and what a successful result needs to change.",
   },
   {
     n: "02 — DESIGN",
-    title: "Research & design",
-    body: "We plan and design properly, reviewed with you at every step — no surprises down the line.",
+    title: "Plan the right solution",
+    body: "We map the experience, technical approach and delivery plan before committing time to the full build.",
   },
   {
-    n: "03 — DELIVER",
-    title: "Execute & support",
-    body: "We build, test and hand over — then stay on to support so the work keeps delivering.",
+    n: "03 — BUILD",
+    title: "Build, test & launch",
+    body: "We deliver in clear stages, test across real devices and launch only when the important journeys work properly.",
+  },
+  {
+    n: "04 — SUPPORT",
+    title: "Support & improve",
+    body: "After launch, we stay available for maintenance, support and the improvements that come with real-world use.",
   },
 ];
 

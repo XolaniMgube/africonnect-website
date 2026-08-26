@@ -7,6 +7,7 @@ import Logo from "./Logo";
 import { CONTACT } from "@/lib/content";
 
 const LINKS = [
+  { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/services", label: "Services" },
   { href: "/portfolio", label: "Portfolio" },

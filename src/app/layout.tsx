@@ -20,17 +20,17 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "AfriConnect — Your Best Solution",
+  title: "AfriConnect — Websites, Systems & Business Technology",
   description:
-    "Design, web, print and IT under one roof. One team in Vosloorus building the brand, the site and the systems that move South African businesses forward.",
+    "Websites, online stores, business systems and managed technology for growing South African businesses, with brand and production under one roof.",
   icons: {
     icon: [{ url: "/logo-icon.png", type: "image/png" }],
     apple: "/logo-icon.png",
   },
   openGraph: {
-    title: "AfriConnect — Your Best Solution",
+    title: "AfriConnect — Websites, Systems & Business Technology",
     description:
-      "Design, web, print and IT under one roof. Built by one team in Vosloorus since 2018.",
+      "Websites, online stores, business systems and managed technology—built and supported by one team in Vosloorus.",
     type: "website",
   },
 };
