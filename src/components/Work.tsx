@@ -14,8 +14,7 @@ export default function Work() {
             Real projects. Real businesses.
           </h2>
           <p className="mt-5 text-[17.5px] text-muted">
-            A snapshot of the brands we&apos;ve built, designed and printed for
-            across Gauteng.
+            Brands we&apos;ve built across Gauteng.
           </p>
         </Reveal>
 

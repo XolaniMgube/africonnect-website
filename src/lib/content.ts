@@ -326,122 +326,244 @@ export const DOWNLOADS = [
 
 export type Project = {
   name: string;
+  slug: string;
   filter: "Web" | "Branding" | "Print" | "Consulting";
   cat: string;
   label: string;
   bg: string;
   year: string;
   blurb: string;
+  // Live site — only set when the project is a website we can link out to.
+  // Swap the placeholder URLs below for the real client domains as they go live.
+  url?: string;
+  // Longer story + deliverables shown on the /portfolio/[slug] detail page.
+  summary: string;
+  scope: string[];
 };
 
 export const PORTFOLIO: Project[] = [
   {
-    name: "ToolsIT Digital",
+    name: "Lavido Auto Parts",
+    slug: "lavido-auto-parts",
     filter: "Web",
-    cat: "Website",
-    label: "ToolsIT",
+    cat: "eCommerce Store",
+    label: "Lavido",
     bg: "from-[#3A3A3A] to-[#23262A]",
-    year: "2024",
-    blurb: "Corporate website and booking flow for an IT services provider.",
+    year: "2026",
+    blurb: "Online store with payments and delivery for a car-parts retailer.",
+    url: "https://lavidoautoparts.co.za",
+    summary:
+      "Lavido Auto ",
+    scope: [
+      "Corporate website design and build",
+      "Online service-booking flow",
+      "Mobile-first responsive layout",
+      "Basic SEO and analytics setup",
+    ],
   },
   {
     name: "Zimazisa Construction",
+    slug: "zimazisa-construction",
     filter: "Web",
     cat: "Website · Brand",
     label: "ZIMAZISA",
     bg: "from-[#5E7327] to-[#8FC93A]",
     year: "2023",
     blurb: "Brand refresh and project-portfolio site for a growing contractor.",
+    url: "https://example.com",
+    summary:
+      "As Zimazisa grew from small jobs to larger tenders, their brand and website no longer matched the quality of their work. We refreshed the identity and built a project-portfolio website that showcases completed builds, helping them win bigger contracts with confidence.",
+    scope: [
+      "Brand identity refresh",
+      "Project-portfolio website",
+      "Photography direction for completed builds",
+      "Tender-ready company collateral",
+    ],
   },
   {
     name: "Zulu Security Force",
+    slug: "zulu-security-force",
     filter: "Branding",
     cat: "Brand identity",
     label: "ZULU",
     bg: "from-[#1A1C1F] to-[#34373B]",
     year: "2023",
     blurb: "Full identity — logo, uniforms and vehicle branding for a security firm.",
+    summary:
+      "Zulu Security Force wanted a presence that signalled authority and trust on every site they guard. We developed a complete visual identity and rolled it out across uniforms, vehicles and signage so the brand looks consistent and professional wherever it shows up.",
+    scope: [
+      "Logo and full brand identity",
+      "Uniform and patch design",
+      "Vehicle branding and signage",
+      "Brand guideline document",
+    ],
   },
   {
     name: "Okuhle Khaya Projects",
+    slug: "okuhle-khaya-projects",
     filter: "Web",
     cat: "Brand · Web",
     label: "OKUHLE",
     bg: "from-[#8FC93A] to-[#A3D955]",
     year: "2024",
     blurb: "Identity and lead-generating website for a property development company.",
+    url: "https://example.com",
+    summary:
+      "Okuhle Khaya Projects needed to attract serious property enquiries online. We created a clean brand identity and a lead-generating website with clear calls to action, making it easy for prospective buyers and partners to get in touch.",
+    scope: [
+      "Brand identity design",
+      "Lead-generating website",
+      "Enquiry and contact forms",
+      "Content and copy support",
+    ],
   },
   {
     name: "CubeNotes Saturday School",
+    slug: "cubenotes-saturday-school",
     filter: "Print",
     cat: "Print · Design",
     label: "CUBENOTES",
     bg: "from-[#2c3e2a] to-[#5E7327]",
     year: "2022",
     blurb: "Workbooks, posters and enrolment material for a weekend tutoring school.",
+    summary:
+      "CubeNotes runs weekend classes and needed printed material that looked as professional as their teaching. We designed a consistent set of workbooks, posters and enrolment forms that made the school feel established and helped boost enrolment.",
+    scope: [
+      "Workbook layout and design",
+      "Promotional posters",
+      "Enrolment and registration forms",
+      "Print production and delivery",
+    ],
   },
   {
-    name: "Tablets SA",
+    name: "Lavido Auto Parts",
+    slug: "lavido-auto-parts",
     filter: "Web",
-    cat: "E-commerce",
-    label: "TABLETS",
-    bg: "from-[#34373B] to-[#4a4e54]",
-    year: "2024",
-    blurb: "Online store with payments and delivery for an electronics retailer.",
+    cat: "E-commerce · Web app",
+    label: "LAVIDO",
+    bg: "from-[#D4581A] to-[#8A3410]",
+    year: "2026",
+    blurb: "Premium online auto-parts store with part finder, checkout and admin dashboard.",
+    url: "https://example.com",
+    summary:
+      "Lavido Auto Parts, based in Vosloorus, needed to take their counter business online without losing the premium feel of the brand. We designed and built a complete e-commerce platform — a part finder and filterable catalogue help customers find the right fit fast, a multi-step checkout handles payment and delivery, and a custom admin dashboard lets the team manage orders and stock from one place.",
+    scope: [
+      "Premium e-commerce store design and build",
+      "Part finder and filterable product catalogue",
+      "Product compatibility and specs pages",
+      "Multi-step checkout with card payments",
+      "Customer accounts and order tracking",
+      "Workshop booking and admin order dashboard",
+    ],
   },
   {
     name: "Mokoena Catering Co.",
+    slug: "mokoena-catering",
     filter: "Branding",
     cat: "Brand identity",
     label: "MOKOENA",
     bg: "from-[#3B9FE0] to-[#2c6fa0]",
     year: "2023",
     blurb: "Logo, menu design and packaging for a Vosloorus catering business.",
+    summary:
+      "Mokoena Catering needed a brand that looked appetising and trustworthy for events and corporate clients. We designed a warm identity and applied it across menus and packaging so every plate and parcel reinforces the brand.",
+    scope: [
+      "Logo and brand identity",
+      "Menu design",
+      "Packaging and labels",
+      "Social media profile assets",
+    ],
   },
   {
     name: "Vosloorus Spaza Network",
+    slug: "vosloorus-spaza-network",
     filter: "Consulting",
     cat: "Registration · Profile",
     label: "VSN",
     bg: "from-[#23262A] to-[#34373B]",
     year: "2024",
     blurb: "Company registration and supplier profile to access wholesale accounts.",
+    summary:
+      "The Vosloorus Spaza Network wanted to buy stock at better rates through formal wholesale accounts. We handled the company registration and built a professional supplier profile, unlocking access to accounts that were previously out of reach.",
+    scope: [
+      "Company registration (CIPC)",
+      "Supplier and company profile",
+      "Tax and compliance setup",
+      "Wholesale account onboarding support",
+    ],
   },
   {
     name: "Phakama Cleaning",
+    slug: "phakama-cleaning",
     filter: "Print",
     cat: "Vehicle branding",
     label: "PHAKAMA",
     bg: "from-[#5E7327] to-[#3B9FE0]",
     year: "2023",
     blurb: "Full bakkie wrap, uniforms and pull-up banners for a cleaning company.",
+    summary:
+      "Phakama Cleaning wanted their team to look the part and turn every job into advertising. We designed and produced a full bakkie wrap, branded uniforms and pull-up banners that make the business instantly recognisable on the road and on site.",
+    scope: [
+      "Full vehicle wrap design and fitting",
+      "Branded uniform design",
+      "Pull-up banners",
+      "Flyers and business cards",
+    ],
   },
   {
     name: "Thuto Bursary Fund",
+    slug: "thuto-bursary-fund",
     filter: "Web",
     cat: "Web app",
     label: "THUTO",
     bg: "from-[#2c3e2a] to-[#34373B]",
     year: "2024",
     blurb: "Custom application portal that manages bursary intakes and reviews.",
+    url: "https://example.com",
+    summary:
+      "Thuto was drowning in paper bursary applications every intake. We built a custom web portal that lets students apply online and lets the team review and shortlist applicants in one place, turning a manual process into a smooth digital workflow.",
+    scope: [
+      "Custom application portal",
+      "Online application forms",
+      "Review and shortlisting dashboard",
+      "Applicant notifications",
+    ],
   },
   {
     name: "Khanyisa Events",
+    slug: "khanyisa-events",
     filter: "Branding",
     cat: "Brand · Social",
     label: "KHANYISA",
     bg: "from-[#A3D955] to-[#5E7327]",
     year: "2022",
     blurb: "Identity and social media template system for an events company.",
+    summary:
+      "Khanyisa Events needed to look polished and consistent across a busy social media calendar. We built a vibrant identity and a reusable template system so they can post professional, on-brand content quickly without a designer for every post.",
+    scope: [
+      "Brand identity design",
+      "Social media template system",
+      "Event flyer templates",
+      "Brand usage guidelines",
+    ],
   },
   {
     name: "Sizwe Trading Enterprise",
+    slug: "sizwe-trading-enterprise",
     filter: "Consulting",
     cat: "Business plan",
     label: "SIZWE",
     bg: "from-[#34373B] to-[#1A1C1F]",
     year: "2023",
     blurb: "Funding-ready business plan and financials for a wholesale trader.",
+    summary:
+      "Sizwe needed funding to grow but lacked the documentation lenders expect. We produced a funding-ready business plan with financial projections that told a clear, credible growth story — the kind of pack a financier can actually act on.",
+    scope: [
+      "Business plan writing",
+      "Financial projections and modelling",
+      "Market and competitor analysis",
+      "Funding-application support",
+    ],
   },
 ];
 
@@ -460,9 +582,9 @@ export const CONTACT = {
 export const ABOUT = {
   // short narrative shown in the "who we are" block
   story: [
-    "AfriConnect started in 2018 in Vosloorus with a simple frustration: small businesses were being sent from supplier to supplier — one for the logo, another for the website, a third for the printing, and someone else entirely for the IT. Nobody owned the whole picture.",
-    "So we built the team we wished existed. Designers, developers, print specialists and business advisors working under one roof, talking to each other, pulling in the same direction. One brief, one team, one point of contact.",
-    "Seven years on we've helped more than a hundred businesses — from spaza shops to construction firms — look professional, get online and run smoother. We're still local, still hands-on, and still answering our own phone.",
+    "AfriConnect was founded in 2018 in Vosloorus to solve a problem too many small businesses face: being passed from one supplier to the next — one for the logo, another for the website, a third for printing, and someone else for IT. No single partner was accountable for the whole picture.",
+    "So we built the team we felt was missing. Designers, developers, print specialists and business advisors working under one roof — aligned, communicating, and moving in the same direction. One brief, one team, one point of contact.",
+    "Seven years on, we've supported more than a hundred businesses — from independent retailers to construction firms — in building professional brands, establishing an online presence and running more efficiently. We remain local, hands-on, and personally invested in every client we serve.",
   ],
   mission:
     "To give every South African business — big or small — affordable access to the design, technology and systems they need to compete, look professional and grow.",
@@ -520,7 +642,7 @@ export const TEAM = [
     grad: "from-[#1A1C1F] to-[#34373B]",
   },
   {
-    name: "Xolane",
+    name: "Xolani",
     role: "Lead Developer",
     bio: "Builds the websites, stores, dashboards and custom systems clients run on.",
     grad: "from-[#34373B] to-[#4a4e54]",

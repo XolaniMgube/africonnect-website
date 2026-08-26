@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import { PORTFOLIO } from "@/lib/content";
 
 const FILTERS = ["All", "Web", "Branding", "Print", "Consulting"] as const;
@@ -55,7 +56,7 @@ export default function PortfolioGrid() {
         {items.map((w) => (
           <div
             key={w.name}
-            className="group relative aspect-square cursor-pointer overflow-hidden rounded-2xl border border-[var(--line)]"
+            className="group relative aspect-square overflow-hidden rounded-2xl border border-[var(--line)]"
           >
             <div
               className={`absolute inset-0 bg-gradient-to-br ${w.bg} transition-transform duration-500 group-hover:scale-105`}
@@ -89,6 +90,44 @@ export default function PortfolioGrid() {
               <p className="grid grid-rows-[0fr] text-[14px] leading-relaxed text-white/0 transition-all duration-300 group-hover:mt-2 group-hover:grid-rows-[1fr] group-hover:text-white/70">
                 <span className="overflow-hidden">{w.blurb}</span>
               </p>
+
+              {/* action links reveal on hover */}
+              <div className="flex max-h-0 flex-wrap items-center gap-2 overflow-hidden opacity-0 transition-all duration-300 group-hover:mt-4 group-hover:max-h-24 group-hover:opacity-100">
+                {w.url && (
+                  <a
+                    href={w.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 rounded-lg bg-lime px-3.5 py-2 font-display text-[13px] font-semibold text-ink transition-colors hover:bg-lime-2"
+                  >
+                    Open website
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M7 17 17 7M9 7h8v8"
+                        stroke="currentColor"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </a>
+                )}
+                <Link
+                  href={`/portfolio/${w.slug}`}
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-white/30 px-3.5 py-2 font-display text-[13px] font-semibold text-white transition-colors hover:border-white hover:bg-white/10"
+                >
+                  More details
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M5 12h14M13 6l6 6-6 6"
+                      stroke="currentColor"
+                      strokeWidth="2.2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </Link>
+              </div>
             </div>
           </div>
         ))}

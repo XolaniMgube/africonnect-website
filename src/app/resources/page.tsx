@@ -22,8 +22,8 @@ export default function ResourcesPage() {
       <PageHeader
         tone="resources"
         eyebrow="Resource hub"
-        title="Guides, templates and ideas to help you grow."
-        intro="Practical articles and free downloads for South African business owners — from branding to bookkeeping."
+        title="Guides, templates and ideas."
+        intro="Practical articles and free downloads for SA business owners."
         crumbs={[{ href: "/resources", label: "Resources" }]}
       />
 
@@ -96,8 +96,7 @@ export default function ResourcesPage() {
               Tools you can use today.
             </h2>
             <p className="mt-5 text-[17.5px] text-muted">
-              Templates and checklists we use with our own clients — yours to
-              download, free.
+              Templates and checklists we use with clients — free to download.
             </p>
           </Reveal>
 

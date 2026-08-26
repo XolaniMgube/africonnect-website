@@ -23,6 +23,10 @@ export const metadata: Metadata = {
   title: "AfriConnect — Your Best Solution",
   description:
     "Design, web, print and IT under one roof. One team in Vosloorus building the brand, the site and the systems that move South African businesses forward.",
+  icons: {
+    icon: [{ url: "/logo-icon.png", type: "image/png" }],
+    apple: "/logo-icon.png",
+  },
   openGraph: {
     title: "AfriConnect — Your Best Solution",
     description:

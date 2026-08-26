@@ -18,8 +18,8 @@ export default function ServicesPage() {
       <PageHeader
         tone="services"
         eyebrow="What we do"
-        title="Everything your business needs, grouped into four divisions."
-        intro="Branding, websites, printing and business consulting — one team, one point of contact, one invoice."
+        title="What we do."
+        intro="Branding, websites, print and IT."
         crumbs={[{ href: "/services", label: "Services" }]}
       />
 
@@ -61,8 +61,7 @@ export default function ServicesPage() {
               Not sure where to start? Start here.
             </h2>
             <p className="mt-5 text-[17.5px] text-white/65">
-              Ready-made packages that bundle the essentials at a better price.
-              Need something different? We&apos;ll build a custom quote.
+              The essentials bundled at a better price.
             </p>
           </Reveal>
 
@@ -137,16 +136,15 @@ export default function ServicesPage() {
           </div>
 
           <p className="mt-10 max-w-[640px] text-[14.5px] text-white/45">
-            All prices are indicative starting points in South African Rand and
-            exclude VAT. Every project is quoted individually once we understand
-            the scope — you&apos;ll always get a firm figure before any work begins.
+            Indicative starting prices, excl. VAT. You&apos;ll get a firm quote
+            before any work begins.
           </p>
         </div>
       </section>
 
       <CTA
         title="Tell us what you need."
-        text="Mix and match across any division. We'll put together one clear quote — no five suppliers, no surprises."
+        text="One clear quote across every division — no surprises."
         buttonLabel="Request a quote"
       />
     </main>

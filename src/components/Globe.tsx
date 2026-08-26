@@ -117,10 +117,10 @@ export default function Globe({ bare = false }: { bare?: boolean }) {
             <i />
             Connected
           </div>
-          <div className="pulse-tag animate-bob-slower absolute bottom-14 left-[-10px]">
+          {/* <div className="pulse-tag animate-bob-slower absolute bottom-14 left-[-10px]">
             <i />
             One team, one roof
-          </div>
+          </div> */}
         </>
       )}
     </div>

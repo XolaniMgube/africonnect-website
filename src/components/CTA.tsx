@@ -7,14 +7,16 @@ export default function CTA({
   text = "Tell us what you need. We'll come back with a plan and a price — no jargon, no pressure.",
   buttonLabel = "Get a free quote",
   href = "/contact",
+  className = "pb-[120px]",
 }: {
   title?: string;
   text?: string;
   buttonLabel?: string;
   href?: string;
+  className?: string;
 }) {
   return (
-    <section className="pb-[120px]">
+    <section className={className}>
       <div className="mx-auto max-w-site px-[30px]">
         <Reveal>
           <div className="relative overflow-hidden rounded-3xl bg-lime px-7 py-[72px] text-center md:px-14">

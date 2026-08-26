@@ -60,21 +60,19 @@ export default function Hero() {
             </h1>
 
             <p className="my-9 max-w-[470px] text-[18.5px] text-white/70">
-              Design, web, print and IT — built by one team in Vosloorus. We
-              connect the dots between your brand, your website and the systems
-              that keep you trading.
+              Design, web, print and IT — under one roof.
             </p>
 
             <div className="flex flex-wrap items-center gap-3.5">
               <a
-                href="#contact"
+                href="/contact"
                 className="inline-flex items-center gap-2.5 rounded-lg bg-lime px-[30px] py-[15px] font-display text-[15px] font-semibold text-ink transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_14px_34px_rgba(163,217,85,.4)]"
               >
-                Start a project
+                Talk to us
                 <Arrow stroke="#1A1C1F" />
               </a>
               <a
-                href="#work"
+                href="/portfolio"
                 className="group inline-flex items-center gap-2.5 font-display text-[15px] font-semibold text-white"
               >
                 See our work

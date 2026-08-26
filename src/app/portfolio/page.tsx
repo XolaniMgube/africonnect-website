@@ -25,12 +25,12 @@ export default function PortfolioPage() {
         tone="portfolio"
         eyebrow="Selected work"
         title="Real projects. Real businesses."
-        intro="A snapshot of the brands we've built, designed, printed and registered for across Gauteng."
+        intro="Work we've delivered across Gauteng."
         crumbs={[{ href: "/portfolio", label: "Portfolio" }]}
       />
 
       {/* highlight strip */}
-      <section className="border-b border-[var(--line)] bg-paper-2">
+      {/* <section className="border-b border-[var(--line)] bg-paper-2">
         <div className="mx-auto grid max-w-site grid-cols-2 gap-px overflow-hidden px-[30px] py-2 md:grid-cols-4">
           {HIGHLIGHTS.map((h) => (
             <div key={h.l} className="px-2 py-6 text-center">
@@ -41,7 +41,7 @@ export default function PortfolioPage() {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
 
       <section className="py-[120px]">
         <div className="mx-auto max-w-site px-[30px]">
@@ -50,8 +50,7 @@ export default function PortfolioPage() {
               Browse by what we did.
             </h2>
             <p className="mt-4 text-[17px] text-muted">
-              Filter by division to see the kind of work that matches what you
-              need. Hover any project for the quick story.
+              Filter by division. Hover any project for the quick story.
             </p>
           </Reveal>
 

@@ -60,8 +60,8 @@ export default function AboutPage() {
       <PageHeader
         tone="about"
         eyebrow="About AfriConnect"
-        title="One team. One roof. Everything your business needs."
-        intro="Design, web, print and IT — delivered by one team in Vosloorus since 2018."
+        title="Who we are"
+        intro="One team in Vosloorus since 2018."
         crumbs={[{ href: "/about", label: "About" }]}
       />
 
@@ -90,7 +90,7 @@ export default function AboutPage() {
                   aria-hidden
                 />
               </span>{" "}
-              most businesses are left to join themselves.
+              for your business.
             </h2>
             <div className="space-y-5 text-[17px] leading-relaxed text-muted">
               {ABOUT.story.map((p) => (
@@ -120,7 +120,7 @@ export default function AboutPage() {
                         {s.n}
                       </div>
                       <div className="mt-2.5 text-[14.5px] text-muted">
-                        {s.l}
+                        {s.l} 
                       </div>
                     </div>
                   );
@@ -195,7 +195,7 @@ export default function AboutPage() {
                     >
                       {b.tag}
                     </span>
-                    <p className="font-display text-[24px] font-semibold leading-[1.3] tracking-[-0.6px] text-white">
+                    <p className="font-display text-[18px] font-semibold leading-[1.45] tracking-[-0.3px] text-white">
                       {b.body}
                     </p>
                   </div>
@@ -218,8 +218,8 @@ export default function AboutPage() {
               The people under the roof.
             </h2>
             <p className="mt-5 text-[17.5px] text-muted">
-              A small, senior team — so the people who pitch your project are the
-              people who deliver it.
+              A small, senior team — the people who pitch are the people who
+              deliver.
             </p>
           </Reveal>
 
@@ -267,7 +267,7 @@ export default function AboutPage() {
       </section>
 
       {/* values */}
-      <section className="py-[120px]">
+      {/* <section className="py-[120px]">
         <div className="mx-auto max-w-site px-[30px]">
           <Reveal className="mb-16 max-w-[660px]">
             <span className="mb-[18px] inline-flex items-center gap-2.5 font-display text-[12.5px] font-semibold uppercase tracking-[1.5px] text-olive">
@@ -297,10 +297,10 @@ export default function AboutPage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* company profile */}
-      <section className="py-[120px]">
+      {/* <section className="py-[120px]">
         <div className="mx-auto max-w-site px-[30px]">
           <div className="grid gap-14 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
             <Reveal>
@@ -346,12 +346,13 @@ export default function AboutPage() {
             </Reveal>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <CTA
-        title="Want to work with a team that owns the whole picture?"
+        title="Want to work with a team that gets the whole picture?"
         text="Tell us about your business. We'll show you exactly how we can help — brand, web, print and IT, under one roof."
         buttonLabel="Start a conversation"
+        className="pt-[120px]"
       />
     </main>
   );

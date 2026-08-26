@@ -92,8 +92,7 @@ export default function Services() {
             we move you forward.
           </h2>
           <p className="mt-5 text-[17.5px] text-muted">
-            You don&apos;t need five different suppliers. Everything we do falls
-            into three simple areas — so you always know exactly who to call.
+            One team instead of four suppliers.
           </p>
         </Reveal>
 
