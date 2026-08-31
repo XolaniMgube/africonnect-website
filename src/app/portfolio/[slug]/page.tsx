@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
@@ -155,6 +156,15 @@ export default async function ProjectPage({
                     i === 0 ? "sm:col-span-2 sm:aspect-[2/1]" : "aspect-[4/3]"
                   } overflow-hidden rounded-2xl border border-[var(--line)] bg-gradient-to-br ${project.bg}`}
                 >
+                  {i === 0 && project.image && project.imageAlt && (
+                    <Image
+                      src={project.image}
+                      alt={project.imageAlt}
+                      fill
+                      sizes="(min-width: 1200px) 1140px, 100vw"
+                      className="object-cover object-center"
+                    />
+                  )}
                   <div
                     className="absolute inset-0"
                     style={{

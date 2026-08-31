@@ -10,10 +10,10 @@ const COMPANY = [
   // { href: "/portal", label: "Client login" }, // disabled for now
 ];
 const SERVICES_LINKS = [
-  { href: "/services#build", label: "Web development" },
-  { href: "/services#brand", label: "Graphic design" },
-  { href: "/services#print", label: "Printing" },
-  { href: "/services#run", label: "IT & hosting" },
+  { href: "/services#brand", label: "Brand & design" },
+  { href: "/services#print", label: "Print & signage" },
+  { href: "/services#websites", label: "Websites & e-commerce" },
+  { href: "/services#business", label: "Business & systems" },
 ];
 
 function Social({ children }: { children: React.ReactNode }) {
@@ -29,7 +29,7 @@ function Social({ children }: { children: React.ReactNode }) {
 
 export default function Footer() {
   return (
-    <footer className="mt-[120px] bg-char-2 pb-[34px] pt-[76px] text-white">
+    <footer className="bg-char-2 pb-[34px] pt-[76px] text-white">
       <div className="mx-auto max-w-site px-[30px]">
         <div className="grid gap-11 border-b border-white/10 pb-12 md:grid-cols-2 lg:grid-cols-[1.7fr_1fr_1fr_1.3fr]">
           <div>

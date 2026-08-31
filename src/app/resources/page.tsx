@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import CTA from "@/components/CTA";
@@ -35,7 +36,16 @@ export default function ResourcesPage() {
               href={`/resources/${featured.slug}`}
               className="group grid overflow-hidden rounded-3xl border border-[var(--line)] bg-paper lg:grid-cols-2"
             >
-              <div className={`relative min-h-[260px] bg-gradient-to-br ${featured.grad}`}>
+              <div className={`relative min-h-[360px] bg-gradient-to-br ${featured.grad}`}>
+                {featured.image && featured.imageAlt && (
+                  <Image
+                    src={featured.image}
+                    alt={featured.imageAlt}
+                    fill
+                    sizes="(min-width: 1024px) 50vw, 100vw"
+                    className="object-cover object-[center_38%]"
+                  />
+                )}
                 <div
                   className="absolute inset-0"
                   style={{
@@ -44,6 +54,9 @@ export default function ResourcesPage() {
                     backgroundSize: "18px 18px",
                   }}
                 />
+                {featured.image && (
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10" />
+                )}
                 <span className="absolute left-6 top-6 rounded-full bg-black/25 px-3.5 py-1.5 font-display text-[12px] font-semibold uppercase tracking-[1px] text-lime backdrop-blur-sm">
                   Featured · {featured.category}
                 </span>
@@ -54,6 +67,18 @@ export default function ResourcesPage() {
                   <span>•</span>
                   <span>{featured.readTime}</span>
                 </div>
+                {featured.author && (
+                  <div className="mb-3">
+                    <p className="font-display text-[12px] font-semibold uppercase tracking-[1px] text-olive">
+                      By {featured.author}
+                    </p>
+                    {featured.authorTitle && (
+                      <p className="mt-1 text-[12px] text-muted">
+                        {featured.authorTitle}
+                      </p>
+                    )}
+                  </div>
+                )}
                 <h2 className="font-display text-[clamp(26px,3.2vw,36px)] font-extrabold leading-[1.1] tracking-[-1px] text-ink transition-colors group-hover:text-olive">
                   {featured.title}
                 </h2>
@@ -61,7 +86,7 @@ export default function ResourcesPage() {
                   {featured.excerpt}
                 </p>
                 <span className="mt-6 inline-flex items-center gap-2 font-display text-[15px] font-semibold text-olive">
-                  Read the guide
+                  Read the article
                   <span className="transition-transform duration-200 group-hover:translate-x-1">
                     →
                   </span>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ARTICLES } from "@/lib/content";
 import { fmtDate } from "@/lib/format";
@@ -49,6 +50,15 @@ export default function ResourceList({ slugs }: { slugs?: string[] }) {
             className="group flex h-full flex-col overflow-hidden rounded-2xl border border-[var(--line)] bg-paper transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(52,55,59,.10)]"
           >
             <div className={`relative aspect-[16/9] bg-gradient-to-br ${a.grad}`}>
+              {a.image && a.imageAlt && (
+                <Image
+                  src={a.image}
+                  alt={a.imageAlt}
+                  fill
+                  sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                  className="object-cover object-[center_38%]"
+                />
+              )}
               <div
                 className="absolute inset-0"
                 style={{
@@ -57,6 +67,9 @@ export default function ResourceList({ slugs }: { slugs?: string[] }) {
                   backgroundSize: "16px 16px",
                 }}
               />
+              {a.image && (
+                <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-black/10" />
+              )}
               <span className="absolute left-4 top-4 rounded-full bg-black/25 px-3 py-1 font-display text-[11.5px] font-semibold uppercase tracking-[1px] text-lime backdrop-blur-sm">
                 {a.category}
               </span>
@@ -67,6 +80,18 @@ export default function ResourceList({ slugs }: { slugs?: string[] }) {
                 <span className="text-[var(--line)]">•</span>
                 <span>{a.readTime}</span>
               </div>
+              {a.author && (
+                <div className="mb-2">
+                  <p className="font-display text-[11.5px] font-semibold uppercase tracking-[.8px] text-olive">
+                    By {a.author}
+                  </p>
+                  {a.authorTitle && (
+                    <p className="mt-0.5 text-[11.5px] text-muted">
+                      {a.authorTitle}
+                    </p>
+                  )}
+                </div>
+              )}
               <h3 className="font-display text-[20px] font-bold leading-[1.2] tracking-[-0.4px] text-ink transition-colors group-hover:text-olive">
                 {a.title}
               </h3>

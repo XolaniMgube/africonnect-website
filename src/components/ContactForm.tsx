@@ -5,9 +5,9 @@ import Arrow from "./Arrow";
 
 const SERVICES = [
   "Brand & Design",
-  "Web & Systems",
   "Print & Signage",
-  "Business Consulting",
+  "Websites & E-commerce",
+  "Business & Systems",
   "Not sure / a mix",
 ];
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { PORTFOLIO } from "@/lib/content";
 
@@ -61,6 +62,15 @@ export default function PortfolioGrid() {
             <div
               className={`absolute inset-0 bg-gradient-to-br ${w.bg} transition-transform duration-500 group-hover:scale-105`}
             >
+              {w.image && w.imageAlt && (
+                <Image
+                  src={w.image}
+                  alt={w.imageAlt}
+                  fill
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  className="object-cover object-center"
+                />
+              )}
               <div
                 className="absolute inset-0"
                 style={{

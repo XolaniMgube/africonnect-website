@@ -102,7 +102,7 @@ export const PORTAL = {
     {
       id: "web-2026",
       name: "Company Website",
-      type: "Web & Systems",
+      type: "Websites & E-commerce",
       status: "In progress",
       progress: 65,
       due: "2026-07-10",
@@ -173,6 +173,10 @@ export type Article = {
   title: string;
   excerpt: string;
   category: "Web" | "Branding" | "Print" | "Consulting";
+  author?: string;
+  authorTitle?: string;
+  image?: string;
+  imageAlt?: string;
   readTime: string;
   date: string;
   grad: string;
@@ -180,6 +184,63 @@ export type Article = {
 };
 
 export const ARTICLES: Article[] = [
+  {
+    slug: "artificial-intelligence-in-printing",
+    title: "Artificial intelligence is changing print — not replacing it",
+    excerpt:
+      "AI is making print workflows faster, more personal and easier to manage. The real opportunity is knowing where automation ends and human judgement begins.",
+    category: "Print",
+    author: "Mitchel Shabangu",
+    authorTitle: "Director at AfriConnect",
+    image: "/articles/ai-and-print.png",
+    imageAlt:
+      "Mitchel Shabangu working at a laptop with AI and print-production graphics",
+    readTime: "6 min read",
+    date: "2026-08-31",
+    grad: "from-[#D97B3F] via-[#A3D955] to-[#3B9FE0]",
+    body: [
+      {
+        t: "p",
+        text: "Artificial intelligence is often discussed as if it belongs only to software companies. In reality, it is already finding a practical place in one of the world's oldest communication industries: print. From the first concept to the final quality check, AI can remove repetitive work and give print teams more time to focus on craft, accuracy and the customer.",
+      },
+      { t: "h", text: "Where AI already fits into print" },
+      {
+        t: "p",
+        text: "The useful applications are not about asking a machine to run the whole job. They are about improving the steps around production: developing ideas, preparing artwork, spotting common file problems, creating campaign variations and organising information before it reaches the press.",
+      },
+      {
+        t: "ul",
+        items: [
+          "Faster concept development and campaign variations",
+          "Image cleanup, resizing and artwork preparation",
+          "Smarter preflight checks before a file reaches production",
+          "More relevant variable-data and personalised print campaigns",
+        ],
+      },
+      { t: "h", text: "The decisions that still need people" },
+      {
+        t: "p",
+        text: "A technically correct file is not automatically good communication. Brand context, language, colour, paper choice, finishing and cultural relevance still depend on experienced people asking the right questions. AI can accelerate a decision, but it cannot take responsibility for what that decision says about a business.",
+      },
+      { t: "h", text: "A practical opportunity for South African printers" },
+      {
+        t: "p",
+        text: "For local print businesses, the strongest opportunity is operational. Used carefully, AI can help smaller teams respond to briefs faster, reduce avoidable corrections and offer customers more tailored work without adding unnecessary complexity. The goal should not be to follow every new tool. It should be to build a better workflow.",
+      },
+      {
+        t: "ul",
+        items: [
+          "Start with one repetitive task that regularly slows the team down",
+          "Keep a human approval step wherever quality or brand reputation is involved",
+          "Measure whether the tool saves time, reduces waste or improves the customer experience",
+        ],
+      },
+      {
+        t: "p",
+        text: "The future of print is not artificial intelligence on one side and skilled people on the other. It is a more connected process in which technology handles the repetition and people remain responsible for the thinking, the craft and the final result.",
+      },
+    ],
+  },
   {
     slug: "what-a-website-costs-in-south-africa",
     title: "How much should a website actually cost in South Africa?",
@@ -336,6 +397,8 @@ export type Project = {
   cat: string;
   label: string;
   bg: string;
+  image?: string;
+  imageAlt?: string;
   year: string;
   blurb: string;
   // Live site — only set when the project is a website we can link out to.
@@ -347,6 +410,71 @@ export type Project = {
 };
 
 export const PORTFOLIO: Project[] = [
+  {
+    name: "Sekgabe Turnkey",
+    slug: "sekgabe-turnkey",
+    filter: "Branding",
+    cat: "Logo identity",
+    label: "SEKGABE",
+    bg: "from-[#20231f] to-[#101210]",
+    image: "/portfolio/sekgabe-turnkey.png",
+    imageAlt: "Sekgabe Turnkey logo presented on a cream interior wall",
+    year: "2026",
+    blurb:
+      "Identity design and brand presentation for a turnkey solutions business.",
+    summary:
+      "Sekgabe Turnkey needed an identity that could communicate structure, reliability and a premium standard of delivery. We developed a distinctive logo system and presentation direction that gives the business a confident, professional presence across customer-facing material.",
+    scope: [
+      "Logo identity design",
+      "Visual direction",
+      "Brand presentation mock-ups",
+      "Production-ready brand assets",
+    ],
+  },
+  {
+    name: "Mokaleng",
+    slug: "mokaleng",
+    filter: "Web",
+    cat: "Website",
+    label: "MOKALENG",
+    bg: "from-[#EFF1E8] to-[#DCE2CB]",
+    image: "/portfolio/mokaleng-website.png",
+    imageAlt:
+      "Mokaleng engineering website displayed responsively on a laptop and mobile phone",
+    year: "2026",
+    blurb:
+      "Responsive business website designed to communicate services and build trust online.",
+    summary:
+      "Mokaleng needed a clear digital presence that could explain its services and give prospective clients confidence in the business. We structured and designed a responsive website that is focused, professional and easy to navigate on every screen.",
+    scope: [
+      "Website strategy and structure",
+      "Responsive interface design",
+      "Service-page development",
+      "Enquiry journey and contact experience",
+    ],
+  },
+  {
+    name: "Slogan Studio",
+    slug: "slogan-studio",
+    filter: "Print",
+    cat: "Banner print",
+    label: "SLOGAN STUDIO",
+    bg: "from-[#232623] to-[#0E100F]",
+    image: "/portfolio/slogan-studio-banner.png",
+    imageAlt:
+      "Slogan Studio promotional pull-up banner displayed in a print workshop",
+    year: "2026",
+    blurb:
+      "Large-format branded banner design created for strong visual presence and promotion.",
+    summary:
+      "Slogan Studio needed a large-format banner that would remain clear, recognisable and impactful at a distance. We translated the brand into a focused outdoor composition and prepared the artwork for dependable large-format production.",
+    scope: [
+      "Large-format banner design",
+      "Brand-led campaign layout",
+      "Print-ready artwork preparation",
+      "Large-format production support",
+    ],
+  },
   {
     name: "Lavido Auto Parts",
     slug: "lavido-auto-parts",
@@ -585,11 +713,14 @@ export const CONTACT = {
 /* -------------------------------------------------------------------------- */
 
 export const ABOUT = {
+  // Add the final team image path here when it is available in /public.
+  image: null as string | null,
+  imageAlt: "The AfriConnect team working together in Vosloorus",
   // short narrative shown in the "who we are" block
   story: [
     "AfriConnect was founded in 2018 in Vosloorus to solve a problem too many small businesses face: being passed from one supplier to the next — one for the logo, another for the website, a third for printing, and someone else for IT. No single partner was accountable for the whole picture.",
     "So we built the team we felt was missing. Designers, developers, print specialists and business advisors working under one roof — aligned, communicating, and moving in the same direction. One brief, one team, one point of contact.",
-    "Seven years on, we've supported more than a hundred businesses — from independent retailers to construction firms — in building professional brands, establishing an online presence and running more efficiently. We remain local, hands-on, and personally invested in every client we serve.",
+    "Today, we support businesses across brand, print, web and day-to-day systems. We remain local, hands-on and personally invested in every client we serve.",
   ],
   mission:
     "To give every South African business — big or small — affordable access to the design, technology and systems they need to compete, look professional and grow.",
@@ -598,10 +729,10 @@ export const ABOUT = {
 };
 
 export const STATS = [
-  { n: "7 yrs", l: "In business" }, // duration — known (since 2018)
-  { n: "20+", l: "Specialist services" }, // offering — countable from your service list
-  { n: "4", l: "Divisions, one roof" }, // breadth — known
-  { n: "100%", l: "Black-owned · Level 1" }, // ownership — confirm your real B-BBEE level
+  { n: "2018", l: "Founded in Vosloorus" },
+  { n: "4", l: "Connected disciplines" },
+  { n: "20+", l: "Specialist services" },
+  { n: "100%", l: "Black-owned business" },
 ];
 
 export const VALUES = [
@@ -635,9 +766,9 @@ export const VALUES = [
 // real team. Add a `photo` field later and swap the gradient block for an image.
 export const TEAM = [
   {
-    name: "Mitch",
-    role: "Operations Director",
-    bio: "Keeps projects, people and timelines aligned so the work ships on schedule.",
+    name: "Mitchel Shabangu",
+    role: "Director",
+    bio: "Sets the direction of the business and keeps clients, people and delivery moving together.",
     grad: "from-[#5E7327] to-[#8FC93A]",
   },
   {
@@ -653,16 +784,22 @@ export const TEAM = [
     grad: "from-[#34373B] to-[#4a4e54]",
   },
   {
-    name: "Lindo",
-    role: "Office Manager",
-    bio: "Keeps the office and day-to-day operations running smoothly behind the scenes.",
-    grad: "from-[#3B9FE0] to-[#2c6fa0]",
-  },
-  {
     name: "Inathi",
     role: "Administrator",
     bio: "Handles admin, scheduling and client paperwork so nothing slips through.",
     grad: "from-[#8FC93A] to-[#A3D955]",
+  },
+  {
+    name: "Londiwe",
+    role: "Creative Intern",
+    bio: "Supports the creative team across design development, artwork and day-to-day production tasks.",
+    grad: "from-[#9D8CFF] to-[#6D5BC5]",
+  },
+  {
+    name: "Kgotso",
+    role: "Development Intern",
+    bio: "Supports website builds, technical testing and the detail work behind reliable digital experiences.",
+    grad: "from-[#3B9FE0] to-[#2c6fa0]",
   },
 ];
 
@@ -691,7 +828,7 @@ export type ServiceGroup = {
   num: string;
   name: string;
   tagline: string;
-  accent: "lime" | "brand";
+  accent: "lime" | "orange" | "brand" | "char";
   items: ServiceItem[];
 };
 
@@ -701,7 +838,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
     num: "01",
     name: "Brand & Design",
     tagline:
-      "A consistent, professional look — everywhere people see you, on screen and in print.",
+      "A clear, distinctive identity carried consistently across every customer touchpoint.",
     accent: "lime",
     items: [
       {
@@ -715,144 +852,144 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
         price: "from R3 500",
       },
       {
-        name: "Business cards",
-        desc: "Designed and print-ready — single or double-sided, premium finishes available.",
-        price: "from R350",
-      },
-      {
-        name: "Flyers & posters",
-        desc: "Eye-catching promo material for campaigns, events and specials.",
+        name: "Graphic design",
+        desc: "Professional creative for adverts, promotions, documents and everyday business communication.",
         price: "from R450",
       },
       {
-        name: "Brochures & company profiles",
-        desc: "Multi-page documents that present your business and offer professionally.",
+        name: "Social media design",
+        desc: "On-brand templates and monthly post packs that keep your digital presence sharp.",
+        price: "from R1 800/mo",
+      },
+      {
+        name: "Company profiles & presentations",
+        desc: "Polished documents that explain your business, capabilities and offer professionally.",
         price: "from R1 200",
       },
       {
-        name: "Social media design",
-        desc: "On-brand templates and monthly post packs that keep your feed sharp.",
-        price: "from R1 800/mo",
-      },
-    ],
-  },
-  {
-    id: "build",
-    num: "02",
-    name: "Web & Systems",
-    tagline:
-      "Websites, stores and custom systems that work as hard as you do.",
-    accent: "brand",
-    items: [
-      {
-        name: "Business website",
-        desc: "A fast, mobile-friendly site that tells your story and brings in enquiries.",
-        price: "from R4 500",
-      },
-      {
-        name: "E-commerce store",
-        desc: "Sell online with product management, payments and delivery built in.",
-        price: "from R9 000",
-      },
-      {
-        name: "Custom dashboards & systems",
-        desc: "Internal tools, booking systems and dashboards tailored to how you work.",
-        price: "from R15 000",
-      },
-      {
-        name: "Web apps",
-        desc: "Bespoke web applications for more complex, business-critical workflows.",
-        price: "from R25 000",
-      },
-      {
-        name: "Hosting & domains",
-        desc: "Reliable hosting, your own .co.za domain and SSL — all set up for you.",
-        price: "from R1 200/yr",
-      },
-      {
-        name: "Business email",
-        desc: "Professional you@yourbusiness.co.za inboxes that build trust.",
-        price: "from R600/yr",
+        name: "Campaign creative",
+        desc: "A connected visual direction for promotions, launches, events and seasonal campaigns.",
+        price: "from R850",
       },
     ],
   },
   {
     id: "print",
-    num: "03",
+    num: "02",
     name: "Print & Signage",
     tagline:
-      "From a single t-shirt to a fully wrapped bakkie — production handled end to end.",
-    accent: "lime",
+      "Everyday print, branded products and large-format visibility — produced end to end.",
+    accent: "orange",
     items: [
       {
+        name: "Business cards & stationery",
+        desc: "Business cards, letterheads, invoice books and other essentials designed and printed.",
+        price: "from R350",
+      },
+      {
+        name: "Flyers, posters & brochures",
+        desc: "Marketing material for campaigns, events, menus, promotions and company information.",
+        price: "from R450",
+      },
+      {
         name: "T-shirt & apparel printing",
-        desc: "Branded staff uniforms, event tees and workwear in any quantity.",
+        desc: "Branded staff uniforms, event clothing and workwear produced in the quantity you need.",
         price: "from R120 each",
       },
       {
-        name: "Car branding & wraps",
-        desc: "Turn your vehicle into moving advertising — partial decals to full wraps.",
+        name: "Vehicle branding & wraps",
+        desc: "Partial decals, vehicle graphics and full wraps that turn every trip into advertising.",
         price: "from R2 500",
       },
       {
         name: "Banners & pull-ups",
-        desc: "Pull-up banners, PVC banners and backdrops for events and storefronts.",
+        desc: "Pull-up banners, PVC banners, flags and backdrops for events and storefronts.",
         price: "from R650",
       },
       {
-        name: "Mugs & promo gifts",
-        desc: "Branded mugs, pens, caps and giveaways that keep you top of mind.",
-        price: "from R85 each",
-      },
-      {
-        name: "Signage & boards",
-        desc: "Shopfront signs, directional boards and corporate signage.",
+        name: "Signage & large-format printing",
+        desc: "Shopfront signs, boards, window graphics, posters and exhibition graphics at scale.",
         price: "from R1 500",
-      },
-      {
-        name: "Large-format printing",
-        desc: "Posters, billboards and exhibition graphics printed at scale.",
-        price: "from R250/m²",
       },
     ],
   },
   {
-    id: "consult",
-    num: "04",
-    name: "Business Consulting",
+    id: "websites",
+    num: "03",
+    name: "Websites & E-commerce",
     tagline:
-      "The paperwork and planning that gets a business registered, compliant and fundable.",
+      "Professional websites and online stores designed to build trust and generate business.",
     accent: "brand",
     items: [
+      {
+        name: "Business website",
+        desc: "A fast, mobile-friendly website that explains your offer and brings in enquiries.",
+        price: "from R4 500",
+      },
+      {
+        name: "E-commerce store",
+        desc: "Sell online with product management, secure payments and delivery options built in.",
+        price: "from R9 000",
+      },
+      {
+        name: "Landing pages",
+        desc: "Focused pages for campaigns, promotions, lead generation and product launches.",
+        price: "from R2 500",
+      },
+      {
+        name: "Website redesign",
+        desc: "A clearer, more modern experience for businesses whose current website has fallen behind.",
+        price: "from R4 500",
+      },
+      {
+        name: "Website care & maintenance",
+        desc: "Content updates, security, backups and ongoing improvements after launch.",
+        price: "from R650/mo",
+      },
+      {
+        name: "Hosting, domains & business email",
+        desc: "Reliable hosting, domain registration, SSL and professional company inboxes.",
+        price: "from R1 200/yr",
+      },
+    ],
+  },
+  {
+    id: "business",
+    num: "04",
+    name: "Business & Systems",
+    tagline:
+      "Operational tools, registrations and business support that help your company run properly.",
+    accent: "char",
+    items: [
+      {
+        name: "Custom dashboards & systems",
+        desc: "Internal tools and dashboards designed around your team, information and workflow.",
+        price: "from R15 000",
+      },
+      {
+        name: "Portals & web applications",
+        desc: "Secure customer portals and purpose-built applications for business-critical processes.",
+        price: "from R25 000",
+      },
+      {
+        name: "Booking & workflow tools",
+        desc: "Practical systems that reduce repetitive admin and keep work moving between people.",
+        price: "from R12 000",
+      },
       {
         name: "Company registration (CIPC)",
         desc: "Register your (Pty) Ltd, including name reservation and share certificates.",
         price: "from R850",
       },
       {
-        name: "Business plans",
-        desc: "Investor- and funding-ready business plans with financials and projections.",
+        name: "Business plans & proposals",
+        desc: "Funding-ready business plans, financial projections and professional tender proposals.",
         price: "from R2 500",
       },
       {
-        name: "Tax & SARS registration",
-        desc: "Income tax, VAT and PAYE registration so you trade compliantly.",
+        name: "Tax, SARS & B-BBEE compliance",
+        desc: "Essential registrations, affidavits and guidance to help you trade compliantly.",
         price: "from R750",
-      },
-      {
-        name: "Profiles & proposals",
-        desc: "Polished company profiles and tender proposals that win work.",
-        price: "from R1 200",
-      },
-      {
-        name: "B-BBEE affidavits",
-        desc: "Sworn affidavits for EME/QSE so you can supply bigger clients.",
-        price: "from R350",
-      },
-      {
-        name: "Compliance & advisory",
-        desc: "Ongoing guidance on registrations, renewals and getting tender-ready.",
-        price: "on request",
       },
     ],
   },

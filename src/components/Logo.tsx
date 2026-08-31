@@ -18,7 +18,7 @@ export default function Logo({ className = "" }: LogoProps) {
         className="h-[40px] w-[40px] flex-none object-contain"
       />
       <span>
-        <span className="text-lime">Afri</span>Connect
+        <span className="text-lime">Afri</span>connect
       </span>
     </span>
   );

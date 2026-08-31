@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
@@ -51,7 +52,32 @@ export default async function ArticlePage({
 
       <article className="py-[100px]">
         <div className="mx-auto max-w-[760px] px-[30px]">
-          <div className="mb-10 flex items-center gap-3 border-b border-[var(--line)] pb-6 text-[14px] text-muted">
+          {article.image && article.imageAlt && (
+            <div className="relative mb-12 aspect-[4/3] overflow-hidden rounded-3xl bg-char shadow-[0_22px_55px_rgba(52,55,59,.13)]">
+              <Image
+                src={article.image}
+                alt={article.imageAlt}
+                fill
+                priority
+                sizes="(min-width: 820px) 760px, 100vw"
+                className="object-cover object-[center_36%]"
+              />
+            </div>
+          )}
+          <div className="mb-10 flex flex-wrap items-center gap-3 border-b border-[var(--line)] pb-6 text-[14px] text-muted">
+            {article.author && (
+              <>
+                <span className="font-medium text-char">
+                  By {article.author}
+                  {article.authorTitle && (
+                    <span className="font-normal text-muted">
+                      {` · ${article.authorTitle}`}
+                    </span>
+                  )}
+                </span>
+                <span>•</span>
+              </>
+            )}
             <span>Published {fmtDate(article.date)}</span>
             <span>•</span>
             <span>{article.readTime}</span>

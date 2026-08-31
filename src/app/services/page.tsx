@@ -9,7 +9,7 @@ import { SERVICE_GROUPS, BUNDLES } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Services — AfriConnect",
   description:
-    "Design, web, print, IT and business consulting — grouped into clear service areas with transparent pricing.",
+    "Brand and design, print and signage, websites and e-commerce, and business systems — delivered by one connected team.",
 };
 
 export default function ServicesPage() {
@@ -19,7 +19,7 @@ export default function ServicesPage() {
         tone="services"
         eyebrow="What we do"
         title="What we do."
-        intro="Branding, websites, print and IT."
+        intro="Brand and design. Print and signage. Websites and e-commerce. Business and systems."
         crumbs={[{ href: "/services", label: "Services" }]}
       />
 
