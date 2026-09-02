@@ -3,7 +3,7 @@ import Reveal from "./Reveal";
 
 export default function Process() {
   return (
-    <section id="process" className="pb-[120px]">
+    <section id="process" className="py-[110px] md:py-[130px]">
       <div className="mx-auto max-w-site px-[30px]">
         <Reveal>
           <div className="relative overflow-hidden rounded-3xl bg-char px-7 py-16 text-white md:px-14">
@@ -13,11 +13,16 @@ export default function Process() {
                 <i className="h-1.5 w-1.5 rounded-full bg-lime" />
                 How we work
               </span>
-              <h2 className="max-w-[540px] font-display text-[clamp(32px,4.5vw,52px)] font-extrabold leading-[1.02] tracking-[-1.6px] text-white">
-                A structured process, every single time.
+              <h2 className="max-w-[650px] font-display text-[clamp(32px,4.5vw,52px)] font-extrabold leading-[1.02] tracking-[-1.6px] text-white">
+                A clear route from business problem to working solution.
               </h2>
 
-              <div className="mt-11 grid gap-8 md:grid-cols-3">
+              <p className="mt-5 max-w-[590px] text-[16.5px] leading-relaxed text-white/60">
+                You always know what we are solving, what comes next and who is
+                responsible for moving it forward.
+              </p>
+
+              <div className="mt-11 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
                 {PROCESS.map((p, i) => (
                   <div
                     key={p.title}

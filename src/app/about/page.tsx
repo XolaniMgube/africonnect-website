@@ -1,358 +1,265 @@
 import type { Metadata } from "next";
-import PageHeader from "@/components/PageHeader";
+import Link from "next/link";
+import AboutPageVisual from "@/components/AboutPageVisual";
+import Arrow from "@/components/Arrow";
 import CTA from "@/components/CTA";
 import Reveal from "@/components/Reveal";
-import Arrow from "@/components/Arrow";
-import {
-  ABOUT,
-  STATS,
-  VALUES,
-  TEAM,
-  COMPANY_PROFILE,
-} from "@/lib/content";
+import TeamSection from "@/components/TeamSection";
+import { ABOUT, VALUES } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "About — AfriConnect",
   description:
-    "One team in Vosloorus building brands, websites and systems for South African businesses since 2018.",
+    "Meet the connected team behind AfriConnect's brand, print, website and business-system work.",
 };
 
-const STAT_ACCENT = [
-  { num: "text-olive", bar: "bg-lime-2" },
-  { num: "text-brand", bar: "bg-brand" },
-  { num: "text-olive", bar: "bg-lime-2" },
-  { num: "text-brand", bar: "bg-brand" },
+const STORY_PILLARS = [
+  {
+    title: "Who we are",
+    text: "A multidisciplinary team based in Vosloorus, bringing designers, developers, print specialists and business support together under one roof.",
+  },
+  {
+    title: "What we do",
+    text: "We help individuals and businesses turn ideas and everyday problems into clear brands, quality print, effective websites and practical systems.",
+  },
+  {
+    title: "Why we do it",
+    text: "Because capable people should not have to chase disconnected suppliers or settle for work that does not match their ambition.",
+  },
 ];
 
 const PURPOSE = [
   {
-    tag: "Our mission",
-    body: ABOUT.mission,
-    tile: "from-lime-2 to-olive",
-    eyebrow: "text-lime",
-    glow: "rgba(163,217,85,.22)",
-    icon: (
-      <>
-        <circle cx="12" cy="12" r="9" />
-        <circle cx="12" cy="12" r="5" />
-        <circle cx="12" cy="12" r="1" fill="#fff" stroke="none" />
-      </>
-    ),
+    number: "01",
+    label: "Our mission",
+    text: ABOUT.mission,
+    dark: true,
   },
   {
-    tag: "Our vision",
-    body: ABOUT.vision,
-    tile: "from-brand to-[#2c6fa0]",
-    eyebrow: "text-brand",
-    glow: "rgba(59,159,224,.22)",
-    icon: (
-      <>
-        <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" />
-        <circle cx="12" cy="12" r="3" />
-      </>
-    ),
+    number: "02",
+    label: "Our vision",
+    text: ABOUT.vision,
+    dark: false,
   },
 ];
 
 export default function AboutPage() {
   return (
     <main>
-      <PageHeader
-        tone="about"
-        eyebrow="About AfriConnect"
-        title="Who we are"
-        intro="One team in Vosloorus since 2018."
-        crumbs={[{ href: "/about", label: "About" }]}
-      />
-
-      {/* story + stats */}
-      <section className="relative overflow-hidden py-[120px]">
-        <div className="dot-tex pointer-events-none absolute inset-0 opacity-40" />
-        <div
-          className="pointer-events-none absolute -right-24 top-6 h-[440px] w-[440px] rounded-full blur-[120px]"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(163,217,85,.18), transparent 70%)",
-          }}
-        />
-        <div className="relative z-[2] mx-auto grid max-w-site gap-16 px-[30px] lg:grid-cols-[1.25fr_.9fr] lg:items-center">
-          <Reveal>
-            <span className="mb-[18px] inline-flex items-center gap-2.5 font-display text-[12.5px] font-semibold uppercase tracking-[1.5px] text-olive">
-              <i className="h-1.5 w-1.5 rounded-full bg-lime-2" />
-              Who we are
-            </span>
-            <h2 className="mb-7 font-display text-[clamp(28px,3.6vw,42px)] font-extrabold leading-[1.06] tracking-[-1.4px] text-ink">
-              We{" "}
-              <span className="relative whitespace-nowrap text-olive">
-                connect the dots
-                <span
-                  className="absolute inset-x-0 bottom-1 -z-10 h-3 rounded-sm bg-lime opacity-25"
-                  aria-hidden
-                />
-              </span>{" "}
-              for your business.
-            </h2>
-            <div className="space-y-5 text-[17px] leading-relaxed text-muted">
-              {ABOUT.story.map((p) => (
-                <p key={p.slice(0, 24)}>{p}</p>
-              ))}
-            </div>
-          </Reveal>
-
-          <Reveal>
-            <div className="relative">
-              {/* soft glow behind the stat cluster */}
-              <div className="pointer-events-none absolute -inset-5 rounded-[32px] bg-gradient-to-br from-lime/20 via-transparent to-brand/15 blur-2xl" />
-              <div className="relative grid grid-cols-2 gap-4">
-                {STATS.map((s, i) => {
-                  const a = STAT_ACCENT[i % STAT_ACCENT.length];
-                  return (
-                    <div
-                      key={s.l}
-                      className="group relative overflow-hidden rounded-2xl border border-black/[.07] bg-white p-7 shadow-[0_4px_18px_rgba(26,28,31,.06)] transition-transform duration-300 hover:-translate-y-1"
-                    >
-                      <span
-                        className={`absolute left-0 top-0 h-1 w-full ${a.bar}`}
-                      />
-                      <div
-                        className={`font-display text-[42px] font-extrabold leading-none tracking-[-1.5px] ${a.num}`}
-                      >
-                        {s.n}
-                      </div>
-                      <div className="mt-2.5 text-[14.5px] text-muted">
-                        {s.l} 
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-              {/* floating badge */}
-              <div className="pulse-tag absolute -bottom-4 left-5 shadow-xl">
-                <i />
-                Since 2018 · Vosloorus
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* mission & vision */}
-      <section className="relative overflow-hidden bg-char-2 py-[120px] text-white">
+      {/* introduction */}
+      <section className="relative overflow-hidden bg-char-2 pb-0 pt-20 text-white">
         <div className="dot-tex-light pointer-events-none absolute inset-0 opacity-40" />
-        <div
-          className="pointer-events-none absolute -left-24 top-0 h-[440px] w-[440px] rounded-full blur-[120px]"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(163,217,85,.16), transparent 70%)",
-          }}
-        />
-        <div
-          className="pointer-events-none absolute -right-24 bottom-0 h-[420px] w-[420px] rounded-full blur-[120px]"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(59,159,224,.16), transparent 70%)",
-          }}
-        />
-        <div className="relative z-[2] mx-auto max-w-site px-[30px]">
-          <Reveal className="mb-12 max-w-[620px]">
-            <span className="mb-[18px] inline-flex items-center gap-2.5 font-display text-[12.5px] font-semibold uppercase tracking-[1.5px] text-lime">
-              <i className="h-1.5 w-1.5 rounded-full bg-lime" />
-              Why we exist
-            </span>
-            <h2 className="font-display text-[clamp(30px,4vw,46px)] font-extrabold leading-[1.04] tracking-[-1.4px] text-white">
-              What drives us every day.
-            </h2>
-          </Reveal>
+        <div className="pointer-events-none absolute -left-32 -top-40 h-[560px] w-[560px] rounded-full bg-lime/10 blur-[130px]" />
+        <div className="pointer-events-none absolute -right-32 bottom-[-180px] h-[520px] w-[520px] rounded-full bg-brand/12 blur-[140px]" />
 
-          <div className="grid gap-7 md:grid-cols-2">
-            {PURPOSE.map((b) => (
-              <Reveal key={b.tag}>
-                <div className="group relative h-full overflow-hidden rounded-3xl border border-white/10 bg-char p-10">
-                  <div
-                    className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full opacity-60 blur-3xl transition-opacity duration-300 group-hover:opacity-100"
-                    style={{ background: b.glow }}
-                  />
-                  <div className="dot-tex-light absolute inset-0 opacity-40" />
-                  <div className="relative z-[2]">
-                    <div
-                      className={`mb-6 grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br ${b.tile} shadow-lg`}
-                    >
-                      <svg
-                        width="26"
-                        height="26"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="#fff"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        {b.icon}
-                      </svg>
-                    </div>
-                    <span
-                      className={`mb-3 inline-flex items-center gap-2.5 font-display text-[12.5px] font-semibold uppercase tracking-[1.5px] ${b.eyebrow}`}
-                    >
-                      {b.tag}
-                    </span>
-                    <p className="font-display text-[18px] font-semibold leading-[1.45] tracking-[-0.3px] text-white">
-                      {b.body}
-                    </p>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* team */}
-      <section className="bg-paper-2 py-[120px]">
-        <div className="mx-auto max-w-site px-[30px]">
-          <Reveal className="mb-16 max-w-[660px]">
-            <span className="mb-[18px] inline-flex items-center gap-2.5 font-display text-[12.5px] font-semibold uppercase tracking-[1.5px] text-olive">
-              <i className="h-1.5 w-1.5 rounded-full bg-lime-2" />
-              The team
-            </span>
-            <h2 className="font-display text-[clamp(32px,4.5vw,52px)] font-extrabold leading-[1.02] tracking-[-1.6px] text-ink">
-              The people under the roof.
-            </h2>
-            <p className="mt-5 text-[17.5px] text-muted">
-              A small, senior team — the people who pitch are the people who
-              deliver.
-            </p>
-          </Reveal>
-
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {TEAM.map((m) => {
-              const initials = m.name
-                .split(" ")
-                .map((n) => n[0])
-                .join("");
-              return (
-                <Reveal key={m.name}>
-                  <div className="group h-full overflow-hidden rounded-2xl border border-[var(--line)] bg-paper transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(52,55,59,.10)]">
-                    <div
-                      className={`relative grid aspect-[5/3] place-items-center bg-gradient-to-br ${m.grad}`}
-                    >
-                      <div
-                        className="absolute inset-0"
-                        style={{
-                          backgroundImage:
-                            "radial-gradient(rgba(255,255,255,.12) 1px, transparent 1px)",
-                          backgroundSize: "16px 16px",
-                        }}
-                      />
-                      <span className="relative font-display text-[40px] font-extrabold tracking-[1px] text-white/85">
-                        {initials}
-                      </span>
-                    </div>
-                    <div className="p-7">
-                      <h3 className="font-display text-[20px] font-bold tracking-[-0.4px] text-ink">
-                        {m.name}
-                      </h3>
-                      <div className="mt-1 font-display text-[13.5px] font-semibold uppercase tracking-[0.5px] text-olive">
-                        {m.role}
-                      </div>
-                      <p className="mt-3.5 text-[15px] leading-relaxed text-muted">
-                        {m.bio}
-                      </p>
-                    </div>
-                  </div>
-                </Reveal>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* values */}
-      {/* <section className="py-[120px]">
-        <div className="mx-auto max-w-site px-[30px]">
-          <Reveal className="mb-16 max-w-[660px]">
-            <span className="mb-[18px] inline-flex items-center gap-2.5 font-display text-[12.5px] font-semibold uppercase tracking-[1.5px] text-olive">
-              <i className="h-1.5 w-1.5 rounded-full bg-lime-2" />
-              What we stand for
-            </span>
-            <h2 className="font-display text-[clamp(32px,4.5vw,52px)] font-extrabold leading-[1.02] tracking-[-1.6px] text-ink">
-              The values behind every project.
-            </h2>
-          </Reveal>
-
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {VALUES.map((v, i) => (
-              <Reveal key={v.title}>
-                <div className="group h-full rounded-2xl border border-[var(--line)] bg-paper p-8 transition-all duration-300 hover:-translate-y-1 hover:border-lime hover:shadow-[0_18px_40px_rgba(52,55,59,.08)]">
-                  <div className="mb-5 grid h-11 w-11 place-items-center rounded-xl bg-paper-2 font-display text-[15px] font-bold text-olive transition-colors group-hover:bg-lime group-hover:text-ink">
-                    {String(i + 1).padStart(2, "0")}
-                  </div>
-                  <h3 className="mb-2.5 font-display text-[20px] font-bold tracking-[-0.4px] text-ink">
-                    {v.title}
-                  </h3>
-                  <p className="text-[15.5px] leading-relaxed text-muted">
-                    {v.body}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section> */}
-
-      {/* company profile */}
-      {/* <section className="py-[120px]">
-        <div className="mx-auto max-w-site px-[30px]">
-          <div className="grid gap-14 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
-            <Reveal>
-              <span className="mb-[18px] inline-flex items-center gap-2.5 font-display text-[12.5px] font-semibold uppercase tracking-[1.5px] text-olive">
-                <i className="h-1.5 w-1.5 rounded-full bg-lime-2" />
-                Business profile
+        <div className="relative z-[2] mx-auto grid max-w-site items-center gap-14 px-[30px] py-[82px] lg:min-h-[690px] lg:grid-cols-[.9fr_1.1fr] lg:gap-16 lg:py-[100px]">
+          <Reveal>
+            <span className="mb-6 inline-flex items-center gap-2.5 font-display text-[12.5px] font-semibold uppercase tracking-[1.5px] text-lime">
+              <span className="flex gap-[3px]" aria-hidden>
+                <i className="h-[5px] w-[5px] rounded-full bg-lime" />
+                <i className="h-[5px] w-[5px] rounded-full bg-lime" />
+                <i className="h-[5px] w-[5px] rounded-full bg-lime" />
               </span>
-              <h2 className="mb-5 font-display text-[clamp(28px,3.6vw,42px)] font-extrabold leading-[1.06] tracking-[-1.4px] text-ink">
-                The formal details, for the record.
-              </h2>
-              <p className="mb-8 text-[17px] leading-relaxed text-muted">
-                Everything you need for tenders, vendor onboarding and supplier
-                vetting. Need a signed company profile or B-BBEE affidavit? Just
-                ask and we&apos;ll send it over.
-              </p>
-              <a
-                href="/contact"
-                className="inline-flex items-center gap-2.5 rounded-lg bg-char px-[26px] py-[14px] font-display text-[15px] font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_14px_30px_rgba(52,55,59,.25)]"
+              About AfriConnect
+            </span>
+            <h1 className="max-w-[680px] font-display text-[clamp(44px,6vw,70px)] font-extrabold leading-[.98] tracking-[-2.5px] text-white">
+              Rooted in Vosloorus. <span className="text-lime">Built to connect.</span>
+            </h1>
+            <p className="mt-7 max-w-[610px] text-[clamp(17px,1.8vw,19px)] leading-relaxed text-white/65">
+              We are one multidisciplinary team bringing brand, print,
+              websites and practical business systems together around the
+              people we serve.
+            </p>
+            <div className="mt-9 flex flex-wrap items-center gap-4">
+              <Link
+                href="#team"
+                className="group inline-flex items-center gap-2.5 rounded-lg bg-lime px-[28px] py-[15px] font-display text-[15px] font-semibold text-ink transition-all hover:-translate-y-0.5 hover:shadow-[0_14px_34px_rgba(163,217,85,.28)]"
               >
-                Request company profile
-                <Arrow stroke="#fff" />
-              </a>
-            </Reveal>
+                Meet the team
+                <Arrow stroke="#1A1C1F" className="transition-transform group-hover:translate-x-1" />
+              </Link>
+              <Link
+                href="#our-story"
+                className="group inline-flex items-center gap-2.5 px-2 py-3 font-display text-[15px] font-semibold text-white"
+              >
+                Read our story
+                <Arrow stroke="#fff" className="transition-transform group-hover:translate-x-1" />
+              </Link>
+            </div>
+          </Reveal>
 
-            <Reveal>
-              <div className="overflow-hidden rounded-2xl border border-[var(--line)]">
-                {COMPANY_PROFILE.map((row, i) => (
-                  <div
-                    key={row.k}
-                    className={`grid grid-cols-1 gap-1 px-7 py-5 sm:grid-cols-[180px_1fr] sm:gap-4 ${
-                      i % 2 ? "bg-paper" : "bg-paper-2"
+          <Reveal className="lg:pl-3">
+            <AboutPageVisual image={ABOUT.image} alt={ABOUT.imageAlt} />
+          </Reveal>
+        </div>
+
+        <div className="relative z-[2] border-t border-white/10 bg-black/10">
+          <div className="mx-auto grid max-w-site divide-y divide-white/10 px-[30px] sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+            {[
+              ["Since 2018", "Building from local experience"],
+              ["Four disciplines", "Brand, print, web and systems"],
+              ["One team", "Accountable for the whole result"],
+            ].map(([value, label], index) => (
+              <div key={value} className={`py-6 sm:px-7 ${index === 0 ? "sm:pl-0" : ""}`}>
+                <p className="font-display text-[15px] font-bold text-white">{value}</p>
+                <p className="mt-1 text-[12.5px] text-white/45">{label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* story */}
+      <section id="our-story" className="relative bg-paper-2 py-[110px] md:py-[130px]">
+        <div className="dot-tex pointer-events-none absolute inset-0 opacity-25" />
+        <div className="relative z-[2] mx-auto max-w-site px-[30px]">
+          <Reveal>
+            <div className="grid overflow-hidden rounded-[28px] border border-char/10 bg-paper shadow-[0_30px_80px_rgba(26,28,31,.14)] lg:grid-cols-[.78fr_1.22fr]">
+              <div className="relative overflow-hidden border-b border-char/10 p-8 md:p-11 lg:border-b-0 lg:border-r">
+                <div className="pointer-events-none absolute -left-24 -top-28 h-[300px] w-[300px] rounded-full bg-lime/15 blur-[90px]" />
+                <div className="relative z-[2] flex h-full min-h-[310px] flex-col">
+                  <span className="inline-flex items-center gap-2.5 font-display text-[11.5px] font-semibold uppercase tracking-[1.35px] text-olive">
+                    <i className="h-1.5 w-1.5 rounded-full bg-lime-2" />
+                    Our story
+                  </span>
+                  <h2 className="mt-7 max-w-[390px] font-display text-[clamp(30px,3.5vw,44px)] font-extrabold leading-[1.04] tracking-[-1.4px] text-ink">
+                    Local roots. A connected way of working.
+                  </h2>
+                  <p className="mt-6 max-w-[410px] text-[15.5px] leading-relaxed text-muted">
+                    AfriConnect began in 2018, shaped by young Black founders
+                    from Vosloorus and a firsthand view of the market:
+                    ambitious people and businesses were not short of
+                    ideas—they needed dependable support to bring them to life.
+                  </p>
+                  <div className="mt-auto flex flex-wrap gap-2 pt-9">
+                    {["Vosloorus born", "Since 2018"].map((item) => (
+                      <span
+                        key={item}
+                        className="rounded-full border border-char/10 bg-paper-2 px-3.5 py-2 font-display text-[10.5px] font-semibold uppercase tracking-[.7px] text-char/65"
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                {STORY_PILLARS.map((item, index) => (
+                  <article
+                    key={item.title}
+                    className={`grid gap-4 p-8 md:grid-cols-[145px_1fr] md:gap-8 md:p-10 ${
+                      index > 0 ? "border-t border-char/10" : ""
                     }`}
                   >
-                    <dt className="font-display text-[13.5px] font-semibold uppercase tracking-[0.5px] text-muted">
-                      {row.k}
-                    </dt>
-                    <dd className="text-[16px] font-medium text-ink">
-                      {row.v}
-                    </dd>
-                  </div>
+                    <div className="flex items-center gap-3 md:block">
+                      <span className="font-display text-[10.5px] font-bold text-lime-2">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                      <h3 className="font-display text-[16px] font-bold tracking-[-.3px] text-ink md:mt-3">
+                        {item.title}
+                      </h3>
+                    </div>
+                    <p className="max-w-[520px] text-[15px] leading-relaxed text-muted">
+                      {item.text}
+                    </p>
+                  </article>
                 ))}
               </div>
-            </Reveal>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <TeamSection />
+
+      {/* purpose and principles */}
+      <section id="purpose" className="relative overflow-hidden bg-paper-2 py-[110px] md:py-[130px]">
+        <div className="dot-tex pointer-events-none absolute inset-0 opacity-30" />
+        <div className="pointer-events-none absolute -left-32 bottom-[-180px] h-[520px] w-[520px] rounded-full bg-brand/10 blur-[140px]" />
+        <div className="relative z-[2] mx-auto max-w-site px-[30px]">
+          <Reveal className="mb-14 max-w-[700px]">
+            <span className="mb-[18px] inline-flex items-center gap-2.5 font-display text-[12.5px] font-semibold uppercase tracking-[1.5px] text-olive">
+              <i className="h-1.5 w-1.5 rounded-full bg-lime-2" />
+              Why we exist
+            </span>
+            <h2 className="font-display text-[clamp(34px,4.5vw,52px)] font-extrabold leading-[1.02] tracking-[-1.7px] text-ink">
+              Clear purpose. Practical work.
+            </h2>
+          </Reveal>
+
+          <div className="grid gap-6 md:grid-cols-2">
+            {PURPOSE.map((item) => (
+              <Reveal key={item.label}>
+                <article
+                  className={`relative h-full overflow-hidden rounded-[22px] border p-8 md:p-10 ${
+                    item.dark
+                      ? "border-char bg-char text-white"
+                      : "border-char/10 bg-paper text-ink"
+                  }`}
+                >
+                  {item.dark && (
+                    <div className="dot-tex-light pointer-events-none absolute inset-0 opacity-50" />
+                  )}
+                  <div className="relative z-[2] flex h-full min-h-[245px] flex-col">
+                    <div className="flex items-start justify-between">
+                      <span
+                        className={`font-display text-[12px] font-semibold uppercase tracking-[1.2px] ${
+                          item.dark ? "text-lime" : "text-olive"
+                        }`}
+                      >
+                        {item.label}
+                      </span>
+                      <span
+                        className={`font-display text-[12px] font-bold ${
+                          item.dark ? "text-white/30" : "text-char/35"
+                        }`}
+                      >
+                        {item.number}
+                      </span>
+                    </div>
+                    <p
+                      className={`mt-auto max-w-[520px] pt-12 font-display text-[21px] font-semibold leading-[1.45] tracking-[-.45px] ${
+                        item.dark ? "text-white" : "text-ink"
+                      }`}
+                    >
+                      {item.text}
+                    </p>
+                  </div>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal className="mb-8 mt-20">
+            <h3 className="font-display text-[13px] font-semibold uppercase tracking-[1.2px] text-olive">
+              How we show up
+            </h3>
+          </Reveal>
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+            {VALUES.slice(0, 4).map((value, index) => (
+              <Reveal key={value.title}>
+                <article className="h-full rounded-2xl border border-char/10 bg-paper p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_35px_rgba(52,55,59,.08)]">
+                  <span className="font-display text-[11px] font-bold text-lime-2">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <h4 className="mt-6 font-display text-[18px] font-bold tracking-[-.35px] text-ink">
+                    {value.title}
+                  </h4>
+                  <p className="mt-3 text-[14.5px] leading-relaxed text-muted">
+                    {value.body}
+                  </p>
+                </article>
+              </Reveal>
+            ))}
           </div>
         </div>
-      </section> */}
+      </section>
 
       <CTA
         title="Want to work with a team that gets the whole picture?"
         text="Tell us about your business. We'll show you exactly how we can help — brand, web, print and IT, under one roof."
         buttonLabel="Start a conversation"
-        className="pt-[120px]"
       />
     </main>
   );

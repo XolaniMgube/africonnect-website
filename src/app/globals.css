@@ -38,6 +38,20 @@ a {
   background-size: 20px 20px;
 }
 
+/* stable dimensions for the art-directed portfolio cards */
+.work-card {
+  min-height: 540px;
+}
+.work-card-visual {
+  height: 310px;
+}
+
+.about-page-title {
+  font-size: clamp(42px, 6vw, 70px);
+  line-height: 0.98;
+  letter-spacing: -2.4px;
+}
+
 /* floating hero tags */
 .pulse-tag {
   display: flex;

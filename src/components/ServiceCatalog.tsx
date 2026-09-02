@@ -20,6 +20,20 @@ const ACCENT = {
     bar: "bg-lime-2",
     price: "bg-olive/10 text-olive",
   },
+  orange: {
+    eyebrow: "text-[#9a5a22]",
+    dot: "bg-[#f0a35b]",
+    panel: "bg-[#fff1df]",
+    panelDots: "rgba(154,90,34,.15)",
+    numTile: "from-[#f0a35b] to-[#c46f29]",
+    chip: "bg-[#f0a35b]/20 text-[#9a5a22]",
+    iconStroke: "#9a5a22",
+    cardHover:
+      "hover:border-[#f0a35b] hover:shadow-[0_20px_44px_rgba(240,163,91,.20)]",
+    glow: "rgba(240,163,91,.22)",
+    bar: "bg-[#f0a35b]",
+    price: "bg-[#f0a35b]/15 text-[#9a5a22]",
+  },
   brand: {
     eyebrow: "text-brand",
     dot: "bg-brand",
@@ -33,6 +47,20 @@ const ACCENT = {
     glow: "rgba(59,159,224,.20)",
     bar: "bg-brand",
     price: "bg-brand/10 text-brand",
+  },
+  char: {
+    eyebrow: "text-char",
+    dot: "bg-char",
+    panel: "bg-[#eceef0]",
+    panelDots: "rgba(52,55,59,.14)",
+    numTile: "from-char to-ink",
+    chip: "bg-char/10 text-char",
+    iconStroke: "#34373B",
+    cardHover:
+      "hover:border-char hover:shadow-[0_20px_44px_rgba(52,55,59,.16)]",
+    glow: "rgba(52,55,59,.18)",
+    bar: "bg-char",
+    price: "bg-char/10 text-char",
   },
 } as const;
 
@@ -56,7 +84,7 @@ function DivisionIcon({ id, stroke }: { id: string; stroke: string }) {
           <path d="M5 3v3M3.5 4.5h3M6 18v2.5M4.75 19.25h2.5" />
         </svg>
       );
-    case "build":
+    case "websites":
       return (
         <svg {...common}>
           <rect x="2" y="3" width="20" height="14" rx="2" />
@@ -72,13 +100,17 @@ function DivisionIcon({ id, stroke }: { id: string; stroke: string }) {
           <rect x="6" y="14" width="12" height="8" rx="1" />
         </svg>
       );
-    default: // consult
+    case "business":
       return (
         <svg {...common}>
-          <rect x="2" y="7" width="20" height="14" rx="2" />
-          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16M2 12h20" />
+          <rect x="3" y="3" width="7" height="6" rx="1.5" />
+          <rect x="14" y="3" width="7" height="6" rx="1.5" />
+          <rect x="8.5" y="15" width="7" height="6" rx="1.5" />
+          <path d="M6.5 9v2.5H12V15M17.5 9v2.5H12" />
         </svg>
       );
+    default:
+      return null;
   }
 }
 
@@ -117,7 +149,7 @@ export default function ServiceCatalog() {
                         className={`mb-1.5 inline-flex items-center gap-2 font-display text-[12.5px] font-bold uppercase tracking-[1.5px] ${a.eyebrow}`}
                       >
                         <DivisionIcon id={g.id} stroke={a.iconStroke} />
-                        Division {g.num}
+                        Service area {g.num}
                       </span>
                       <h2 className="font-display text-[clamp(26px,3.4vw,38px)] font-extrabold leading-[1.04] tracking-[-1.2px] text-ink">
                         {g.name}
