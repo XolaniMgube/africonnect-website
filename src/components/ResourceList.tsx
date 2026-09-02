@@ -23,17 +23,17 @@ export default function ResourceList({ slugs }: { slugs?: string[] }) {
 
   return (
     <div>
-      <div className="mb-12 flex flex-wrap gap-2.5">
+      <div className="mb-10 flex flex-wrap gap-2.5 border-b border-char/10 pb-6">
         {FILTERS.map((f) => {
           const on = active === f;
           return (
             <button
               key={f}
               onClick={() => setActive(f)}
-              className={`rounded-lg border px-[18px] py-2.5 font-display text-[14.5px] font-semibold transition-all duration-200 ${
+              className={`rounded-full border px-[17px] py-2 font-display text-[12.5px] font-semibold transition-all duration-200 ${
                 on
-                  ? "border-char bg-char text-white"
-                  : "border-[var(--line)] bg-paper text-char hover:border-char"
+                  ? "border-char bg-char text-white shadow-[0_8px_18px_rgba(52,55,59,.14)]"
+                  : "border-char/10 bg-white text-char hover:border-char/25"
               }`}
             >
               {f}
@@ -42,12 +42,12 @@ export default function ResourceList({ slugs }: { slugs?: string[] }) {
         })}
       </div>
 
-      <div className="grid gap-7 md:grid-cols-2 lg:grid-cols-3">
-        {items.map((a) => (
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {items.map((a, index) => (
           <Link
             key={a.slug}
             href={`/resources/${a.slug}`}
-            className="group flex h-full flex-col overflow-hidden rounded-2xl border border-[var(--line)] bg-paper transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(52,55,59,.10)]"
+            className="group flex h-full flex-col overflow-hidden rounded-[20px] border border-char/10 bg-white shadow-[0_10px_28px_rgba(52,55,59,.055)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_48px_rgba(52,55,59,.11)]"
           >
             <div className={`relative aspect-[16/9] bg-gradient-to-br ${a.grad}`}>
               {a.image && a.imageAlt && (
@@ -75,6 +75,9 @@ export default function ResourceList({ slugs }: { slugs?: string[] }) {
               </span>
             </div>
             <div className="flex flex-1 flex-col p-7">
+              <span className="mb-5 font-display text-[10px] font-bold text-lime-2">
+                {String(index + 1).padStart(2, "0")}
+              </span>
               <div className="mb-3 flex items-center gap-2 text-[13px] text-muted">
                 <span>{fmtDate(a.date)}</span>
                 <span className="text-[var(--line)]">•</span>
@@ -92,7 +95,7 @@ export default function ResourceList({ slugs }: { slugs?: string[] }) {
                   )}
                 </div>
               )}
-              <h3 className="font-display text-[20px] font-bold leading-[1.2] tracking-[-0.4px] text-ink transition-colors group-hover:text-olive">
+              <h3 className="font-display text-[19px] font-bold leading-[1.2] tracking-[-0.4px] text-ink transition-colors group-hover:text-olive">
                 {a.title}
               </h3>
               <p className="mt-3 flex-1 text-[15px] leading-relaxed text-muted">

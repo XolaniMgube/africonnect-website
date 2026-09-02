@@ -1,147 +1,82 @@
-"use client";
-
-import { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { PORTFOLIO } from "@/lib/content";
+import Arrow from "./Arrow";
+import Reveal from "./Reveal";
 
-const FILTERS = ["All", "Web", "Branding", "Print", "Consulting"] as const;
-type Filter = (typeof FILTERS)[number];
+const ACCENTS = [
+  { text: "text-lime-2", line: "bg-lime-2", soft: "bg-[#eef6dd]" },
+  { text: "text-brand", line: "bg-brand", soft: "bg-[#e6f1fb]" },
+  { text: "text-[#d77c31]", line: "bg-[#f0a35b]", soft: "bg-[#fff1df]" },
+];
 
 export default function PortfolioGrid() {
-  const [active, setActive] = useState<Filter>("All");
-
-  const items = useMemo(
-    () =>
-      active === "All"
-        ? PORTFOLIO
-        : PORTFOLIO.filter((p) => p.filter === active),
-    [active]
-  );
-
   return (
-    <div>
-      {/* filter chips */}
-      <div className="mb-12 flex flex-wrap gap-2.5">
-        {FILTERS.map((f) => {
-          const on = active === f;
-          const count =
-            f === "All"
-              ? PORTFOLIO.length
-              : PORTFOLIO.filter((p) => p.filter === f).length;
-          return (
-            <button
-              key={f}
-              onClick={() => setActive(f)}
-              className={`inline-flex items-center gap-2 rounded-lg border px-[18px] py-2.5 font-display text-[14.5px] font-semibold transition-all duration-200 ${
-                on
-                  ? "border-char bg-char text-white"
-                  : "border-[var(--line)] bg-paper text-char hover:border-char"
-              }`}
-            >
-              {f}
-              <span
-                className={`text-[12.5px] font-bold ${
-                  on ? "text-lime" : "text-muted"
-                }`}
+    <div className="grid gap-6 lg:grid-cols-3">
+      {PORTFOLIO.map((project, index) => {
+        const accent = ACCENTS[index];
+        return (
+          <Reveal key={project.slug}>
+            <article className="group flex h-full flex-col overflow-hidden rounded-[22px] border border-char/10 bg-white shadow-[0_12px_32px_rgba(52,55,59,.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_52px_rgba(52,55,59,.12)]">
+              <Link
+                href={`/portfolio/${project.slug}`}
+                className="relative block aspect-[4/3] overflow-hidden bg-char"
+                aria-label={`View ${project.name} project`}
               >
-                {count}
-              </span>
-            </button>
-          );
-        })}
-      </div>
-
-      {/* grid */}
-      <div className="grid gap-[22px] sm:grid-cols-2 lg:grid-cols-3">
-        {items.map((w) => (
-          <div
-            key={w.name}
-            className="group relative aspect-square overflow-hidden rounded-2xl border border-[var(--line)]"
-          >
-            <div
-              className={`absolute inset-0 bg-gradient-to-br ${w.bg} transition-transform duration-500 group-hover:scale-105`}
-            >
-              {w.image && w.imageAlt && (
-                <Image
-                  src={w.image}
-                  alt={w.imageAlt}
-                  fill
-                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  className="object-cover object-center"
-                />
-              )}
-              <div
-                className="absolute inset-0"
-                style={{
-                  backgroundImage:
-                    "radial-gradient(rgba(255,255,255,.12) 1px, transparent 1px)",
-                  backgroundSize: "16px 16px",
-                }}
-              />
-            </div>
-            <div className="absolute inset-0 z-[1] grid place-items-center font-display text-[24px] font-extrabold tracking-[1px] text-white/20">
-              {w.label}
-            </div>
-
-            {/* year badge */}
-            <span className="absolute right-4 top-4 z-[3] rounded-full bg-black/25 px-3 py-1 font-display text-[12px] font-semibold text-white/80 backdrop-blur-sm">
-              {w.year}
-            </span>
-
-            <div className="absolute inset-0 z-[2] flex flex-col justify-end bg-gradient-to-t from-[rgba(26,28,31,.92)] to-transparent to-65% p-[26px]">
-              <span className="font-display text-[11.5px] font-semibold uppercase tracking-[1px] text-lime">
-                {w.cat}
-              </span>
-              <h3 className="mt-1.5 font-display text-[21px] font-semibold text-white">
-                {w.name}
-              </h3>
-              {/* blurb reveals on hover */}
-              <p className="grid grid-rows-[0fr] text-[14px] leading-relaxed text-white/0 transition-all duration-300 group-hover:mt-2 group-hover:grid-rows-[1fr] group-hover:text-white/70">
-                <span className="overflow-hidden">{w.blurb}</span>
-              </p>
-
-              {/* action links reveal on hover */}
-              <div className="flex max-h-0 flex-wrap items-center gap-2 overflow-hidden opacity-0 transition-all duration-300 group-hover:mt-4 group-hover:max-h-24 group-hover:opacity-100">
-                {w.url && (
-                  <a
-                    href={w.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 rounded-lg bg-lime px-3.5 py-2 font-display text-[13px] font-semibold text-ink transition-colors hover:bg-lime-2"
-                  >
-                    Open website
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
-                      <path
-                        d="M7 17 17 7M9 7h8v8"
-                        stroke="currentColor"
-                        strokeWidth="2.2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </a>
+                {project.image && project.imageAlt && (
+                  <Image
+                    src={project.image}
+                    alt={project.imageAlt}
+                    fill
+                    sizes="(min-width: 1024px) 33vw, 100vw"
+                    className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.025]"
+                  />
                 )}
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/5" />
+                <div className="absolute left-4 top-4 flex items-center gap-2 rounded-full border border-white/20 bg-char/70 px-3 py-1.5 font-display text-[10px] font-semibold uppercase tracking-[.9px] text-white backdrop-blur-md">
+                  <i className={`h-1.5 w-1.5 rounded-full ${accent.line}`} />
+                  {project.cat}
+                </div>
+                <span className="absolute right-4 top-4 rounded-full border border-white/15 bg-char/70 px-3 py-1.5 font-display text-[10px] font-semibold text-white/75 backdrop-blur-md">
+                  {project.year}
+                </span>
+              </Link>
+
+              <div className="flex flex-1 flex-col p-7">
+                <div className="flex items-center justify-between gap-5">
+                  <span className={`font-display text-[10px] font-bold ${accent.text}`}>
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <i className={`h-px w-8 ${accent.line}`} />
+                </div>
+                <h3 className="mt-6 font-display text-[23px] font-bold tracking-[-.6px] text-ink">
+                  {project.name}
+                </h3>
+                <p className="mt-3 text-[14.5px] leading-relaxed text-muted">
+                  {project.blurb}
+                </p>
+                <div className="mt-6 flex flex-wrap gap-2">
+                  {project.scope.slice(0, 3).map((item) => (
+                    <span
+                      key={item}
+                      className={`rounded-full px-3 py-1.5 text-[11px] font-medium text-char/70 ${accent.soft}`}
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
                 <Link
-                  href={`/portfolio/${w.slug}`}
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-white/30 px-3.5 py-2 font-display text-[13px] font-semibold text-white transition-colors hover:border-white hover:bg-white/10"
+                  href={`/portfolio/${project.slug}`}
+                  className={`group/link mt-auto inline-flex items-center gap-2 pt-8 font-display text-[13.5px] font-semibold ${accent.text}`}
                 >
-                  More details
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
-                    <path
-                      d="M5 12h14M13 6l6 6-6 6"
-                      stroke="currentColor"
-                      strokeWidth="2.2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                  View project
+                  <Arrow className="transition-transform group-hover/link:translate-x-1" />
                 </Link>
               </div>
-            </div>
-          </div>
-        ))}
-      </div>
+            </article>
+          </Reveal>
+        );
+      })}
     </div>
   );
 }

@@ -1,123 +1,241 @@
 import type { Metadata } from "next";
-import PageHeader from "@/components/PageHeader";
+import Link from "next/link";
+import Arrow from "@/components/Arrow";
 import ContactForm from "@/components/ContactForm";
+import Reveal from "@/components/Reveal";
 import { CONTACT } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Contact — AfriConnect",
   description:
-    "Get in touch with AfriConnect in Vosloorus. Tell us what you need and we'll come back with a plan and a price.",
+    "Contact AfriConnect in Vosloorus about brand, print, website, e-commerce or business-system work.",
 };
 
 const waNumber = CONTACT.phone.replace(/[^\d]/g, "");
 const waLink = `https://wa.me/${waNumber}?text=${encodeURIComponent(
-  "Hi AfriConnect, I'd like to chat about a project."
+  "Hi AfriConnect, I'd like to chat about a project.",
 )}`;
 const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(
-  CONTACT.address
+  CONTACT.address,
 )}&output=embed`;
 
-function Detail({
+const NEXT_STEPS = [
+  {
+    number: "01",
+    title: "We read the brief",
+    text: "The relevant person reviews what you need—not an automated sales queue.",
+  },
+  {
+    number: "02",
+    title: "We clarify the scope",
+    text: "If anything is unclear, we ask the useful questions before recommending a solution.",
+  },
+  {
+    number: "03",
+    title: "You get a clear next step",
+    text: "We come back with the proposed approach, timing and a quote you can understand.",
+  },
+];
+
+function ContactRoute({
   label,
   value,
   href,
+  accent,
 }: {
   label: string;
   value: string;
-  href?: string;
+  href: string;
+  accent: string;
 }) {
-  const body = (
-    <>
-      <div className="font-display text-[12.5px] font-semibold uppercase tracking-[1px] text-muted">
-        {label}
-      </div>
-      <div className="mt-1.5 text-[16.5px] font-medium text-ink transition-colors group-hover:text-olive">
-        {value}
-      </div>
-    </>
-  );
-  return href ? (
-    <a href={href} className="group block rounded-xl border border-[var(--line)] bg-paper p-6 transition-colors hover:border-char">
-      {body}
+  return (
+    <a
+      href={href}
+      target={href.startsWith("http") ? "_blank" : undefined}
+      rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+      className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[.04] p-4 transition-all duration-300 hover:border-white/20 hover:bg-white/[.065]"
+    >
+      <span className={`h-10 w-1 shrink-0 rounded-full ${accent}`} />
+      <span className="min-w-0 flex-1">
+        <span className="block font-display text-[10px] font-semibold uppercase tracking-[1px] text-white/35">
+          {label}
+        </span>
+        <span className="mt-1 block truncate text-[14px] font-medium text-white">
+          {value}
+        </span>
+      </span>
+      <span className="text-white/25 transition-transform group-hover:translate-x-1 group-hover:text-lime">
+        →
+      </span>
     </a>
-  ) : (
-    <div className="rounded-xl border border-[var(--line)] bg-paper p-6">{body}</div>
   );
 }
 
 export default function ContactPage() {
   return (
     <main>
-      <PageHeader
-        tone="contact"
-        eyebrow="Get in touch"
-        title="Let's connect the dots."
-        intro="Tell us what you need. We'll come back with a plan and a price."
-        crumbs={[{ href: "/contact", label: "Contact" }]}
-      />
+      <section className="relative overflow-hidden bg-char-2 pb-0 pt-20 text-white">
+        <div className="dot-tex-light pointer-events-none absolute inset-0 opacity-40" />
+        <div className="pointer-events-none absolute -right-24 -top-32 h-[620px] w-[620px] rounded-full bg-brand/15 blur-[135px]" />
+        <div className="pointer-events-none absolute -bottom-44 -left-28 h-[520px] w-[520px] rounded-full bg-lime/10 blur-[125px]" />
 
-      <section className="py-[120px]">
-        <div className="mx-auto grid max-w-site gap-12 px-[30px] lg:grid-cols-[1.15fr_.85fr]">
-          {/* form */}
-          <div>
-            <h2 className="mb-2 font-display text-[clamp(26px,3.2vw,36px)] font-extrabold tracking-[-1px] text-ink">
+        <div className="relative z-[2] mx-auto grid min-h-[660px] max-w-site items-center gap-16 px-[30px] py-[86px] lg:grid-cols-[.95fr_1.05fr] lg:py-[105px]">
+          <Reveal>
+            <span className="mb-6 inline-flex items-center gap-2.5 font-display text-[12.5px] font-semibold uppercase tracking-[1.5px] text-lime">
+              <span className="flex gap-[3px]" aria-hidden>
+                <i className="h-[5px] w-[5px] rounded-full bg-lime" />
+                <i className="h-[5px] w-[5px] rounded-full bg-lime" />
+                <i className="h-[5px] w-[5px] rounded-full bg-lime" />
+              </span>
               Start a conversation
-            </h2>
-            <p className="mb-8 text-[16.5px] text-muted">
-              Fill in the form and we&apos;ll be in touch within one working day.
+            </span>
+            <h1 className="max-w-[650px] font-display text-[clamp(44px,6vw,70px)] font-extrabold leading-[.98] tracking-[-2.5px] text-white">
+              Tell us what needs to <span className="text-lime">move.</span>
+            </h1>
+            <p className="mt-7 max-w-[590px] text-[clamp(17px,1.8vw,19px)] leading-relaxed text-white/65">
+              A new identity, a print job, a website or a business problem that
+              needs a practical system—start wherever you are.
             </p>
-            <ContactForm />
-          </div>
-
-          {/* details */}
-          <div className="space-y-4">
-            <a
-              href={waLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-4 rounded-xl bg-[#25D366] p-6 text-ink transition-transform duration-200 hover:-translate-y-0.5"
+            <Link
+              href="#project-brief"
+              className="group mt-9 inline-flex items-center gap-2.5 rounded-lg bg-lime px-[28px] py-[15px] font-display text-[15px] font-semibold text-ink transition-all hover:-translate-y-0.5 hover:shadow-[0_14px_34px_rgba(163,217,85,.28)]"
             >
-              <svg width="30" height="30" viewBox="0 0 24 24" fill="#1A1C1F">
-                <path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.519 5.26l-.999 3.648 3.97-1.607zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
-              </svg>
-              <div>
-                <div className="font-display text-[16px] font-bold">
-                  Chat on WhatsApp
-                </div>
-                <div className="text-[14px] text-ink/70">
-                  Usually the fastest way to reach us
-                </div>
-              </div>
-            </a>
+              Send a project brief
+              <Arrow stroke="#1A1C1F" className="transition-transform group-hover:translate-x-1" />
+            </Link>
+          </Reveal>
 
-            <Detail
-              label="Call us"
-              value={CONTACT.phone}
-              href={`tel:${CONTACT.phone.replace(/\s/g, "")}`}
-            />
-            <Detail
-              label="Email"
-              value={CONTACT.email}
-              href={`mailto:${CONTACT.email}`}
-            />
-            <Detail label="Visit us" value={CONTACT.address} />
-            <Detail label="Office hours" value={CONTACT.hours} />
+          <Reveal className="lg:pl-5">
+            <div className="relative mx-auto max-w-[530px] rounded-[24px] border border-white/15 bg-[#181b1e]/90 p-6 shadow-[0_35px_90px_rgba(0,0,0,.38)] md:p-7">
+              <div className="mb-6 flex items-center justify-between border-b border-white/10 pb-5">
+                <div>
+                  <p className="font-display text-[10px] font-semibold uppercase tracking-[1.2px] text-lime">
+                    Contact AfriConnect
+                  </p>
+                  <p className="mt-1 font-display text-[20px] font-bold text-white">
+                    Choose the easiest route.
+                  </p>
+                </div>
+                <span className="flex items-center gap-2 rounded-full border border-lime/20 bg-lime/10 px-3 py-1.5 text-[10px] font-semibold text-lime">
+                  <i className="h-1.5 w-1.5 rounded-full bg-lime" />
+                  Available
+                </span>
+              </div>
+              <div className="space-y-3">
+                <ContactRoute label="WhatsApp" value="Fastest for a quick conversation" href={waLink} accent="bg-[#25D366]" />
+                <ContactRoute label="Call" value={CONTACT.phone} href={`tel:${CONTACT.phone.replace(/\s/g, "")}`} accent="bg-lime" />
+                <ContactRoute label="Email" value={CONTACT.email} href={`mailto:${CONTACT.email}`} accent="bg-brand" />
+              </div>
+              <div className="mt-5 rounded-2xl border border-white/10 bg-black/15 p-4">
+                <p className="text-[11px] leading-relaxed text-white/45">
+                  Prefer a considered response? The project brief below gives
+                  us enough context to come back with a useful next step.
+                </p>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+
+        <div className="relative z-[2] border-t border-white/10 bg-black/10">
+          <div className="mx-auto grid max-w-site divide-y divide-white/10 px-[30px] sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+            {[
+              ["One working day", "Typical response time"],
+              ["One point of contact", "Clear responsibility"],
+              ["Vosloorus", "Based in Gauteng"],
+            ].map(([value, label], index) => (
+              <div key={value} className={`py-6 sm:px-7 ${index === 0 ? "sm:pl-0" : ""}`}>
+                <p className="font-display text-[15px] font-bold text-white">{value}</p>
+                <p className="mt-1 text-[12.5px] text-white/45">{label}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* map */}
-      <section className="pb-[120px]">
-        <div className="mx-auto max-w-site px-[30px]">
-          <div className="overflow-hidden rounded-2xl border border-[var(--line)]">
-            <iframe
-              title="AfriConnect office location"
-              src={mapSrc}
-              className="h-[420px] w-full grayscale-[.2]"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
+      <section id="project-brief" className="relative overflow-hidden bg-paper-2 py-[110px] md:py-[130px]">
+        <div className="dot-tex pointer-events-none absolute inset-0 opacity-25" />
+        <div className="relative z-[2] mx-auto max-w-site px-[30px]">
+          <Reveal className="mb-14 grid gap-7 lg:grid-cols-[1fr_.72fr] lg:items-end">
+            <div>
+              <span className="mb-[18px] inline-flex items-center gap-2.5 font-display text-[12.5px] font-semibold uppercase tracking-[1.5px] text-olive">
+                <i className="h-1.5 w-1.5 rounded-full bg-lime-2" />
+                Project brief
+              </span>
+              <h2 className="max-w-[700px] font-display text-[clamp(36px,4.8vw,56px)] font-extrabold leading-[1.02] tracking-[-1.8px] text-ink">
+                Start with the useful details.
+              </h2>
+            </div>
+            <p className="max-w-[480px] text-[16px] leading-relaxed text-muted lg:justify-self-end">
+              You do not need a perfect brief. Tell us what the business needs,
+              where the work is stuck and what a good result looks like.
+            </p>
+          </Reveal>
+
+          <div className="grid gap-7 lg:grid-cols-[1.15fr_.85fr] lg:items-start">
+            <Reveal>
+              <ContactForm />
+            </Reveal>
+            <Reveal>
+              <aside className="overflow-hidden rounded-[22px] border border-char/10 bg-white shadow-[0_16px_42px_rgba(52,55,59,.07)]">
+                <div className="border-b border-char/10 p-7 md:p-8">
+                  <span className="font-display text-[10px] font-bold uppercase tracking-[1.1px] text-olive">
+                    After you press send
+                  </span>
+                  <h3 className="mt-3 font-display text-[25px] font-bold tracking-[-.7px] text-ink">
+                    What happens next.
+                  </h3>
+                </div>
+                <div>
+                  {NEXT_STEPS.map((step, index) => (
+                    <article key={step.title} className={`grid grid-cols-[42px_1fr] gap-4 p-7 md:p-8 ${index > 0 ? "border-t border-char/10" : ""}`}>
+                      <span className="font-display text-[10px] font-bold text-lime-2">{step.number}</span>
+                      <div>
+                        <h4 className="font-display text-[15.5px] font-bold text-ink">{step.title}</h4>
+                        <p className="mt-2 text-[13.5px] leading-relaxed text-muted">{step.text}</p>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </aside>
+            </Reveal>
           </div>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden bg-char-2 py-[105px] text-white md:py-[120px]">
+        <div className="dot-tex-light pointer-events-none absolute inset-0 opacity-35" />
+        <div className="relative z-[2] mx-auto grid max-w-site gap-8 px-[30px] lg:grid-cols-[1.2fr_.8fr] lg:items-stretch">
+          <Reveal>
+            <div className="h-full min-h-[420px] overflow-hidden rounded-[22px] border border-white/10 bg-char">
+              <iframe
+                title="AfriConnect office location"
+                src={mapSrc}
+                className="h-full min-h-[420px] w-full grayscale-[.25]"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+          </Reveal>
+          <Reveal>
+            <div className="flex h-full min-h-[420px] flex-col rounded-[22px] border border-white/10 bg-char p-8 md:p-10">
+              <span className="font-display text-[10px] font-semibold uppercase tracking-[1.1px] text-lime">
+                Find us
+              </span>
+              <h2 className="mt-5 font-display text-[clamp(30px,3.8vw,44px)] font-extrabold leading-[1.05] tracking-[-1.3px] text-white">
+                Based in Vosloorus. Working beyond it.
+              </h2>
+              <p className="mt-5 text-[15px] leading-relaxed text-white/50">
+                Visit the office, arrange a meeting or work with us remotely.
+                The process stays clear either way.
+              </p>
+              <div className="mt-auto border-t border-white/10 pt-7">
+                <p className="font-display text-[10px] font-semibold uppercase tracking-[1px] text-white/30">Office</p>
+                <p className="mt-2 max-w-[360px] text-[14px] leading-relaxed text-white/75">{CONTACT.address}</p>
+                <p className="mt-5 font-display text-[10px] font-semibold uppercase tracking-[1px] text-white/30">Hours</p>
+                <p className="mt-2 text-[14px] text-white/75">{CONTACT.hours}</p>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
     </main>

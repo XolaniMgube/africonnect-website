@@ -63,7 +63,7 @@ export default function Nav() {
           />
         </Link>
 
-        <nav className="hidden items-center gap-9 md:flex">
+        <nav className="hidden items-center gap-9 lg:flex">
           {LINKS.map((l) => (
             <Link
               key={l.href}
@@ -105,7 +105,7 @@ export default function Nav() {
         <button
           aria-label="Toggle menu"
           onClick={() => setOpen((v) => !v)}
-          className="flex flex-col gap-[5px] p-2 md:hidden"
+          className="flex flex-col gap-[5px] p-2 lg:hidden"
         >
           {[0, 1, 2].map((i) => (
             <span
@@ -123,7 +123,7 @@ export default function Nav() {
         backdrop-blur (which becomes a containing block when scrolled) can't
         collapse this fixed overlay */}
     {open && (
-        <div className="menu-overlay fixed inset-0 z-[110] flex flex-col overflow-hidden bg-hero-dark text-white md:hidden">
+        <div className="menu-overlay fixed inset-0 z-[110] flex flex-col overflow-hidden bg-hero-dark text-white lg:hidden">
           <div className="dot-tex-light pointer-events-none absolute inset-0 opacity-50" />
           <div
             className="pointer-events-none absolute -right-16 -top-24 h-80 w-80 rounded-full blur-[100px]"

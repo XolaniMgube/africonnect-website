@@ -409,7 +409,7 @@ export type Project = {
   scope: string[];
 };
 
-export const PORTFOLIO: Project[] = [
+const PORTFOLIO_ARCHIVE: Project[] = [
   {
     name: "Sekgabe Turnkey",
     slug: "sekgabe-turnkey",
@@ -700,6 +700,9 @@ export const PORTFOLIO: Project[] = [
   },
 ];
 
+// Only publish completed projects with final, approved imagery.
+export const PORTFOLIO: Project[] = PORTFOLIO_ARCHIVE.slice(0, 3);
+
 export const CONTACT = {
   address: "20978 Mercury Street, Vosloorus, Boksburg, 1475",
   phone: "+27 68 251 5478",
@@ -713,9 +716,9 @@ export const CONTACT = {
 /* -------------------------------------------------------------------------- */
 
 export const ABOUT = {
-  // Add the final team image path here when it is available in /public.
-  image: null as string | null,
-  imageAlt: "The AfriConnect team working together in Vosloorus",
+  image: "/about-us-3.png" as string | null,
+  imageAlt:
+    "The AfriConnect team working together in their Vosloorus office",
   // short narrative shown in the "who we are" block
   story: [
     "AfriConnect was founded in 2018 in Vosloorus to solve a problem too many small businesses face: being passed from one supplier to the next — one for the logo, another for the website, a third for printing, and someone else for IT. No single partner was accountable for the whole picture.",
@@ -770,36 +773,48 @@ export const TEAM = [
     role: "Director",
     bio: "Sets the direction of the business and keeps clients, people and delivery moving together.",
     grad: "from-[#5E7327] to-[#8FC93A]",
+    photo: "/Mitch.png" as string | null,
+    photoAlt: "Head-and-shoulders portrait of Mitchel Shabangu",
   },
   {
     name: "Sibusiso",
     role: "Creative Director",
     bio: "Leads the look and feel of every brand — from logo and identity to layout.",
     grad: "from-[#1A1C1F] to-[#34373B]",
+    photo: "/Sibusiso.png" as string | null,
+    photoAlt: "Head-and-shoulders portrait of Sibusiso",
   },
   {
     name: "Xolani",
     role: "Lead Developer",
     bio: "Builds the websites, stores, dashboards and custom systems clients run on.",
     grad: "from-[#34373B] to-[#4a4e54]",
+    photo: "/Xolani.png" as string | null,
+    photoAlt: "Head-and-shoulders portrait of Xolani",
   },
   {
     name: "Inathi",
     role: "Administrator",
     bio: "Handles admin, scheduling and client paperwork so nothing slips through.",
     grad: "from-[#8FC93A] to-[#A3D955]",
+    photo: null as string | null,
+    photoAlt: "Head-and-shoulders portrait of Inathi",
   },
   {
     name: "Londiwe",
     role: "Creative Intern",
     bio: "Supports the creative team across design development, artwork and day-to-day production tasks.",
     grad: "from-[#9D8CFF] to-[#6D5BC5]",
+    photo: null as string | null,
+    photoAlt: "Head-and-shoulders portrait of Londiwe",
   },
   {
     name: "Kgotso",
     role: "Development Intern",
     bio: "Supports website builds, technical testing and the detail work behind reliable digital experiences.",
     grad: "from-[#3B9FE0] to-[#2c6fa0]",
+    photo: null as string | null,
+    photoAlt: "Head-and-shoulders portrait of Kgotso",
   },
 ];
 

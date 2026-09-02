@@ -28,7 +28,7 @@ export default function Hero() {
       />
 
       <div className="relative z-[2] mx-auto grid min-h-[730px] max-w-site items-center gap-14 px-[30px] py-20 lg:grid-cols-[1.04fr_.96fr] lg:py-24">
-        <div>
+        <div className="relative z-[2]">
           <span className="mb-6 inline-flex items-center gap-2.5 font-display text-[12.5px] font-semibold uppercase tracking-[1.5px] text-lime">
             <span className="flex gap-[3px]" aria-hidden>
               <i className="h-[5px] w-[5px] rounded-full bg-lime" />
@@ -69,7 +69,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="hidden lg:block">
+        <div className="pointer-events-none absolute left-1/2 top-[145px] z-[1] w-[480px] -translate-x-[42%] opacity-[.28] [&_.pulse-tag]:hidden sm:left-auto sm:right-[-95px] sm:top-[105px] sm:w-[540px] sm:translate-x-0 sm:opacity-[.32] lg:pointer-events-auto lg:relative lg:left-auto lg:right-auto lg:top-auto lg:z-auto lg:w-auto lg:translate-x-0 lg:opacity-100 lg:[&_.pulse-tag]:flex">
           <Globe />
         </div>
       </div>
