@@ -12,7 +12,7 @@ const SOLUTIONS = [
     href: "/services#brand",
     blurb:
       "Distinctive identities and everyday creative that make your business clear, recognisable and consistent.",
-    tags: ["Logo & identity", "Graphic design", "Social media"],
+    tags: ["Logo & identity", "Graphic design", "Brand strategy"],
     icon: "bg-lime text-ink",
     action: "text-lime",
     activeAction: "text-lime",
@@ -32,11 +32,11 @@ const SOLUTIONS = [
   },
   {
     num: "03",
-    name: "Websites & e-commerce",
+    name: "Websites & Dashboards",
     href: "/services#websites",
     blurb:
       "Professional digital experiences that build trust, generate enquiries and make it easier to buy.",
-    tags: ["Business websites", "Online stores", "Landing pages"],
+    tags: ["Business websites", "Online stores", "Dashboards & portals"],
     icon: "bg-brand text-white",
     action: "text-brand",
     activeAction: "text-brand",
@@ -44,11 +44,11 @@ const SOLUTIONS = [
   },
   {
     num: "04",
-    name: "Business & systems",
+    name: "Business systems",
     href: "/services#business",
     blurb:
       "Practical systems, registrations and business support that simplify operations and keep you moving.",
-    tags: ["Custom systems", "Portals & dashboards", "CIPC & compliance"],
+    tags: ["Business registration", "Business profile", "CIPC & compliance"],
     icon: "bg-[#ece8ff] text-[#6555a3]",
     action: "text-[#6555a3]",
     activeAction: "text-[#b9adff]",
@@ -109,23 +109,26 @@ export default function Services() {
   const active = hovered ?? selected;
 
   return (
-    <section id="services" className="relative overflow-hidden py-[110px] md:py-[130px]">
+    <section id="services" className="relative overflow-hidden py-20 md:py-[130px]">
       <div className="mx-auto max-w-site px-[30px]">
-        <Reveal className="mb-14">
+        <Reveal className="mb-10 md:mb-14">
           <span className="mb-[18px] inline-flex items-center gap-2.5 font-display text-[12.5px] font-semibold uppercase tracking-[1.5px] text-olive">
             <i className="h-1.5 w-1.5 rounded-full bg-lime-2" />
             Brand · Print · Web · Systems
           </span>
           <h2 className="max-w-[650px] font-display text-[clamp(34px,4.8vw,54px)] font-extrabold leading-[1.02] tracking-[-1.7px] text-ink">
-            Four disciplines. One team.
+            What we do . . .
           </h2>
+          <p className="mt-4 font-display text-[11px] font-semibold uppercase tracking-[1px] text-muted md:hidden">
+            Swipe to explore services →
+          </p>
         </Reveal>
 
-        <div className="grid gap-5 md:grid-cols-2">
+        <div className="-mx-[30px] flex snap-x snap-mandatory scroll-px-[30px] gap-4 overflow-x-auto px-[30px] pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:grid md:grid-cols-2 md:gap-5 md:overflow-visible md:px-0 md:pb-0">
           {SOLUTIONS.map((solution, index) => {
             const isActive = active === index;
             return (
-              <Reveal key={solution.name}>
+              <Reveal key={solution.name} className="w-[82vw] max-w-[320px] shrink-0 snap-start md:w-auto md:max-w-none">
                 <article
                   tabIndex={0}
                   onMouseEnter={() => setHovered(index)}
@@ -134,7 +137,7 @@ export default function Services() {
                   onClick={() => setSelected(index)}
                   onTouchStart={() => setSelected(index)}
                   aria-label={`${solution.name} service category`}
-                  className={`group flex h-full min-h-[315px] cursor-pointer flex-col overflow-hidden rounded-[18px] border p-7 outline-none transition-[background-color,border-color,color,box-shadow,transform] duration-500 ease-[cubic-bezier(.2,.7,.2,1)] focus-visible:ring-2 focus-visible:ring-lime focus-visible:ring-offset-4 ${
+                  className={`group flex h-full cursor-pointer flex-col overflow-hidden rounded-[18px] border p-6 outline-none transition-[background-color,border-color,color,box-shadow,transform] duration-500 ease-[cubic-bezier(.2,.7,.2,1)] focus-visible:ring-2 focus-visible:ring-lime focus-visible:ring-offset-4 sm:min-h-[315px] sm:p-7 ${
                     isActive
                       ? "border-char bg-char shadow-[0_20px_48px_rgba(26,28,31,.22)]"
                       : "border-black/[.08] bg-white shadow-[0_8px_24px_rgba(26,28,31,.055)] hover:border-black/15"
@@ -169,7 +172,7 @@ export default function Services() {
                     </p>
                   </div>
 
-                  <div className="mt-5 flex flex-wrap gap-2">
+                  <div className="mt-5 hidden flex-wrap gap-2 sm:flex">
                     {solution.tags.map((tag) => (
                       <span
                         key={tag}
@@ -186,7 +189,7 @@ export default function Services() {
 
                   <Link
                     href={solution.href}
-                    className={`mt-auto inline-flex items-center gap-2 pt-6 font-display text-[14px] font-semibold ${isActive ? solution.activeAction : solution.action}`}
+                    className={`mt-6 inline-flex items-center gap-2 font-display text-[14px] font-semibold sm:mt-auto sm:pt-6 ${isActive ? solution.activeAction : solution.action}`}
                   >
                     Explore services
                     <Arrow className="transition-transform group-hover:translate-x-1" />

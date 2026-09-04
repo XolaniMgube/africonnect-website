@@ -3,7 +3,8 @@ import Link from "next/link";
 import Arrow from "@/components/Arrow";
 import ContactForm from "@/components/ContactForm";
 import Reveal from "@/components/Reveal";
-import { CONTACT } from "@/lib/content";
+import SocialIcon from "@/components/SocialIcon";
+import { CONTACT, SOCIAL_LINKS } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Contact — AfriConnect",
@@ -74,12 +75,12 @@ function ContactRoute({
 export default function ContactPage() {
   return (
     <main>
-      <section className="relative overflow-hidden bg-char-2 pb-0 pt-20 text-white">
+      <section className="relative overflow-hidden bg-char-2 pb-0 pt-24 text-white">
         <div className="dot-tex-light pointer-events-none absolute inset-0 opacity-40" />
         <div className="pointer-events-none absolute -right-24 -top-32 h-[620px] w-[620px] rounded-full bg-brand/15 blur-[135px]" />
         <div className="pointer-events-none absolute -bottom-44 -left-28 h-[520px] w-[520px] rounded-full bg-lime/10 blur-[125px]" />
 
-        <div className="relative z-[2] mx-auto grid min-h-[660px] max-w-site items-center gap-16 px-[30px] py-[86px] lg:grid-cols-[.95fr_1.05fr] lg:py-[105px]">
+        <div className="relative z-[2] mx-auto grid max-w-site items-center gap-10 px-[30px] py-14 sm:gap-16 sm:py-[86px] lg:min-h-[660px] lg:grid-cols-[.95fr_1.05fr] lg:py-[105px]">
           <Reveal>
             <span className="mb-6 inline-flex items-center gap-2.5 font-display text-[12.5px] font-semibold uppercase tracking-[1.5px] text-lime">
               <span className="flex gap-[3px]" aria-hidden>
@@ -89,8 +90,8 @@ export default function ContactPage() {
               </span>
               Start a conversation
             </span>
-            <h1 className="max-w-[650px] font-display text-[clamp(44px,6vw,70px)] font-extrabold leading-[.98] tracking-[-2.5px] text-white">
-              Tell us what needs to <span className="text-lime">move.</span>
+            <h1 className="max-w-[650px] font-display text-[clamp(40px,10.8vw,70px)] font-extrabold leading-[.98] tracking-[-2px] text-white sm:tracking-[-2.5px]">
+              Connect with us <span className="text-lime">.</span>
             </h1>
             <p className="mt-7 max-w-[590px] text-[clamp(17px,1.8vw,19px)] leading-relaxed text-white/65">
               A new identity, a print job, a website or a business problem that
@@ -103,6 +104,26 @@ export default function ContactPage() {
               Send a project brief
               <Arrow stroke="#1A1C1F" className="transition-transform group-hover:translate-x-1" />
             </Link>
+            {/* <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-4">
+              <span className="font-display text-[11px] font-semibold uppercase tracking-[1.2px] text-white/45">
+                Follow us
+              </span>
+              <div className="flex gap-2.5">
+                {SOCIAL_LINKS.map(({ platform, href }) => (
+                  <a
+                    key={platform}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Follow AfriConnect on ${platform}`}
+                    title={platform}
+                    className="grid h-11 w-11 place-items-center rounded-full border border-white/20 bg-white/[.06] text-white transition-all duration-200 hover:-translate-y-0.5 hover:border-lime hover:bg-lime hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime"
+                  >
+                    <SocialIcon platform={platform} />
+                  </a>
+                ))}
+              </div>
+            </div> */}
           </Reveal>
 
           <Reveal className="lg:pl-5">
@@ -126,17 +147,37 @@ export default function ContactPage() {
                 <ContactRoute label="Call" value={CONTACT.phone} href={`tel:${CONTACT.phone.replace(/\s/g, "")}`} accent="bg-lime" />
                 <ContactRoute label="Email" value={CONTACT.email} href={`mailto:${CONTACT.email}`} accent="bg-brand" />
               </div>
-              <div className="mt-5 rounded-2xl border border-white/10 bg-black/15 p-4">
+              {/* <div className="mt-5 rounded-2xl border border-white/10 bg-black/15 p-4">
                 <p className="text-[11px] leading-relaxed text-white/45">
                   Prefer a considered response? The project brief below gives
                   us enough context to come back with a useful next step.
                 </p>
+              </div> */}
+              <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-4">
+              <span className="font-display text-[11px] font-semibold uppercase tracking-[1.2px] text-white/45">
+                Follow us
+              </span>
+              <div className="flex gap-2.5">
+                {SOCIAL_LINKS.map(({ platform, href }) => (
+                  <a
+                    key={platform}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Follow AfriConnect on ${platform}`}
+                    title={platform}
+                    className="grid h-11 w-11 place-items-center rounded-full border border-white/20 bg-white/[.06] text-white transition-all duration-200 hover:-translate-y-0.5 hover:border-lime hover:bg-lime hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime"
+                  >
+                    <SocialIcon platform={platform} />
+                  </a>
+                ))}
               </div>
+            </div>
             </div>
           </Reveal>
         </div>
 
-        <div className="relative z-[2] border-t border-white/10 bg-black/10">
+        {/* <div className="relative z-[2] border-t border-white/10 bg-black/10">
           <div className="mx-auto grid max-w-site divide-y divide-white/10 px-[30px] sm:grid-cols-3 sm:divide-x sm:divide-y-0">
             {[
               ["One working day", "Typical response time"],
@@ -149,33 +190,33 @@ export default function ContactPage() {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
       </section>
 
-      <section id="project-brief" className="relative overflow-hidden bg-paper-2 py-[110px] md:py-[130px]">
+      <section id="project-brief" className="relative scroll-mt-20 overflow-hidden bg-paper-2 py-20 md:py-[130px]">
         <div className="dot-tex pointer-events-none absolute inset-0 opacity-25" />
         <div className="relative z-[2] mx-auto max-w-site px-[30px]">
-          <Reveal className="mb-14 grid gap-7 lg:grid-cols-[1fr_.72fr] lg:items-end">
+          <Reveal className="mb-10 grid gap-7 md:mb-14 lg:grid-cols-[1fr_.72fr] lg:items-end">
             <div>
               <span className="mb-[18px] inline-flex items-center gap-2.5 font-display text-[12.5px] font-semibold uppercase tracking-[1.5px] text-olive">
                 <i className="h-1.5 w-1.5 rounded-full bg-lime-2" />
                 Project brief
               </span>
               <h2 className="max-w-[700px] font-display text-[clamp(36px,4.8vw,56px)] font-extrabold leading-[1.02] tracking-[-1.8px] text-ink">
-                Start with the useful details.
+                Send an enquiry.
               </h2>
             </div>
-            <p className="max-w-[480px] text-[16px] leading-relaxed text-muted lg:justify-self-end">
+            {/* <p className="max-w-[480px] text-[16px] leading-relaxed text-muted lg:justify-self-end">
               You do not need a perfect brief. Tell us what the business needs,
               where the work is stuck and what a good result looks like.
-            </p>
+            </p> */}
           </Reveal>
 
           <div className="grid gap-7 lg:grid-cols-[1.15fr_.85fr] lg:items-start">
             <Reveal>
               <ContactForm />
             </Reveal>
-            <Reveal>
+            <Reveal className="hidden lg:block">
               <aside className="overflow-hidden rounded-[22px] border border-char/10 bg-white shadow-[0_16px_42px_rgba(52,55,59,.07)]">
                 <div className="border-b border-char/10 p-7 md:p-8">
                   <span className="font-display text-[10px] font-bold uppercase tracking-[1.1px] text-olive">
@@ -202,10 +243,10 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-char-2 py-[105px] text-white md:py-[120px]">
+      <section className="relative overflow-hidden bg-char-2 py-14 text-white md:py-[120px]">
         <div className="dot-tex-light pointer-events-none absolute inset-0 opacity-35" />
         <div className="relative z-[2] mx-auto grid max-w-site gap-8 px-[30px] lg:grid-cols-[1.2fr_.8fr] lg:items-stretch">
-          <Reveal>
+          <Reveal className="hidden md:block">
             <div className="h-full min-h-[420px] overflow-hidden rounded-[22px] border border-white/10 bg-char">
               <iframe
                 title="AfriConnect office location"
@@ -217,7 +258,7 @@ export default function ContactPage() {
             </div>
           </Reveal>
           <Reveal>
-            <div className="flex h-full min-h-[420px] flex-col rounded-[22px] border border-white/10 bg-char p-8 md:p-10">
+            <div className="flex h-full flex-col rounded-[22px] border border-white/10 bg-char p-7 md:min-h-[420px] md:p-10">
               <span className="font-display text-[10px] font-semibold uppercase tracking-[1.1px] text-lime">
                 Find us
               </span>

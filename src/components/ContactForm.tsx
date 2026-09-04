@@ -11,14 +11,6 @@ const SERVICES = [
   "Not sure / a mix",
 ];
 
-const BUDGETS = [
-  "Under R2 500",
-  "R2 500 – R10 000",
-  "R10 000 – R50 000",
-  "R50 000+",
-  "Not sure yet",
-];
-
 const FIELD =
   "w-full rounded-lg border border-[var(--line)] bg-paper px-4 py-3.5 text-[15px] text-ink outline-none transition-colors placeholder:text-muted/70 focus:border-char";
 const LABEL =
@@ -30,7 +22,7 @@ export default function ContactForm() {
     email: "",
     phone: "",
     service: "",
-    budget: "",
+    businessName: "",
     message: "",
   });
   const [errors, setErrors] = useState<Record<string, boolean>>({});
@@ -86,7 +78,7 @@ export default function ContactForm() {
               email: "",
               phone: "",
               service: "",
-              budget: "",
+              businessName: "",
               message: "",
             });
             setSent(false);
@@ -103,9 +95,39 @@ export default function ContactForm() {
     <form
       onSubmit={submit}
       noValidate
-      className="rounded-2xl border border-[var(--line)] bg-paper p-7 md:p-9"
+      className="relative overflow-hidden rounded-2xl border border-[var(--line)] bg-paper p-5 shadow-[0_16px_42px_rgba(52,55,59,.05)] sm:p-7 md:p-9"
     >
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-lime via-lime-2 to-brand" />
+      <div className="-mx-5 -mt-5 mb-6 flex items-center border-b border-[var(--line)] bg-paper-2/70 px-5 py-5 sm:-mx-7 sm:-mt-7 sm:mb-7 sm:justify-between sm:px-7 sm:py-6 md:-mx-9 md:-mt-9 md:mb-8 md:px-9">
+        <div className="flex items-center gap-3.5">
+          <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-lime text-ink shadow-[0_8px_20px_rgba(163,217,85,.22)]">
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              className="h-5 w-5 fill-none stroke-current"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M4 4h16v12H7l-3 3V4Z" />
+              <path d="M8 8h8M8 12h5" />
+            </svg>
+          </span>
+          <div>
+            <p className="font-display text-[17px] font-bold text-ink">
+              Your project details
+            </p>
+            <p className="mt-0.5 text-[12.5px] text-muted">
+              A few details are enough to get started.
+            </p>
+          </div>
+        </div>
+        <span className="hidden w-fit rounded-full border border-lime-2/20 bg-lime/15 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[.8px] text-olive sm:inline-flex">
+          * Required fields
+        </span>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
         <div className="sm:col-span-2">
           <label className={LABEL} htmlFor="name">
             Your name *
@@ -164,20 +186,16 @@ export default function ContactForm() {
         </div>
 
         <div>
-          <label className={LABEL} htmlFor="budget">
-            Budget
+          <label className={LABEL} htmlFor="businessName">
+            Business name (if applicable)
           </label>
-          <select
-            id="budget"
+          <input
+            id="businessName"
             className={FIELD}
-            value={form.budget}
-            onChange={(e) => set("budget", e.target.value)}
-          >
-            <option value="">Select a range…</option>
-            {BUDGETS.map((b) => (
-              <option key={b}>{b}</option>
-            ))}
-          </select>
+            value={form.businessName}
+            onChange={(e) => set("businessName", e.target.value)}
+            placeholder="e.g. Dube Trading"
+          />
         </div>
 
         <div className="sm:col-span-2">
@@ -203,13 +221,18 @@ export default function ContactForm() {
         </p>
       )}
 
-      <button
-        type="submit"
-        className="mt-6 inline-flex items-center gap-2.5 rounded-lg bg-char px-[30px] py-[15px] font-display text-[15px] font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_14px_30px_rgba(52,55,59,.25)]"
-      >
-        Send message
-        <Arrow stroke="#fff" />
-      </button>
+      <div className="mt-7 flex flex-col gap-4 border-t border-[var(--line)] pt-6 sm:flex-row sm:items-center sm:justify-between">
+        <button
+          type="submit"
+          className="inline-flex w-full items-center justify-center gap-2.5 rounded-lg bg-char px-[30px] py-[15px] font-display text-[15px] font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_14px_30px_rgba(52,55,59,.25)] sm:w-auto"
+        >
+          Send message
+          <Arrow stroke="#fff" />
+        </button>
+        <p className="max-w-[230px] text-[11.5px] leading-relaxed text-muted">
+          Your details stay private and are only used to respond to your enquiry.
+        </p>
+      </div>
     </form>
   );
 }

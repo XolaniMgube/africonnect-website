@@ -42,7 +42,7 @@ export default function PortfolioGrid() {
                 </span>
               </Link>
 
-              <div className="flex flex-1 flex-col p-7">
+              <div className="flex flex-1 flex-col p-6 sm:p-7">
                 <div className="flex items-center justify-between gap-5">
                   <span className={`font-display text-[10px] font-bold ${accent.text}`}>
                     {String(index + 1).padStart(2, "0")}
@@ -55,7 +55,7 @@ export default function PortfolioGrid() {
                 <p className="mt-3 text-[14.5px] leading-relaxed text-muted">
                   {project.blurb}
                 </p>
-                <div className="mt-6 flex flex-wrap gap-2">
+                <div className="mt-6 hidden flex-wrap gap-2 sm:flex">
                   {project.scope.slice(0, 3).map((item) => (
                     <span
                       key={item}

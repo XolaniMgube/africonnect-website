@@ -4,6 +4,7 @@ import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import HashScroll from "@/components/HashScroll";
 
 const sora = Sora({
   subsets: ["latin"],
@@ -44,6 +45,7 @@ export default function RootLayout({
     <html lang="en" className={`${sora.variable} ${dmSans.variable}`}>
       <body className="font-body">
         <Nav />
+        <HashScroll />
         {children}
         <Footer />
         <WhatsAppButton />

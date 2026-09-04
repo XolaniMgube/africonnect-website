@@ -414,7 +414,7 @@ const PORTFOLIO_ARCHIVE: Project[] = [
     name: "Sekgabe Turnkey",
     slug: "sekgabe-turnkey",
     filter: "Branding",
-    cat: "Logo identity",
+    cat: "Logo Design",
     label: "SEKGABE",
     bg: "from-[#20231f] to-[#101210]",
     image: "/portfolio/sekgabe-turnkey.png",
@@ -435,7 +435,7 @@ const PORTFOLIO_ARCHIVE: Project[] = [
     name: "Mokaleng",
     slug: "mokaleng",
     filter: "Web",
-    cat: "Website",
+    cat: "Business Website",
     label: "MOKALENG",
     bg: "from-[#EFF1E8] to-[#DCE2CB]",
     image: "/portfolio/mokaleng-website.png",
@@ -705,10 +705,23 @@ export const PORTFOLIO: Project[] = PORTFOLIO_ARCHIVE.slice(0, 3);
 
 export const CONTACT = {
   address: "20978 Mercury Street, Vosloorus, Boksburg, 1475",
-  phone: "+27 68 251 5478",
+  phone: "+27 69 796 1882",
   email: "info@africonnectsolutions.co.za",
-  hours: "Weekdays: 7:30 – 18:00",
+  hours:
+    "Weekdays: 07:30 – 17:30 · Saturday: 08:00 – 15:00 · Sunday: 09:00 – 14:00",
 };
+
+export const SOCIAL_LINKS = [
+  {
+    platform: "Facebook",
+    href: "https://www.facebook.com/p/AfriConnect-100064153149967/",
+  },
+  { platform: "Instagram", href: "https://www.instagram.com/afri_connect/" },
+  {
+    platform: "TikTok",
+    href: "https://www.tiktok.com/@africonnectsolutions",
+  },
+] as const;
 
 /* -------------------------------------------------------------------------- */
 /*  ABOUT PAGE                                                                 */
@@ -716,9 +729,9 @@ export const CONTACT = {
 /* -------------------------------------------------------------------------- */
 
 export const ABOUT = {
-  image: "/about-us-3.png" as string | null,
+  image: "/new-about-image.png" as string | null,
   imageAlt:
-    "The AfriConnect team working together in their Vosloorus office",
+    "Two AfriConnect team members working together in the Vosloorus office",
   // short narrative shown in the "who we are" block
   story: [
     "AfriConnect was founded in 2018 in Vosloorus to solve a problem too many small businesses face: being passed from one supplier to the next — one for the logo, another for the website, a third for printing, and someone else for IT. No single partner was accountable for the whole picture.",
@@ -726,9 +739,9 @@ export const ABOUT = {
     "Today, we support businesses across brand, print, web and day-to-day systems. We remain local, hands-on and personally invested in every client we serve.",
   ],
   mission:
-    "To give every South African business — big or small — affordable access to the design, technology and systems they need to compete, look professional and grow.",
+    "To be a partner in your business growth and success by implementing our best expertise and creative solutions, using our smart digital tools, creating value for your brand.",
   vision:
-    "To be the most trusted one-stop business partner for SMEs across South Africa, connecting brand, technology and people under one roof.",
+    "To be everyone's one stop business solution centre, be recognized as one of the top creative and printing agency in South Africa by providing the best creative ideas for business and and individual brands.",
 };
 
 export const STATS = [
@@ -765,56 +778,60 @@ export const VALUES = [
   },
 ];
 
+type TeamMember = {
+  name: string;
+  role: string;
+  bio: string;
+  grad: string;
+  photo: string | null;
+  photoAlt: string;
+  photoLayout?: "cover" | "inset" | "portrait";
+};
+
 // Initials-based avatars with brand gradients — replace names/roles with the
 // real team. Add a `photo` field later and swap the gradient block for an image.
-export const TEAM = [
+export const TEAM: TeamMember[] = [
   {
     name: "Mitchel Shabangu",
-    role: "Director",
+    role: "Operations Director",
     bio: "Sets the direction of the business and keeps clients, people and delivery moving together.",
     grad: "from-[#5E7327] to-[#8FC93A]",
-    photo: "/Mitch.png" as string | null,
+    photo: "/team/mitchel-2.png" as string | null,
     photoAlt: "Head-and-shoulders portrait of Mitchel Shabangu",
   },
   {
-    name: "Sibusiso",
+    name: "Sibusiso Thwayine",
     role: "Creative Director",
     bio: "Leads the look and feel of every brand — from logo and identity to layout.",
     grad: "from-[#1A1C1F] to-[#34373B]",
-    photo: "/Sibusiso.png" as string | null,
+    photo: "/team/sibusiso-2.png" as string | null,
     photoAlt: "Head-and-shoulders portrait of Sibusiso",
+    photoLayout: "inset",
   },
   {
-    name: "Xolani",
-    role: "Lead Developer",
+    name: "Xolani Mgube",
+    role: "Software Developer",
     bio: "Builds the websites, stores, dashboards and custom systems clients run on.",
     grad: "from-[#34373B] to-[#4a4e54]",
-    photo: "/Xolani.png" as string | null,
+    photo: "/team/xolani-2.png" as string | null,
     photoAlt: "Head-and-shoulders portrait of Xolani",
   },
   {
-    name: "Inathi",
+    name: "Inathi Cekiso",
     role: "Administrator",
     bio: "Handles admin, scheduling and client paperwork so nothing slips through.",
     grad: "from-[#8FC93A] to-[#A3D955]",
-    photo: null as string | null,
-    photoAlt: "Head-and-shoulders portrait of Inathi",
+    photo: "/team/Inathi.png" as string | null,
+    photoAlt: "Head-and-shoulders portrait of Inathi Cekiso",
+    photoLayout: "portrait",
   },
   {
-    name: "Londiwe",
-    role: "Creative Intern",
-    bio: "Supports the creative team across design development, artwork and day-to-day production tasks.",
-    grad: "from-[#9D8CFF] to-[#6D5BC5]",
-    photo: null as string | null,
-    photoAlt: "Head-and-shoulders portrait of Londiwe",
-  },
-  {
-    name: "Kgotso",
-    role: "Development Intern",
-    bio: "Supports website builds, technical testing and the detail work behind reliable digital experiences.",
+    name: "Kgotso Mokoena",
+    role: "Technical Support",
+    bio: "Keeps the office systems running and helps clients with day-to-day IT issues.",
     grad: "from-[#3B9FE0] to-[#2c6fa0]",
-    photo: null as string | null,
-    photoAlt: "Head-and-shoulders portrait of Kgotso",
+    photo: "/team/Kgotso.png" as string | null,
+    photoAlt: "Head-and-shoulders portrait of Kgotso Mokoena",
   },
 ];
 
@@ -859,32 +876,32 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
       {
         name: "Logo & brand identity",
         desc: "A distinctive logo built around your business, with the files you need for every use.",
-        price: "from R1 500",
+        price: "R1 500 – R5 000",
       },
       {
         name: "Brand identity kit",
         desc: "Logo, colour palette, fonts and usage guide so everything stays consistent.",
-        price: "from R3 500",
+        price: "R3 500 – R8 500",
       },
       {
         name: "Graphic design",
         desc: "Professional creative for adverts, promotions, documents and everyday business communication.",
-        price: "from R450",
+        price: "R450 – R2 500",
       },
       {
         name: "Social media design",
         desc: "On-brand templates and monthly post packs that keep your digital presence sharp.",
-        price: "from R1 800/mo",
+        price: "R1 800 – R6 000/mo",
       },
       {
         name: "Company profiles & presentations",
         desc: "Polished documents that explain your business, capabilities and offer professionally.",
-        price: "from R1 200",
+        price: "R1 200 – R4 500",
       },
       {
         name: "Campaign creative",
         desc: "A connected visual direction for promotions, launches, events and seasonal campaigns.",
-        price: "from R850",
+        price: "R850 – R5 000",
       },
     ],
   },
@@ -899,32 +916,32 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
       {
         name: "Business cards & stationery",
         desc: "Business cards, letterheads, invoice books and other essentials designed and printed.",
-        price: "from R350",
+        price: "R350 – R2 500",
       },
       {
         name: "Flyers, posters & brochures",
         desc: "Marketing material for campaigns, events, menus, promotions and company information.",
-        price: "from R450",
+        price: "R450 – R4 500",
       },
       {
         name: "T-shirt & apparel printing",
         desc: "Branded staff uniforms, event clothing and workwear produced in the quantity you need.",
-        price: "from R120 each",
+        price: "R120 – R450 each",
       },
       {
         name: "Vehicle branding & wraps",
         desc: "Partial decals, vehicle graphics and full wraps that turn every trip into advertising.",
-        price: "from R2 500",
+        price: "R2 500 – R18 000",
       },
       {
         name: "Banners & pull-ups",
         desc: "Pull-up banners, PVC banners, flags and backdrops for events and storefronts.",
-        price: "from R650",
+        price: "R650 – R4 500",
       },
       {
         name: "Signage & large-format printing",
         desc: "Shopfront signs, boards, window graphics, posters and exhibition graphics at scale.",
-        price: "from R1 500",
+        price: "R1 500 – R25 000",
       },
     ],
   },
@@ -937,34 +954,34 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
     accent: "brand",
     items: [
       {
+        name: "Landing pages",
+        desc: "Focused pages for campaigns, promotions, lead generation and product launches.",
+        price: "R2 500 – R8 000",
+      },
+      {
         name: "Business website",
         desc: "A fast, mobile-friendly website that explains your offer and brings in enquiries.",
-        price: "from R4 500",
+        price: "R4 500 – R15 000",
       },
       {
         name: "E-commerce store",
         desc: "Sell online with product management, secure payments and delivery options built in.",
-        price: "from R9 000",
+        price: "R9 000 – R35 000",
       },
       {
-        name: "Landing pages",
-        desc: "Focused pages for campaigns, promotions, lead generation and product launches.",
-        price: "from R2 500",
+        name: "Dashboards",
+        desc: "Custom dashboards that bring your business data together in one place.",
+        price: "R4 500 – R20 000",
       },
       {
-        name: "Website redesign",
-        desc: "A clearer, more modern experience for businesses whose current website has fallen behind.",
-        price: "from R4 500",
+        name: "e-Portals",
+        desc: "Central digital space where users can securely access documents, business tools anytime",
+        price: "R1 200 – R4 500/yr",
       },
       {
         name: "Website care & maintenance",
         desc: "Content updates, security, backups and ongoing improvements after launch.",
-        price: "from R650/mo",
-      },
-      {
-        name: "Hosting, domains & business email",
-        desc: "Reliable hosting, domain registration, SSL and professional company inboxes.",
-        price: "from R1 200/yr",
+        price: "R650 – R2 500/mo",
       },
     ],
   },
@@ -977,34 +994,34 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
     accent: "char",
     items: [
       {
-        name: "Custom dashboards & systems",
-        desc: "Internal tools and dashboards designed around your team, information and workflow.",
-        price: "from R15 000",
+        name: "Business Profiles",
+        desc: "Professional company profiles and supplier documents that make your business look credible.",
+        price: "R15 000 – R60 000",
       },
-      {
-        name: "Portals & web applications",
-        desc: "Secure customer portals and purpose-built applications for business-critical processes.",
-        price: "from R25 000",
-      },
-      {
-        name: "Booking & workflow tools",
-        desc: "Practical systems that reduce repetitive admin and keep work moving between people.",
-        price: "from R12 000",
-      },
+      // {
+      //   name: "Portals & web applications",
+      //   desc: "Secure customer portals and purpose-built applications for business-critical processes.",
+      //   price: "R25 000 – R100 000",
+      // },
+      // {
+      //   name: "Booking & workflow tools",
+      //   desc: "Practical systems that reduce repetitive admin and keep work moving between people.",
+      //   price: "R12 000 – R50 000",
+      // },
       {
         name: "Company registration (CIPC)",
         desc: "Register your (Pty) Ltd, including name reservation and share certificates.",
-        price: "from R850",
+        price: "R850 – R1 500",
       },
       {
         name: "Business plans & proposals",
         desc: "Funding-ready business plans, financial projections and professional tender proposals.",
-        price: "from R2 500",
+        price: "R2 500 – R10 000",
       },
       {
         name: "Tax, SARS & B-BBEE compliance",
         desc: "Essential registrations, affidavits and guidance to help you trade compliantly.",
-        price: "from R750",
+        price: "R750 – R3 500",
       },
     ],
   },

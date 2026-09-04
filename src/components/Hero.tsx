@@ -10,7 +10,7 @@ const PROOF = [
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden bg-hero-dark pb-0 pt-20 text-white">
+    <section className="relative overflow-hidden bg-hero-dark pb-0 pt-24 text-white">
       <div className="dot-tex-light pointer-events-none absolute inset-0 opacity-45" />
       <div
         className="pointer-events-none absolute -right-16 -top-36 h-[620px] w-[620px] rounded-full blur-[120px]"
@@ -27,9 +27,9 @@ export default function Hero() {
         }}
       />
 
-      <div className="relative z-[2] mx-auto grid min-h-[730px] max-w-site items-center gap-14 px-[30px] py-20 lg:grid-cols-[1.04fr_.96fr] lg:py-24">
-        <div className="relative z-[2]">
-          <span className="mb-6 inline-flex items-center gap-2.5 font-display text-[12.5px] font-semibold uppercase tracking-[1.5px] text-lime">
+      <div className="relative z-[2] mx-auto grid min-h-[calc(100svh-6rem)] max-w-site items-stretch gap-0 px-[30px] pb-10 pt-10 sm:min-h-[640px] sm:gap-14 sm:py-20 lg:min-h-[730px] lg:grid-cols-[1.04fr_.96fr] lg:items-center lg:py-24">
+        <div className="relative z-[2] flex flex-col sm:block">
+          <span className="mb-5 inline-flex items-center gap-2.5 font-display text-[11px] font-semibold uppercase tracking-[1.35px] text-lime sm:mb-6 sm:text-[12.5px] sm:tracking-[1.5px]">
             <span className="flex gap-[3px]" aria-hidden>
               <i className="h-[5px] w-[5px] rounded-full bg-lime" />
               <i className="h-[5px] w-[5px] rounded-full bg-lime" />
@@ -38,43 +38,46 @@ export default function Hero() {
             Your best solution. Est 2018
           </span>
 
-          <h1 className="max-w-[690px] font-display text-[clamp(45px,6.2vw,74px)] font-extrabold leading-[.98] tracking-[-2.7px] text-white">
-            Everything you need,{" "}
-            <span className="text-lime">Connected.</span>
+          <h1 className="absolute inset-x-0 top-[46%] w-full max-w-[690px] -translate-y-1/2 text-center font-display text-[clamp(39px,12vw,74px)] font-extrabold leading-[2.08] tracking-[-1.9px] text-white max-[360px]:top-[40%] max-[360px]:text-[35px] max-[360px]:leading-[1.9] sm:static sm:translate-y-0 sm:text-left sm:leading-[.98] sm:tracking-[-2.7px]">
+            <span className="block sm:inline">Everything</span>{" "}
+            <span className="block sm:inline">you need,</span>{" "}
+            <span className="block text-lime sm:inline">Connected</span>
           </h1>
 
-          <p className="mt-8 max-w-[600px] text-[clamp(17.5px,2vw,20px)] leading-relaxed text-white/70">
-            Design, Print, Web, Systems and Support.
-          </p>
+          <div className="mb-14 mt-auto max-w-[370px] pt-10 sm:mb-0 sm:mt-8 sm:max-w-none sm:pt-0">
+            <p className="max-w-[600px] text-center text-[clamp(16px,2vw,20px)] leading-relaxed text-white/75 sm:text-left">
+              Design, Print, Web and Systems.
+            </p>
 
-          <div className="mt-9 flex flex-wrap items-center gap-4">
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2.5 rounded-lg bg-lime px-[30px] py-[15px] font-display text-[15px] font-semibold text-ink transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_14px_34px_rgba(163,217,85,.35)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime"
-            >
-              Discuss your project
-              <Arrow stroke="#1A1C1F" />
-            </Link>
-            <Link
-              href="/portfolio"
-              className="group inline-flex items-center gap-2.5 rounded-lg px-2 py-3 font-display text-[15px] font-semibold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime"
-            >
-              See what we&apos;ve built
-              <Arrow
-                stroke="#fff"
-                size={18}
-                className="transition-transform duration-200 group-hover:translate-x-1"
-              />
-            </Link>
+            <div className="mt-4 flex flex-col items-stretch gap-3 sm:mt-9 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+              <Link
+                href="/contact#project-brief"
+                className="inline-flex items-center justify-center gap-2.5 rounded-lg bg-lime px-[30px] py-[15px] font-display text-[15px] font-semibold text-ink shadow-[0_12px_30px_rgba(163,217,85,.18)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_14px_34px_rgba(163,217,85,.35)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime"
+              >
+                Discuss your project
+                <Arrow stroke="#1A1C1F" />
+              </Link>
+              <Link
+                href="/portfolio#selected-work"
+                className="group inline-flex items-center justify-center gap-2.5 rounded-lg border border-white/15 bg-white/[.045] px-[30px] py-[14px] font-display text-[15px] font-semibold text-white backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-white/30 hover:bg-white/[.08] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime sm:border-transparent sm:bg-transparent sm:px-2 sm:py-3 sm:backdrop-blur-none"
+              >
+                See what we&apos;ve built
+                <Arrow
+                  stroke="#fff"
+                  size={18}
+                  className="transition-transform duration-200 group-hover:translate-x-1"
+                />
+              </Link>
+            </div>
           </div>
         </div>
 
-        <div className="pointer-events-none absolute left-1/2 top-[145px] z-[1] w-[480px] -translate-x-[42%] opacity-[.28] [&_.pulse-tag]:hidden sm:left-auto sm:right-[-95px] sm:top-[105px] sm:w-[540px] sm:translate-x-0 sm:opacity-[.32] lg:pointer-events-auto lg:relative lg:left-auto lg:right-auto lg:top-auto lg:z-auto lg:w-auto lg:translate-x-0 lg:opacity-100 lg:[&_.pulse-tag]:flex">
+        <div className="pointer-events-none absolute left-1/2 top-[95px] z-[1] w-[600px] -translate-x-1/2 opacity-[.78] [&_.pulse-tag]:hidden sm:top-[80px] sm:w-[540px] sm:opacity-[.42] lg:pointer-events-auto lg:relative lg:left-auto lg:right-auto lg:top-auto lg:z-auto lg:w-auto lg:translate-x-0 lg:opacity-100 lg:[&_.pulse-tag]:flex">
           <Globe />
         </div>
       </div>
 
-      <div className="relative z-[2] border-t border-white/10 bg-black/10">
+      <div className="relative z-[2] hidden border-t border-white/10 bg-black/10 sm:block">
         <div className="mx-auto grid max-w-site divide-y divide-white/10 px-[30px] sm:grid-cols-3 sm:divide-x sm:divide-y-0">
           {PROOF.map((item, i) => (
             <div
