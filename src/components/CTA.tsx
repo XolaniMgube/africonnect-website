@@ -6,7 +6,7 @@ export default function CTA({
   title = "Let's connect the dots.",
   text = "Tell us what you need. We'll come back with a plan and a price — no jargon, no pressure.",
   buttonLabel = "Get a free quote",
-  href = "/contact",
+  href = "/contact#project-brief",
 }: {
   title?: string;
   text?: string;
@@ -14,10 +14,10 @@ export default function CTA({
   href?: string;
 }) {
   return (
-    <section className="border-t border-char/5 bg-paper py-[88px] md:py-[104px]">
+    <section className="border-t border-char/5 bg-paper py-16 md:py-[104px]">
       <div className="mx-auto max-w-site px-[30px]">
         <Reveal>
-          <div className="relative overflow-hidden rounded-[22px] border border-char/10 bg-paper-2 px-7 py-10 shadow-[0_18px_50px_rgba(52,55,59,.06)] md:px-12 md:py-12">
+          <div className="relative overflow-hidden rounded-[22px] border border-char/10 bg-paper-2 px-6 py-8 shadow-[0_18px_50px_rgba(52,55,59,.06)] md:px-12 md:py-12">
             <div className="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full border-[42px] border-lime/10" />
             <div className="pointer-events-none absolute bottom-0 right-[22%] h-px w-32 bg-gradient-to-r from-transparent via-lime-2/40 to-transparent" />
 
@@ -37,7 +37,7 @@ export default function CTA({
 
               <Link
                 href={href}
-                className="group inline-flex w-fit shrink-0 items-center gap-2.5 rounded-lg bg-char px-6 py-3.5 font-display text-[14px] font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-ink hover:shadow-[0_12px_26px_rgba(52,55,59,.20)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-char"
+                className="group inline-flex w-full shrink-0 items-center justify-center gap-2.5 rounded-lg bg-char px-6 py-3.5 font-display text-[14px] font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-ink hover:shadow-[0_12px_26px_rgba(52,55,59,.20)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-char sm:w-fit"
               >
                 {buttonLabel}
                 <Arrow

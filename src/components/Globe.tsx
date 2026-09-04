@@ -439,14 +439,14 @@ export default function Globe({ bare = false }: { bare?: boolean }) {
       <canvas ref={canvasRef} className="h-full w-full" aria-hidden />
       {!bare && (
         <>
-          <div className="pulse-tag absolute right-1 top-10">
+          {/* <div className="pulse-tag absolute right-1 top-10">
             <i />
             5 connected routes
-          </div>
-          <div className="pulse-tag absolute bottom-10 left-0">
+          </div> */}
+          {/* <div className="pulse-tag absolute bottom-10 left-0">
             <i />
             From South Africa
-          </div>
+          </div> */}
         </>
       )}
     </div>

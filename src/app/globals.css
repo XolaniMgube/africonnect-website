@@ -46,6 +46,16 @@ a {
   height: 310px;
 }
 
+@media (max-width: 767px) {
+  .work-card {
+    min-height: 430px;
+  }
+
+  .work-card-visual {
+    height: 235px;
+  }
+}
+
 .about-page-title {
   font-size: clamp(42px, 6vw, 70px);
   line-height: 0.98;

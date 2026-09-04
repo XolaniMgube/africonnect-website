@@ -47,7 +47,7 @@ export default function ResourcesPage() {
 
   return (
     <main>
-      <section className="relative overflow-hidden bg-char-2 pb-0 pt-20 text-white">
+      <section className="relative overflow-hidden bg-char-2 pb-0 pt-24 text-white">
         <div className="dot-tex-light pointer-events-none absolute inset-0 opacity-40" />
         <div className="pointer-events-none absolute -right-24 -top-32 h-[620px] w-[620px] rounded-full bg-brand/15 blur-[135px]" />
         <div className="pointer-events-none absolute -bottom-44 -left-28 h-[520px] w-[520px] rounded-full bg-lime/10 blur-[125px]" />

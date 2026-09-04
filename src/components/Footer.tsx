@@ -1,12 +1,12 @@
 import Link from "next/link";
 import Logo from "./Logo";
-import { CONTACT } from "@/lib/content";
+import SocialIcon from "./SocialIcon";
+import { CONTACT, SOCIAL_LINKS } from "@/lib/content";
 
 const COMPANY = [
   { href: "/services", label: "Services" },
   { href: "/portfolio", label: "Our work" },
   { href: "/about", label: "About us" },
-  { href: "/resources", label: "Resources" },
   // { href: "/portal", label: "Client login" }, // disabled for now
 ];
 const SERVICES_LINKS = [
@@ -16,23 +16,12 @@ const SERVICES_LINKS = [
   { href: "/services#business", label: "Business & systems" },
 ];
 
-function Social({ children }: { children: React.ReactNode }) {
-  return (
-    <a
-      href="#"
-      className="grid h-10 w-10 place-items-center rounded-lg border border-white/15 transition-colors hover:border-lime hover:bg-lime [&:hover_svg]:stroke-ink"
-    >
-      {children}
-    </a>
-  );
-}
-
 export default function Footer() {
   return (
-    <footer className="bg-char-2 pb-[34px] pt-[76px] text-white">
-      <div className="mx-auto max-w-site px-[30px]">
-        <div className="grid gap-11 border-b border-white/10 pb-12 md:grid-cols-2 lg:grid-cols-[1.7fr_1fr_1fr_1.3fr]">
-          <div>
+    <footer className="bg-char-2 pb-[30px] pt-14 text-white sm:pt-[76px]">
+      <div className="mx-auto max-w-site px-5 sm:px-[30px]">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 border-b border-white/10 pb-10 md:grid-cols-2 md:gap-11 md:pb-12 lg:grid-cols-[1.7fr_1fr_1fr_1.3fr]">
+          <div className="col-span-2 md:col-span-1">
             <div className="mb-5">
               <Logo className="text-white/70" />
             </div>
@@ -72,7 +61,7 @@ export default function Footer() {
             ))}
           </div>
 
-          <div>
+          <div className="col-span-2 md:col-span-1">
             <h5 className="mb-5 font-display text-[15px] font-semibold">
               Get in touch
             </h5>
@@ -91,29 +80,25 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-3.5 pt-7">
+        <div className="flex flex-col items-start justify-between gap-5 pt-7 sm:flex-row sm:items-center">
           <p className="text-[13.5px] text-white/50">
             © {new Date().getFullYear()} AfriConnect (Pty) Ltd. All rights
             reserved.
           </p>
           <div className="flex gap-3">
-            <Social>
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#9aa0a6" strokeWidth="2">
-                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2zM4 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" />
-              </svg>
-            </Social>
-            <Social>
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#9aa0a6" strokeWidth="2">
-                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-              </svg>
-            </Social>
-            <Social>
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#9aa0a6" strokeWidth="2">
-                <rect x="2" y="2" width="20" height="20" rx="5" />
-                <circle cx="12" cy="12" r="4" />
-                <circle cx="17.5" cy="6.5" r="1" fill="#9aa0a6" stroke="none" />
-              </svg>
-            </Social>
+            {SOCIAL_LINKS.map(({ platform, href }) => (
+              <a
+                key={platform}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Follow AfriConnect on ${platform}`}
+                title={platform}
+                className="grid h-10 w-10 place-items-center rounded-full border border-white/15 text-white/60 transition-all duration-200 hover:-translate-y-0.5 hover:border-lime hover:bg-lime hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime"
+              >
+                <SocialIcon platform={platform} />
+              </a>
+            ))}
           </div>
         </div>
       </div>

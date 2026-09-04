@@ -11,7 +11,6 @@ const LINKS = [
   { href: "/about", label: "About" },
   { href: "/services", label: "Services" },
   { href: "/portfolio", label: "Portfolio" },
-  { href: "/resources", label: "Resources" },
 ];
 
 // mobile menu also lists Contact (desktop has the "Contact Us" button instead)
@@ -54,9 +53,14 @@ export default function Nav() {
         solid ? "border-b border-[var(--line)] bg-paper/85 backdrop-blur-md" : ""
       }`}
     >
-      <div className="mx-auto flex h-20 max-w-site items-center justify-between px-[30px]">
+      <div
+        className={`mx-auto flex max-w-site items-center justify-between px-5 transition-[height,padding] duration-300 sm:px-[30px] ${
+          solid ? "h-16" : "h-24 pt-2"
+        }`}
+      >
         <Link href="/" aria-label="AfriConnect home">
           <Logo
+            compact={solid}
             className={`transition-colors duration-300 ${
               solid ? "text-char" : "text-white"
             }`}
@@ -68,8 +72,10 @@ export default function Nav() {
             <Link
               key={l.href}
               href={l.href}
-              className={`group relative text-[15px] font-medium transition-colors duration-300 ${
-                solid ? "text-char" : "text-white/80 hover:text-white"
+              className={`group relative font-medium transition-all duration-300 ${
+                solid
+                  ? "text-[14px] text-char"
+                  : "text-[15px] text-white/80 hover:text-white"
               }`}
             >
               {l.label}
@@ -94,8 +100,10 @@ export default function Nav() {
 
           <Link
             href="/contact"
-            className={`rounded-lg px-6 py-3 text-[14px] font-semibold transition-all duration-300 hover:-translate-y-0.5 ${
-              solid ? "bg-char text-white" : "bg-lime text-ink"
+            className={`rounded-lg font-semibold transition-all duration-300 hover:-translate-y-0.5 ${
+              solid
+                ? "bg-char px-5 py-2.5 text-[13px] text-white"
+                : "bg-lime px-6 py-3 text-[14px] text-ink"
             }`}
           >
             Contact Us
@@ -104,14 +112,16 @@ export default function Nav() {
 
         <button
           aria-label="Toggle menu"
+          aria-expanded={open}
+          aria-controls="mobile-menu"
           onClick={() => setOpen((v) => !v)}
-          className="flex flex-col gap-[5px] p-2 lg:hidden"
+          className="flex h-11 w-11 flex-col items-center justify-center gap-[5px] transition-all duration-300 lg:hidden"
         >
           {[0, 1, 2].map((i) => (
             <span
               key={i}
-              className={`h-0.5 w-6 rounded transition-colors ${
-                solid ? "bg-char" : "bg-white"
+              className={`h-0.5 rounded transition-all duration-300 ${
+                solid ? "w-5 bg-char" : "w-6 bg-white"
               }`}
             />
           ))}
@@ -123,7 +133,7 @@ export default function Nav() {
         backdrop-blur (which becomes a containing block when scrolled) can't
         collapse this fixed overlay */}
     {open && (
-        <div className="menu-overlay fixed inset-0 z-[110] flex flex-col overflow-hidden bg-hero-dark text-white lg:hidden">
+        <div id="mobile-menu" className="menu-overlay fixed inset-0 z-[110] flex flex-col overflow-y-auto overflow-x-hidden bg-hero-dark text-white lg:hidden">
           <div className="dot-tex-light pointer-events-none absolute inset-0 opacity-50" />
           <div
             className="pointer-events-none absolute -right-16 -top-24 h-80 w-80 rounded-full blur-[100px]"
@@ -141,7 +151,7 @@ export default function Nav() {
           />
 
           {/* top bar */}
-          <div className="relative z-[2] flex h-20 items-center justify-between px-[30px]">
+          <div className="relative z-[2] flex h-20 items-center justify-between px-5 sm:px-[30px]">
             <Link
               href="/"
               aria-label="AfriConnect home"
@@ -169,7 +179,7 @@ export default function Nav() {
           </div>
 
           {/* links */}
-          <nav className="relative z-[2] flex flex-1 flex-col justify-center px-[30px]">
+          <nav className="relative z-[2] flex flex-1 flex-col justify-center px-5 sm:px-[30px]">
             {MOBILE_LINKS.map((l, i) => {
               const active = isActive(l.href);
               return (
@@ -197,11 +207,11 @@ export default function Nav() {
 
           {/* bottom: CTA + contact */}
           <div
-            className="menu-item relative z-[2] px-[30px] pb-10"
+            className="menu-item relative z-[2] px-5 pb-8 sm:px-[30px] sm:pb-10"
             style={{ animationDelay: `${0.06 * (MOBILE_LINKS.length + 1)}s` }}
           >
             <Link
-              href="/contact"
+              href="/contact#project-brief"
               onClick={() => setOpen(false)}
               className="flex items-center justify-center rounded-xl bg-lime px-6 py-4 font-display text-[16px] font-semibold text-ink transition-transform duration-200 hover:-translate-y-0.5"
             >

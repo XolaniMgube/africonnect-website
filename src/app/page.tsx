@@ -3,7 +3,6 @@ import Services from "@/components/Services";
 import FeaturedCaseStudy from "@/components/FeaturedCaseStudy";
 import Capabilities from "@/components/Capabilities";
 import AboutShowcase from "@/components/AboutShowcase";
-import FeaturedResource from "@/components/FeaturedResource";
 import Work from "@/components/Work";
 import CTA from "@/components/CTA";
 
@@ -15,8 +14,8 @@ export default function Home() {
       {/* <FeaturedCaseStudy /> */}
       {/* <Capabilities /> */}
       <AboutShowcase />
-      <FeaturedResource />
       <Work />
+
       <CTA
         title="Have a business problem technology can solve?"
         text="Tell us where the work is getting stuck. We'll help you turn it into a clear, practical next step."
