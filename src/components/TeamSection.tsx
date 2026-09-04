@@ -1,12 +1,29 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TEAM } from "@/lib/content";
 import Reveal from "./Reveal";
 
+const MOBILE_CAROUSEL_MEMBERS = [...TEAM, TEAM[0]];
+
 export default function TeamSection() {
+  const [activeSlide, setActiveSlide] = useState(0);
   const teamTrackRef = useRef<HTMLDivElement>(null);
+
+  const scrollToMember = (
+    index: number,
+    behavior: ScrollBehavior = "smooth",
+  ) => {
+    const track = teamTrackRef.current;
+    const card = track?.children[index];
+    if (!(track instanceof HTMLElement) || !(card instanceof HTMLElement)) return;
+
+    const leftPadding =
+      Number.parseFloat(window.getComputedStyle(track).paddingLeft) || 0;
+    track.scrollTo({ left: card.offsetLeft - leftPadding, behavior });
+    setActiveSlide(index % TEAM.length);
+  };
 
   useEffect(() => {
     const track = teamTrackRef.current;
@@ -16,6 +33,33 @@ export default function TeamSection() {
     const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     let isVisible = false;
     let intervalId: number | undefined;
+    let scrollFrameId: number | undefined;
+    let scrollSettleId: number | undefined;
+
+    const cards = Array.from(track.children).filter(
+      (child): child is HTMLElement => child instanceof HTMLElement,
+    );
+
+    if (mobileQuery.matches) {
+      track.scrollLeft = 0;
+      setActiveSlide(0);
+    }
+
+    const getCardPositions = () => {
+      const leftPadding =
+        Number.parseFloat(window.getComputedStyle(track).paddingLeft) || 0;
+      return cards.map((card) => card.offsetLeft - leftPadding);
+    };
+
+    const getClosestIndex = () => {
+      const positions = getCardPositions();
+      return positions.reduce((closestIndex, position, index) =>
+        Math.abs(position - track.scrollLeft) <
+        Math.abs(positions[closestIndex] - track.scrollLeft)
+          ? index
+          : closestIndex,
+      0);
+    };
 
     const stopRotation = () => {
       if (intervalId !== undefined) {
@@ -25,25 +69,17 @@ export default function TeamSection() {
     };
 
     const showNextMember = () => {
-      const cards = Array.from(track.children).filter(
-        (child): child is HTMLElement => child instanceof HTMLElement,
-      );
       if (cards.length < 2) return;
 
-      const leftPadding = Number.parseFloat(window.getComputedStyle(track).paddingLeft) || 0;
-      const cardPositions = cards.map((card) => card.offsetLeft - leftPadding);
-      const currentIndex = cardPositions.reduce((closestIndex, position, index) =>
-        Math.abs(position - track.scrollLeft) <
-        Math.abs(cardPositions[closestIndex] - track.scrollLeft)
-          ? index
-          : closestIndex,
-      0);
+      const cardPositions = getCardPositions();
+      const currentIndex = getClosestIndex();
       const nextIndex = (currentIndex + 1) % cards.length;
 
       track.scrollTo({
         left: cardPositions[nextIndex],
         behavior: reducedMotionQuery.matches ? "auto" : "smooth",
       });
+      setActiveSlide(nextIndex % TEAM.length);
     };
 
     const syncRotation = () => {
@@ -51,6 +87,27 @@ export default function TeamSection() {
       if (isVisible && mobileQuery.matches && document.visibilityState === "visible") {
         intervalId = window.setInterval(showNextMember, 3000);
       }
+    };
+
+    const handleScroll = () => {
+      if (!mobileQuery.matches) return;
+      if (scrollFrameId !== undefined) {
+        window.cancelAnimationFrame(scrollFrameId);
+      }
+      if (scrollSettleId !== undefined) {
+        window.clearTimeout(scrollSettleId);
+      }
+
+      scrollFrameId = window.requestAnimationFrame(() => {
+        setActiveSlide(getClosestIndex() % TEAM.length);
+      });
+
+      scrollSettleId = window.setTimeout(() => {
+        if (getClosestIndex() === TEAM.length) {
+          track.scrollTo({ left: getCardPositions()[0], behavior: "auto" });
+          setActiveSlide(0);
+        }
+      }, 180);
     };
 
     const observer = new IntersectionObserver(
@@ -62,12 +119,26 @@ export default function TeamSection() {
     );
 
     observer.observe(track);
+    track.addEventListener("scroll", handleScroll, { passive: true });
+    track.addEventListener("pointerdown", stopRotation);
+    track.addEventListener("pointerup", syncRotation);
+    track.addEventListener("pointercancel", syncRotation);
     mobileQuery.addEventListener("change", syncRotation);
     document.addEventListener("visibilitychange", syncRotation);
 
     return () => {
       stopRotation();
+      if (scrollFrameId !== undefined) {
+        window.cancelAnimationFrame(scrollFrameId);
+      }
+      if (scrollSettleId !== undefined) {
+        window.clearTimeout(scrollSettleId);
+      }
       observer.disconnect();
+      track.removeEventListener("scroll", handleScroll);
+      track.removeEventListener("pointerdown", stopRotation);
+      track.removeEventListener("pointerup", syncRotation);
+      track.removeEventListener("pointercancel", syncRotation);
       mobileQuery.removeEventListener("change", syncRotation);
       document.removeEventListener("visibilitychange", syncRotation);
     };
@@ -103,15 +174,24 @@ export default function TeamSection() {
           aria-label="AfriConnect team members"
           className="relative -mx-[30px] flex snap-x snap-mandatory scroll-px-[30px] gap-4 overflow-x-auto px-[30px] pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3"
         >
-          {TEAM.map((member) => {
+          {MOBILE_CAROUSEL_MEMBERS.map((member, index) => {
+            const isLoopClone = index === TEAM.length;
             const initials = member.name
               .split(" ")
               .map((name) => name[0])
               .join("");
 
             return (
-              <Reveal key={member.name} className="w-[82vw] max-w-[320px] shrink-0 snap-start sm:w-auto sm:max-w-none">
-                <article className="group h-full overflow-hidden rounded-[20px] border border-white/10 bg-char transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_22px_50px_rgba(0,0,0,.24)]">
+              <Reveal
+                key={isLoopClone ? `${member.name}-loop-clone` : member.name}
+                className={`w-[74vw] max-w-[310px] shrink-0 snap-start sm:w-auto sm:max-w-none ${
+                  isLoopClone ? "sm:hidden" : ""
+                }`}
+              >
+                <article
+                  aria-hidden={isLoopClone ? "true" : undefined}
+                  className="group h-full overflow-hidden rounded-[20px] border border-white/10 bg-char transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_22px_50px_rgba(0,0,0,.24)]"
+                >
                   <div
                     className={`relative aspect-[6/5] overflow-hidden sm:aspect-[5/4] ${
                       member.photo ? "bg-white" : "bg-[#25282c]"
@@ -178,6 +258,31 @@ export default function TeamSection() {
               </Reveal>
             );
           })}
+        </div>
+
+        <div
+          className="mt-3 flex items-center justify-center gap-1 sm:hidden"
+          role="group"
+          aria-label="Choose a team member slide"
+        >
+          {TEAM.map((member, index) => (
+            <button
+              key={member.name}
+              type="button"
+              onClick={() => scrollToMember(index)}
+              aria-label={`Show ${member.name}`}
+              aria-current={activeSlide === index ? "true" : undefined}
+              className="group grid h-8 w-8 place-items-center rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-lime"
+            >
+              <span
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  activeSlide === index
+                    ? "w-6 bg-lime"
+                    : "w-2 bg-white/25 group-hover:bg-white/40"
+                }`}
+              />
+            </button>
+          ))}
         </div>
 
         <Reveal className="mt-10 md:mt-14">

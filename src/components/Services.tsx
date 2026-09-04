@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Arrow from "./Arrow";
 import Reveal from "./Reveal";
 
@@ -106,7 +106,112 @@ function SolutionIcon({ index }: { index: number }) {
 export default function Services() {
   const [selected, setSelected] = useState(0);
   const [hovered, setHovered] = useState<number | null>(null);
+  const servicesTrackRef = useRef<HTMLDivElement>(null);
   const active = hovered ?? selected;
+
+  const scrollToService = (
+    index: number,
+    behavior: ScrollBehavior = "smooth",
+  ) => {
+    const track = servicesTrackRef.current;
+    const card = track?.children[index];
+    if (!(track instanceof HTMLElement) || !(card instanceof HTMLElement)) return;
+
+    const leftPadding = Number.parseFloat(window.getComputedStyle(track).paddingLeft) || 0;
+    track.scrollTo({ left: card.offsetLeft - leftPadding, behavior });
+    setSelected(index);
+  };
+
+  useEffect(() => {
+    const track = servicesTrackRef.current;
+    if (!track) return;
+
+    const mobileQuery = window.matchMedia("(max-width: 767px)");
+    const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let isVisible = false;
+    let intervalId: number | undefined;
+    let scrollFrameId: number | undefined;
+
+    const cards = Array.from(track.children).filter(
+      (child): child is HTMLElement => child instanceof HTMLElement,
+    );
+
+    const getCardPositions = () => {
+      const leftPadding = Number.parseFloat(window.getComputedStyle(track).paddingLeft) || 0;
+      return cards.map((card) => card.offsetLeft - leftPadding);
+    };
+
+    const getClosestIndex = () => {
+      const positions = getCardPositions();
+      return positions.reduce((closestIndex, position, index) =>
+        Math.abs(position - track.scrollLeft) <
+        Math.abs(positions[closestIndex] - track.scrollLeft)
+          ? index
+          : closestIndex,
+      0);
+    };
+
+    const stopRotation = () => {
+      if (intervalId !== undefined) {
+        window.clearInterval(intervalId);
+        intervalId = undefined;
+      }
+    };
+
+    const showNextService = () => {
+      if (cards.length < 2) return;
+      const nextIndex = (getClosestIndex() + 1) % cards.length;
+      const positions = getCardPositions();
+      track.scrollTo({
+        left: positions[nextIndex],
+        behavior: reducedMotionQuery.matches ? "auto" : "smooth",
+      });
+      setSelected(nextIndex);
+    };
+
+    const syncRotation = () => {
+      stopRotation();
+      if (isVisible && mobileQuery.matches && document.visibilityState === "visible") {
+        intervalId = window.setInterval(showNextService, 4000);
+      }
+    };
+
+    const handleScroll = () => {
+      if (!mobileQuery.matches) return;
+      if (scrollFrameId !== undefined) window.cancelAnimationFrame(scrollFrameId);
+      scrollFrameId = window.requestAnimationFrame(() => {
+        setSelected(getClosestIndex());
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        syncRotation();
+      },
+      { threshold: 0.35 },
+    );
+
+    observer.observe(track);
+    track.addEventListener("scroll", handleScroll, { passive: true });
+    track.addEventListener("pointerdown", stopRotation);
+    track.addEventListener("pointerup", syncRotation);
+    track.addEventListener("pointercancel", syncRotation);
+    mobileQuery.addEventListener("change", syncRotation);
+    document.addEventListener("visibilitychange", syncRotation);
+
+    return () => {
+      stopRotation();
+      if (scrollFrameId !== undefined) window.cancelAnimationFrame(scrollFrameId);
+      observer.disconnect();
+      track.removeEventListener("scroll", handleScroll);
+      track.removeEventListener("pointerdown", stopRotation);
+      track.removeEventListener("pointerup", syncRotation);
+      track.removeEventListener("pointercancel", syncRotation);
+      mobileQuery.removeEventListener("change", syncRotation);
+      document.removeEventListener("visibilitychange", syncRotation);
+    };
+  }, []);
 
   return (
     <section id="services" className="relative overflow-hidden py-20 md:py-[130px]">
@@ -124,18 +229,21 @@ export default function Services() {
           </p>
         </Reveal>
 
-        <div className="-mx-[30px] flex snap-x snap-mandatory scroll-px-[30px] gap-4 overflow-x-auto px-[30px] pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:grid md:grid-cols-2 md:gap-5 md:overflow-visible md:px-0 md:pb-0">
+        <div
+          ref={servicesTrackRef}
+          className="relative -mx-[30px] flex snap-x snap-mandatory scroll-px-[30px] gap-4 overflow-x-auto px-[30px] pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:grid md:grid-cols-2 md:gap-5 md:overflow-visible md:px-0 md:pb-0"
+          aria-label="Service categories"
+        >
           {SOLUTIONS.map((solution, index) => {
             const isActive = active === index;
             return (
-              <Reveal key={solution.name} className="w-[82vw] max-w-[320px] shrink-0 snap-start md:w-auto md:max-w-none">
+              <Reveal key={solution.name} className="w-[76vw] max-w-[320px] shrink-0 snap-start md:w-auto md:max-w-none">
                 <article
                   tabIndex={0}
                   onMouseEnter={() => setHovered(index)}
                   onMouseLeave={() => setHovered(null)}
                   onFocus={() => setSelected(index)}
-                  onClick={() => setSelected(index)}
-                  onTouchStart={() => setSelected(index)}
+                  onClick={() => scrollToService(index)}
                   aria-label={`${solution.name} service category`}
                   className={`group flex h-full cursor-pointer flex-col overflow-hidden rounded-[18px] border p-6 outline-none transition-[background-color,border-color,color,box-shadow,transform] duration-500 ease-[cubic-bezier(.2,.7,.2,1)] focus-visible:ring-2 focus-visible:ring-lime focus-visible:ring-offset-4 sm:min-h-[315px] sm:p-7 ${
                     isActive
@@ -198,6 +306,31 @@ export default function Services() {
               </Reveal>
             );
           })}
+        </div>
+
+        <div
+          className="mt-3 flex items-center justify-center gap-1 md:hidden"
+          role="group"
+          aria-label="Choose a service slide"
+        >
+          {SOLUTIONS.map((solution, index) => (
+            <button
+              key={solution.name}
+              type="button"
+              onClick={() => scrollToService(index)}
+              aria-label={`Show ${solution.name}`}
+              aria-current={selected === index ? "true" : undefined}
+              className="group grid h-8 w-8 place-items-center rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-lime-2"
+            >
+              <span
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  selected === index
+                    ? "w-6 bg-lime-2"
+                    : "w-2 bg-char/25 group-hover:bg-char/40"
+                }`}
+              />
+            </button>
+          ))}
         </div>
       </div>
     </section>
