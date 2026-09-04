@@ -38,13 +38,15 @@ export default function Hero() {
             Your best solution. Est 2018
           </span>
 
-          <h1 className="absolute inset-x-0 top-[46%] w-full max-w-[690px] -translate-y-1/2 text-center font-display text-[clamp(39px,12vw,74px)] font-extrabold leading-[2.08] tracking-[-1.9px] text-white max-[360px]:top-[40%] max-[360px]:text-[35px] max-[360px]:leading-[1.9] sm:static sm:translate-y-0 sm:text-left sm:leading-[.98] sm:tracking-[-2.7px]">
-            <span className="block sm:inline">Everything</span>{" "}
-            <span className="block sm:inline">you need,</span>{" "}
-            <span className="block text-lime sm:inline">Connected</span>
-          </h1>
+          <div className="flex flex-1 items-center justify-center py-6 sm:block sm:py-0">
+            <h1 className="w-full max-w-[690px] -translate-y-3 text-center font-display text-[clamp(39px,12vw,74px)] font-extrabold leading-[1.35] tracking-[-1.9px] text-white max-[360px]:text-[35px] sm:translate-y-0 sm:text-left sm:leading-[.98] sm:tracking-[-2.7px]">
+              <span className="block sm:inline">Everything</span>{" "}
+              <span className="block sm:inline">you need,</span>{" "}
+              <span className="block text-lime sm:inline">Connected</span>
+            </h1>
+          </div>
 
-          <div className="mb-14 mt-auto max-w-[370px] pt-10 sm:mb-0 sm:mt-8 sm:max-w-none sm:pt-0">
+          <div className="mx-auto mb-14 w-full max-w-[370px] sm:mx-0 sm:mb-0 sm:mt-8 sm:max-w-none">
             <p className="max-w-[600px] text-center text-[clamp(16px,2vw,20px)] leading-relaxed text-white/75 sm:text-left">
               Design, Print, Web and Systems.
             </p>
