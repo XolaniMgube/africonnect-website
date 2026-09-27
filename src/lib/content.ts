@@ -386,14 +386,15 @@ export const DOWNLOADS = [
 
 /* -------------------------------------------------------------------------- */
 /*  PORTFOLIO PAGE                                                             */
-/*  `filter` drives the category chips; `cat` is the descriptive label shown   */
-/*  on the card. Swap in real client names, years and outcomes as you go.      */
+/*  `service` links a project to a SERVICE_GROUPS id, which drives the filter  */
+/*  toggles; `cat` is the descriptive label shown on the card. Swap in real    */
+/*  client names, years and outcomes as you go.                                */
 /* -------------------------------------------------------------------------- */
 
 export type Project = {
   name: string;
   slug: string;
-  filter: "Web" | "Branding" | "Print" | "Consulting";
+  service: ServiceId;
   cat: string;
   label: string;
   bg: string;
@@ -407,56 +408,99 @@ export type Project = {
   // Longer story + deliverables shown on the /portfolio/[slug] detail page.
   summary: string;
   scope: string[];
+  // Other work done for the same client. The top-level service/cat/image are
+  // the lead piece (shown on "All work"); these let the client also appear
+  // under each extra service, with the image that fits that filter.
+  alsoDelivered?: Deliverable[];
 };
 
+export type Deliverable = {
+  service: ServiceId;
+  cat: string;
+  image: string;
+  imageAlt: string;
+};
+
+// Every piece of work for a project, in SERVICE_GROUPS order (brand first),
+// which is also the order the work is usually built up in.
+export const deliverablesOf = (project: Project): Deliverable[] =>
+  [
+    {
+      service: project.service,
+      cat: project.cat,
+      image: project.image ?? "",
+      imageAlt: project.imageAlt ?? "",
+    },
+    ...(project.alsoDelivered ?? []),
+  ].sort(
+    (a, b) =>
+      SERVICE_GROUPS.findIndex((group) => group.id === a.service) -
+      SERVICE_GROUPS.findIndex((group) => group.id === b.service),
+  );
+
 const PORTFOLIO_ARCHIVE: Project[] = [
+  // Multi-service clients lead "All work" — they show the full range.
   {
     name: "Sekgabe Turnkey",
     slug: "sekgabe-turnkey",
-    filter: "Branding",
-    cat: "Logo Design",
+    service: "websites",
+    cat: "Business Website",
     label: "SEKGABE",
-    bg: "from-[#20231f] to-[#101210]",
-    image: "/portfolio/sekgabe-turnkey.png",
-    imageAlt: "Sekgabe Turnkey logo presented on a cream interior wall",
+    bg: "from-[#1F3A2C] to-[#101E17]",
+    image: "/portfolio/sekgabe-turnkey-1.png",
+    imageAlt:
+      "Sekgabe Turnkey ISO consulting website shown on a desktop monitor and mobile phone",
     year: "2026",
-    blurb:
-      "Identity design and brand presentation for a turnkey solutions business.",
+    blurb: "Brand identity and website for an ISO consultancy.",
+    url: "https://sekgabe-turnkey.co.za",
     summary:
-      "Sekgabe Turnkey needed an identity that could communicate structure, reliability and a premium standard of delivery. We developed a distinctive logo system and presentation direction that gives the business a confident, professional presence across customer-facing material.",
-    scope: [
-      "Logo identity design",
-      "Visual direction",
-      "Brand presentation mock-ups",
-      "Production-ready brand assets",
+      "A premium identity and a clear, consultation-led website for an ISO consulting firm.",
+    scope: ["Logo design", "Website design & build", "Consultation booking"],
+    alsoDelivered: [
+      {
+        service: "brand",
+        cat: "Logo Design",
+        image: "/portfolio/sekgabe-turnkey.png",
+        imageAlt: "Sekgabe Turnkey logo presented on a cream interior wall",
+      },
     ],
   },
   {
-    name: "Mokaleng",
-    slug: "mokaleng",
-    filter: "Web",
-    cat: "Business Website",
-    label: "MOKALENG",
-    bg: "from-[#EFF1E8] to-[#DCE2CB]",
-    image: "/portfolio/mokaleng-website.png",
+    name: "Rebuild Auto Group",
+    slug: "rebuild-auto-group",
+    service: "brand",
+    cat: "Logo Design",
+    label: "REBUILD",
+    bg: "from-[#C8282E] to-[#1F3F95]",
+    image: "/portfolio/rag-logo.jpeg",
     imageAlt:
-      "Mokaleng engineering website displayed responsively on a laptop and mobile phone",
+      "Rebuild Auto Group gear logo mounted on a reception wall in an automotive workshop",
     year: "2026",
-    blurb:
-      "Responsive business website designed to communicate services and build trust online.",
+    blurb: "Logo identity for an automotive group.",
     summary:
-      "Mokaleng needed a clear digital presence that could explain its services and give prospective clients confidence in the business. We structured and designed a responsive website that is focused, professional and easy to navigate on every screen.",
-    scope: [
-      "Website strategy and structure",
-      "Responsive interface design",
-      "Service-page development",
-      "Enquiry journey and contact experience",
-    ],
+      "A bold gear-and-monogram mark built around the line “Vehicles in. Value out.”",
+    scope: ["Logo design", "Colour palette", "Brand mock-ups"],
+  },
+  {
+    name: "Opulent Botanics",
+    slug: "opulent-botanics",
+    service: "brand",
+    cat: "Logo Design",
+    label: "OPULENT",
+    bg: "from-[#1A1A1A] to-[#0A0A0A]",
+    image: "/portfolio/opulant-botanics-logo.png",
+    imageAlt:
+      "Opulent Botanics wordmark on a black acrylic sign mounted in a softly lit reception",
+    year: "2026",
+    blurb: "Luxury wordmark for a botanicals brand.",
+    summary:
+      "An elegant serif wordmark with the tagline “Nature’s Luxurious Nurture”.",
+    scope: ["Wordmark design", "Tagline lock-up", "Signage mock-up"],
   },
   {
     name: "Slogan Studio",
     slug: "slogan-studio",
-    filter: "Print",
+    service: "print",
     cat: "Banner print",
     label: "SLOGAN STUDIO",
     bg: "from-[#232623] to-[#0E100F]",
@@ -464,40 +508,99 @@ const PORTFOLIO_ARCHIVE: Project[] = [
     imageAlt:
       "Slogan Studio promotional pull-up banner displayed in a print workshop",
     year: "2026",
-    blurb:
-      "Large-format branded banner design created for strong visual presence and promotion.",
+    blurb: "Pull-up banner for a refurbished-tech retailer.",
     summary:
-      "Slogan Studio needed a large-format banner that would remain clear, recognisable and impactful at a distance. We translated the brand into a focused outdoor composition and prepared the artwork for dependable large-format production.",
-    scope: [
-      "Large-format banner design",
-      "Brand-led campaign layout",
-      "Print-ready artwork preparation",
-      "Large-format production support",
-    ],
+      "A large-format banner designed to read clearly from a distance.",
+    scope: ["Banner design", "Print-ready artwork", "Large-format print"],
+  },
+  {
+    name: "Mokaleng",
+    slug: "mokaleng",
+    service: "websites",
+    cat: "Business Website",
+    label: "MOKALENG",
+    bg: "from-[#EFF1E8] to-[#DCE2CB]",
+    image: "/portfolio/mokaleng-1.png",
+    imageAlt:
+      "Mokaleng engineering website shown on a desktop monitor and mobile phone against an industrial plant at sunset",
+    year: "2026",
+    blurb: "Website for an SMP engineering firm.",
+    url: "https://mokaleng.co.za",
+    summary:
+      "A responsive site that presents Mokaleng’s structural, mechanical and piping services with confidence.",
+    scope: ["Website design & build", "Service pages", "Enquiry flow"],
+  },
+  {
+    name: "Azania Shuttle Brokers",
+    slug: "azania-shuttle-brokers",
+    service: "websites",
+    cat: "Business Website",
+    label: "AZANIA",
+    bg: "from-[#B8893A] to-[#6E5020]",
+    image: "/portfolio/azania-shuttle-brokers-1.png",
+    imageAlt:
+      "Azania Shuttle Brokers website shown on a desktop monitor and mobile phone",
+    year: "2026",
+    blurb: "Website for a shuttle brokerage.",
+    url: "https://azaniashuttlebrokers.co.za",
+    summary:
+      "A clean site connecting businesses to vetted shuttle operators across South Africa.",
+    scope: ["Website design & build", "Service pages", "Enquiry flow"],
   },
   {
     name: "Lavido Auto Parts",
     slug: "lavido-auto-parts",
-    filter: "Web",
-    cat: "eCommerce Store",
-    label: "Lavido",
-    bg: "from-[#3A3A3A] to-[#23262A]",
+    service: "websites",
+    cat: "E-commerce Store",
+    label: "LAVIDO",
+    bg: "from-[#D4581A] to-[#8A3410]",
+    image: "/portfolio/lavido-auto-parts-1.png",
+    imageAlt:
+      "Lavido Auto Parts online store shown on a desktop monitor and mobile phone",
     year: "2026",
-    blurb: "Online store with payments and delivery for a car-parts retailer.",
-    url: "https://lavidoautoparts.co.za",
+    blurb: "Online store for premium Mercedes-Benz parts.",
+    url: "https://www.lavidoautoparts.co.za",
     summary:
-      "Lavido Auto ",
-    scope: [
-      "Corporate website design and build",
-      "Online service-booking flow",
-      "Mobile-first responsive layout",
-      "Basic SEO and analytics setup",
-    ],
+      "A full online store with a filterable catalogue, checkout and order tracking.",
+    scope: ["E-commerce store", "Catalogue & filters", "Checkout & payments", "Order tracking"],
+  },
+  {
+    name: "Slogan Studio",
+    slug: "slogan-studio-store",
+    service: "websites",
+    cat: "E-commerce Store",
+    label: "SLOGAN STUDIO",
+    bg: "from-[#0F1B33] to-[#070B14]",
+    image: "/portfolio/slogan-studio-1.png",
+    imageAlt:
+      "Slogan Studio refurbished-tech online store shown on a desktop monitor and mobile phone",
+    year: "2026",
+    blurb: "Online store for refurbished tech.",
+    url: "https://www.sloganstudio.co.za",
+    summary:
+      "An online store with clear device grading, warranty information and nationwide delivery.",
+    scope: ["E-commerce store", "Device grading", "Checkout & order tracking"],
+  },
+  {
+    name: "AfriConnect POS",
+    slug: "africonnect-pos",
+    service: "websites",
+    cat: "Dashboard · POS",
+    label: "AFRICONNECT",
+    bg: "from-[#2F5A36] to-[#1B3520]",
+    image: "/portfolio/africonnect-pos-1.png",
+    imageAlt:
+      "AfriConnect point-of-sale dashboard shown on a desktop monitor and mobile phone",
+    year: "2026",
+    blurb: "Point-of-sale system and sales dashboard.",
+    summary:
+      "A POS system for our own café and print counter, with live sales and payment insights.",
+    scope: ["POS web app", "Sales dashboard", "Mobile view"],
   },
   {
     name: "Zimazisa Construction",
     slug: "zimazisa-construction",
-    filter: "Web",
+    service: "websites",
     cat: "Website · Brand",
     label: "ZIMAZISA",
     bg: "from-[#5E7327] to-[#8FC93A]",
@@ -516,7 +619,7 @@ const PORTFOLIO_ARCHIVE: Project[] = [
   {
     name: "Zulu Security Force",
     slug: "zulu-security-force",
-    filter: "Branding",
+    service: "brand",
     cat: "Brand identity",
     label: "ZULU",
     bg: "from-[#1A1C1F] to-[#34373B]",
@@ -534,7 +637,7 @@ const PORTFOLIO_ARCHIVE: Project[] = [
   {
     name: "Okuhle Khaya Projects",
     slug: "okuhle-khaya-projects",
-    filter: "Web",
+    service: "websites",
     cat: "Brand · Web",
     label: "OKUHLE",
     bg: "from-[#8FC93A] to-[#A3D955]",
@@ -553,7 +656,7 @@ const PORTFOLIO_ARCHIVE: Project[] = [
   {
     name: "CubeNotes Saturday School",
     slug: "cubenotes-saturday-school",
-    filter: "Print",
+    service: "print",
     cat: "Print · Design",
     label: "CUBENOTES",
     bg: "from-[#2c3e2a] to-[#5E7327]",
@@ -569,30 +672,9 @@ const PORTFOLIO_ARCHIVE: Project[] = [
     ],
   },
   {
-    name: "Lavido Auto Parts",
-    slug: "lavido-auto-parts",
-    filter: "Web",
-    cat: "E-commerce · Web app",
-    label: "LAVIDO",
-    bg: "from-[#D4581A] to-[#8A3410]",
-    year: "2026",
-    blurb: "Premium online auto-parts store with part finder, checkout and admin dashboard.",
-    url: "https://example.com",
-    summary:
-      "Lavido Auto Parts, based in Vosloorus, needed to take their counter business online without losing the premium feel of the brand. We designed and built a complete e-commerce platform — a part finder and filterable catalogue help customers find the right fit fast, a multi-step checkout handles payment and delivery, and a custom admin dashboard lets the team manage orders and stock from one place.",
-    scope: [
-      "Premium e-commerce store design and build",
-      "Part finder and filterable product catalogue",
-      "Product compatibility and specs pages",
-      "Multi-step checkout with card payments",
-      "Customer accounts and order tracking",
-      "Workshop booking and admin order dashboard",
-    ],
-  },
-  {
     name: "Mokoena Catering Co.",
     slug: "mokoena-catering",
-    filter: "Branding",
+    service: "brand",
     cat: "Brand identity",
     label: "MOKOENA",
     bg: "from-[#3B9FE0] to-[#2c6fa0]",
@@ -610,7 +692,7 @@ const PORTFOLIO_ARCHIVE: Project[] = [
   {
     name: "Vosloorus Spaza Network",
     slug: "vosloorus-spaza-network",
-    filter: "Consulting",
+    service: "business",
     cat: "Registration · Profile",
     label: "VSN",
     bg: "from-[#23262A] to-[#34373B]",
@@ -628,7 +710,7 @@ const PORTFOLIO_ARCHIVE: Project[] = [
   {
     name: "Phakama Cleaning",
     slug: "phakama-cleaning",
-    filter: "Print",
+    service: "print",
     cat: "Vehicle branding",
     label: "PHAKAMA",
     bg: "from-[#5E7327] to-[#3B9FE0]",
@@ -646,7 +728,7 @@ const PORTFOLIO_ARCHIVE: Project[] = [
   {
     name: "Thuto Bursary Fund",
     slug: "thuto-bursary-fund",
-    filter: "Web",
+    service: "websites",
     cat: "Web app",
     label: "THUTO",
     bg: "from-[#2c3e2a] to-[#34373B]",
@@ -665,7 +747,7 @@ const PORTFOLIO_ARCHIVE: Project[] = [
   {
     name: "Khanyisa Events",
     slug: "khanyisa-events",
-    filter: "Branding",
+    service: "brand",
     cat: "Brand · Social",
     label: "KHANYISA",
     bg: "from-[#A3D955] to-[#5E7327]",
@@ -683,7 +765,7 @@ const PORTFOLIO_ARCHIVE: Project[] = [
   {
     name: "Sizwe Trading Enterprise",
     slug: "sizwe-trading-enterprise",
-    filter: "Consulting",
+    service: "business",
     cat: "Business plan",
     label: "SIZWE",
     bg: "from-[#34373B] to-[#1A1C1F]",
@@ -700,8 +782,11 @@ const PORTFOLIO_ARCHIVE: Project[] = [
   },
 ];
 
-// Only publish completed projects with final, approved imagery.
-export const PORTFOLIO: Project[] = PORTFOLIO_ARCHIVE.slice(0, 3);
+// Only publish completed projects with final, approved imagery. "All work"
+// follows archive order: multi-service clients first, then by service.
+export const PORTFOLIO: Project[] = PORTFOLIO_ARCHIVE.filter(
+  (project) => project.image && project.imageAlt,
+);
 
 export const CONTACT = {
   address: "20978 Mercury Street, Vosloorus, Boksburg, 1475",
@@ -855,8 +940,9 @@ export const COMPANY_PROFILE = [
 /* -------------------------------------------------------------------------- */
 
 export type ServiceItem = { name: string; desc: string; price: string };
+export type ServiceId = "brand" | "print" | "websites" | "business";
 export type ServiceGroup = {
-  id: string;
+  id: ServiceId;
   num: string;
   name: string;
   tagline: string;

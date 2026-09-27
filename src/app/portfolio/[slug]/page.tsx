@@ -5,7 +5,14 @@ import { notFound } from "next/navigation";
 import Arrow from "@/components/Arrow";
 import CTA from "@/components/CTA";
 import Reveal from "@/components/Reveal";
-import { PORTFOLIO } from "@/lib/content";
+import { PORTFOLIO, SERVICE_GROUPS, deliverablesOf } from "@/lib/content";
+
+const DOTS = {
+  lime: "bg-lime-2",
+  orange: "bg-[#f0a35b]",
+  brand: "bg-brand",
+  char: "bg-[#9d8cff]",
+} as const;
 
 export function generateStaticParams() {
   return PORTFOLIO.map((project) => ({ slug: project.slug }));
@@ -22,7 +29,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const { slug } = await params;
   const project = PORTFOLIO.find((item) => item.slug === slug);
   if (!project) notFound();
-  const projectNumber = PORTFOLIO.findIndex((item) => item.slug === slug) + 1;
+  const deliverables = deliverablesOf(project);
 
   return (
     <main>
@@ -40,88 +47,81 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           </nav>
         </div>
 
-        <div className="relative z-[2] mx-auto grid max-w-site items-center gap-10 px-[30px] py-12 sm:py-[72px] lg:min-h-[560px] lg:grid-cols-[.86fr_1.14fr] lg:gap-16 lg:py-[82px]">
+        <div className="relative z-[2] mx-auto grid max-w-site items-center gap-10 px-[30px] py-12 sm:py-16 lg:grid-cols-[.8fr_1.2fr] lg:gap-16 lg:py-20">
           <Reveal>
-            <span className="block font-display text-[11px] font-semibold uppercase tracking-[1.4px] text-lime">Case study {String(projectNumber).padStart(2, "0")} / {String(PORTFOLIO.length).padStart(2, "0")}</span>
-            <h1 className="mt-5 max-w-[590px] font-display text-[clamp(40px,10.8vw,70px)] font-extrabold leading-[.98] tracking-[-2px] text-white sm:tracking-[-2.5px]">{project.name}</h1>
-            <p className="mt-7 max-w-[570px] text-[clamp(17px,1.8vw,19px)] leading-relaxed text-white/62">{project.blurb}</p>
-            <div className="mt-7 flex flex-wrap gap-2">
-              {[project.cat, project.year].map((item) => (
+            <h1 className="max-w-[590px] font-display text-[clamp(40px,10.8vw,64px)] font-extrabold leading-[.98] tracking-[-2px] text-white sm:tracking-[-2.5px]">{project.name}</h1>
+            <p className="mt-5 max-w-[480px] text-[clamp(16px,1.6vw,18px)] leading-relaxed text-white/62">{project.blurb}</p>
+            <div className="mt-6 flex flex-wrap gap-2">
+              {[...deliverables.map((item) => item.cat), project.year].map((item) => (
                 <span key={item} className="rounded-full border border-white/12 bg-white/[.04] px-3.5 py-2 font-display text-[10px] font-semibold uppercase tracking-[.8px] text-white/55">{item}</span>
               ))}
             </div>
+            {project.url && (
+              <a href={project.url} target="_blank" rel="noopener noreferrer" className="group mt-8 inline-flex items-center gap-2.5 rounded-lg bg-lime px-[26px] py-[14px] font-display text-[14.5px] font-semibold text-ink transition-all hover:-translate-y-0.5 hover:shadow-[0_14px_34px_rgba(163,217,85,.28)]">
+                Visit website <span aria-hidden className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5">↗</span>
+              </a>
+            )}
           </Reveal>
 
           <Reveal>
-            <div className="relative aspect-[4/3] overflow-hidden rounded-[24px] border border-white/15 bg-char shadow-[0_35px_90px_rgba(0,0,0,.34)]">
+            <div className="relative aspect-[16/10] overflow-hidden rounded-[24px] border border-white/15 bg-char shadow-[0_35px_90px_rgba(0,0,0,.34)]">
               {project.image && project.imageAlt && (
-                <Image src={project.image} alt={project.imageAlt} fill priority sizes="(min-width: 1024px) 52vw, 100vw" className="object-cover object-center" />
+                <Image src={project.image} alt={project.imageAlt} fill priority sizes="(min-width: 1024px) 58vw, 100vw" className="object-cover object-center" />
               )}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
-              <span className="absolute bottom-5 left-5 rounded-full border border-white/20 bg-char/80 px-4 py-2 font-display text-[10px] font-semibold uppercase tracking-[1px] text-white backdrop-blur-md">Project detail · {String(projectNumber).padStart(2, "0")}</span>
             </div>
           </Reveal>
         </div>
-
-        <div className="relative z-[2] hidden border-t border-white/10 bg-black/10 sm:block">
-          <div className="mx-auto grid max-w-site divide-y divide-white/10 px-[30px] sm:grid-cols-3 sm:divide-x sm:divide-y-0">
-            {[["Client", project.name], ["Discipline", project.cat], ["Delivered", project.year]].map(([label, value], index) => (
-              <div key={label} className={`py-6 sm:px-7 ${index === 0 ? "sm:pl-0" : ""}`}>
-                <p className="font-display text-[10px] font-semibold uppercase tracking-[1px] text-white/35">{label}</p>
-                <p className="mt-1.5 font-display text-[15px] font-bold text-white">{value}</p>
-              </div>
-            ))}
-          </div>
-        </div>
       </section>
 
-      <section className="relative overflow-hidden bg-paper-2 py-20 md:py-[130px]">
+      <section className="relative overflow-hidden bg-paper-2 py-16 md:py-24">
         <div className="dot-tex pointer-events-none absolute inset-0 opacity-25" />
         <div className="relative z-[2] mx-auto max-w-site px-[30px]">
-          <div className="grid gap-8 lg:grid-cols-[1.05fr_.95fr] lg:items-start">
-            <Reveal>
-              <div className="rounded-[22px] border border-char/10 bg-white p-6 shadow-[0_16px_42px_rgba(52,55,59,.065)] md:p-11">
-                <span className="font-display text-[11px] font-semibold uppercase tracking-[1.2px] text-olive">The brief</span>
-                <h2 className="mt-5 max-w-[620px] font-display text-[clamp(32px,4vw,48px)] font-extrabold leading-[1.03] tracking-[-1.5px] text-ink">Work shaped around the outcome.</h2>
-                <p className="mt-7 text-[16.5px] leading-[1.75] text-muted">{project.summary}</p>
-                {project.url && (
-                  <a href={project.url} target="_blank" rel="noopener noreferrer" className="group mt-9 inline-flex items-center gap-2.5 rounded-lg bg-char px-[24px] py-[14px] font-display text-[14px] font-semibold text-white transition-all hover:-translate-y-0.5">
-                    Open live website <span aria-hidden className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">↗</span>
-                  </a>
-                )}
-              </div>
-            </Reveal>
+          <Reveal className="grid gap-8 md:grid-cols-[1.2fr_.8fr] md:gap-16">
+            <div>
+              <span className="font-display text-[11px] font-semibold uppercase tracking-[1.2px] text-olive">Overview</span>
+              <p className="mt-4 max-w-[560px] font-display text-[clamp(20px,2.2vw,26px)] font-semibold leading-snug tracking-[-.5px] text-ink">{project.summary}</p>
+            </div>
+            <div>
+              <span className="font-display text-[11px] font-semibold uppercase tracking-[1.2px] text-olive">What we did</span>
+              <ul className="mt-4 flex flex-wrap gap-2">
+                {project.scope.map((item) => (
+                  <li key={item} className="rounded-full border border-char/10 bg-white px-4 py-2 text-[13.5px] font-medium text-char">{item}</li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
 
-            <Reveal>
-              <aside className="overflow-hidden rounded-[22px] border border-char/10 bg-white shadow-[0_16px_42px_rgba(52,55,59,.065)]">
-                <div className="border-b border-char/10 p-6 md:p-9">
-                  <span className="font-display text-[11px] font-semibold uppercase tracking-[1.2px] text-olive">Scope of work</span>
-                  <h3 className="mt-4 font-display text-[25px] font-bold tracking-[-.7px] text-ink">What the project included.</h3>
-                </div>
-                <ol>
-                  {project.scope.map((item, index) => (
-                    <li key={item} className={`grid grid-cols-[34px_1fr] items-center gap-3 p-5 md:grid-cols-[42px_1fr] md:px-9 ${index > 0 ? "border-t border-char/10" : ""}`}>
-                      <span className="font-display text-[10px] font-bold text-lime-2">{String(index + 1).padStart(2, "0")}</span>
-                      <span className="text-[15px] font-medium text-char">{item}</span>
-                    </li>
-                  ))}
-                </ol>
-              </aside>
+          {deliverables.length > 1 && (
+            <Reveal className="mt-14 grid gap-7 md:mt-16 md:grid-cols-2 lg:gap-8">
+              {deliverables.map((item) => {
+                const group = SERVICE_GROUPS.find((entry) => entry.id === item.service);
+                return (
+                  <figure key={item.image} className="rounded-[22px] border border-char/10 bg-white p-2 shadow-[0_10px_28px_rgba(52,55,59,.05)]">
+                    <div className="relative aspect-[16/10] overflow-hidden rounded-[16px] bg-char">
+                      <Image src={item.image} alt={item.imageAlt} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover object-center" />
+                    </div>
+                    <figcaption className="flex items-center gap-2 px-4 pb-3 pt-4 font-display text-[10.5px] font-semibold uppercase tracking-[.9px] text-muted">
+                      <i className={`h-1.5 w-1.5 rounded-full ${DOTS[group?.accent ?? "lime"]}`} />
+                      {item.cat}
+                    </figcaption>
+                  </figure>
+                );
+              })}
             </Reveal>
-          </div>
+          )}
 
-          <Reveal className="mt-12 flex flex-wrap items-center justify-between gap-5 border-t border-char/10 pt-8">
+          <Reveal className="mt-14 flex flex-wrap items-center justify-between gap-5 border-t border-char/10 pt-8">
             <Link href="/portfolio" className="group inline-flex items-center gap-2 font-display text-[14px] font-semibold text-char transition-colors hover:text-olive">
-              <Arrow className="rotate-180 transition-transform group-hover:-translate-x-1" /> Back to selected work
+              <Arrow className="rotate-180 transition-transform group-hover:-translate-x-1" /> All projects
             </Link>
             <Link href="/contact#project-brief" className="group inline-flex items-center gap-2 font-display text-[14px] font-semibold text-olive">
-              Discuss a similar project <Arrow className="transition-transform group-hover:translate-x-1" />
+              Start a similar project <Arrow className="transition-transform group-hover:translate-x-1" />
             </Link>
           </Reveal>
         </div>
       </section>
 
-      <CTA title="Have something like this in mind?" text="Tell us the outcome you need. We'll connect the right creative, production and technical work around it." buttonLabel="Start your project" />
+      <CTA title="Have something like this in mind?" text="Tell us what you need and we'll take it from there." buttonLabel="Start your project" />
     </main>
   );
 }
