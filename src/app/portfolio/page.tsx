@@ -52,8 +52,7 @@ export default function PortfolioPage() {
               Some of our best work<span className="text-lime"> .</span>
             </h1>
             <p className="mt-7 max-w-[590px] text-[clamp(17px,1.8vw,19px)] leading-relaxed text-white/65">
-              A focused selection of identity, website and print work—each
-              shaped around a real brief and a practical business outcome.
+              Brand, print and web work for real South African businesses.
             </p>
             <div className="mt-8 flex flex-col items-stretch gap-3 sm:mt-9 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
               <Link
